@@ -17,7 +17,7 @@ import {
 } from '@tanstack/vue-table'
 
 import { ref } from 'vue'
-import type { Task } from '../data/schema'
+import type { Customer } from '../data/schema'
 import DataTablePagination from './DataTablePagination.vue'
 import DataTableToolbar from './DataTableToolbar.vue'
 import { valueUpdater } from '@/lib/utils'
@@ -31,8 +31,8 @@ import {
 } from '@/lib/registry/new-york/ui/table'
 
 interface DataTableProps {
-  columns: ColumnDef<Task, any>[]
-  data: Task[]
+  columns: ColumnDef<Customer, any>[]
+  data: Customer[]
 }
 const props = defineProps<DataTableProps>()
 

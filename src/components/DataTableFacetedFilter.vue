@@ -1,9 +1,8 @@
 <script setup lang="ts">
+import { CheckIcon, PlusCircledIcon } from '@radix-icons/vue'
 import type { Column } from '@tanstack/vue-table'
 import type { Component } from 'vue'
 import { computed } from 'vue'
-import type { Task } from '../data/schema'
-import{ CheckIcon,PlusCircledIcon }from '@radix-icons/vue'
 
 import { Badge } from '@/lib/registry/new-york/ui/badge'
 import { Button } from '@/lib/registry/new-york/ui/button'
@@ -16,9 +15,10 @@ import {
 } from '@/lib/registry/new-york/ui/popover'
 import { Separator } from '@/lib/registry/new-york/ui/separator'
 import { cn } from '@/lib/utils'
+import type { Customer } from '@/data/schema'
 
 interface DataTableFacetedFilter {
-  column?: Column<Task, any>
+  column?: Column<Customer, any>
   title?: string
   options: {
     label: string

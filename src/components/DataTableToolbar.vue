@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import type { Table } from '@tanstack/vue-table'
 import { computed } from 'vue'
-import type { Task } from '../data/schema'
 
+import { Button } from '@/lib/registry/new-york/ui/button'
+import { Input } from '@/lib/registry/new-york/ui/input'
+import { Cross2Icon } from '@radix-icons/vue'
 import { priorities, statuses } from '../data/data'
 import DataTableFacetedFilter from './DataTableFacetedFilter.vue'
 import DataTableViewOptions from './DataTableViewOptions.vue'
-import {Cross2Icon} from '@radix-icons/vue'
-import { Button } from '@/lib/registry/new-york/ui/button'
-import { Input } from '@/lib/registry/new-york/ui/input'
+import type { Customer } from '@/data/schema'
 
 interface DataTableToolbarProps {
-  table: Table<Task>
+  table: Table<Customer>
 }
 
 const props = defineProps<DataTableToolbarProps>()

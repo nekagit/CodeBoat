@@ -1,10 +1,9 @@
 <script setup lang="ts">
+import { DotsHorizontalIcon } from '@radix-icons/vue'
 import type { Row } from '@tanstack/vue-table'
 import { computed } from 'vue'
-import { labels } from '../data/data'
-import { taskSchema } from '../data/schema'
-import type { Task } from '../data/schema'
-import {DotsHorizontalIcon} from '@radix-icons/vue'
+import { names } from '../data/data'
+import { customerSchema, type Customer } from '../data/schema'
 
 import { Button } from '@/lib/registry/new-york/ui/button'
 import {
@@ -22,11 +21,11 @@ import {
 } from '@/lib/registry/new-york/ui/dropdown-menu'
 
 interface DataTableRowActionsProps {
-  row: Row<Task>
+  row: Row<Customer>
 }
 const props = defineProps<DataTableRowActionsProps>()
 
-const task = computed(() => taskSchema.parse(props.row.original))
+const customer = computed(() => customerSchema.parse(props.row.original))
 </script>
 
 <template>
@@ -46,11 +45,11 @@ const task = computed(() => taskSchema.parse(props.row.original))
       <DropdownMenuItem>Favorite</DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuSub>
-        <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
+        <DropdownMenuSubTrigger>Names</DropdownMenuSubTrigger>
         <DropdownMenuSubContent>
-          <DropdownMenuRadioGroup :value="task.label">
-            <DropdownMenuRadioItem v-for="label in labels" :key="label.value" :value="label.value">
-              {{ label.label }}
+          <DropdownMenuRadioGroup :value="customer.name">
+            <DropdownMenuRadioItem v-for="name in names" :key="name.value" :value="name.value">
+              {{ name.name }}
             </DropdownMenuRadioItem>
           </DropdownMenuRadioGroup>
         </DropdownMenuSubContent>

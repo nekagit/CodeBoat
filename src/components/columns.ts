@@ -2,13 +2,13 @@ import type { ColumnDef } from '@tanstack/vue-table'
 import { h } from 'vue'
 
 import { labels, priorities, statuses } from '../data/data'
-import type { Task } from '../data/schema'
+import type { Customer } from '../data/schema'
 import DataTableColumnHeader from './DataTableColumnHeader.vue'
 import DataTableRowActions from './DataTableRowActions.vue'
 import { Checkbox } from '@/lib/registry/new-york/ui/checkbox'
 import { Badge } from '@/lib/registry/new-york/ui/badge'
 
-export const columns: ColumnDef<Task>[] = [
+export const columns: ColumnDef<Customer>[] = [
   {
     id: 'select',
     header: ({ table }) => h(Checkbox, {
@@ -23,7 +23,7 @@ export const columns: ColumnDef<Task>[] = [
   },
   {
     accessorKey: 'id',
-    header: ({ column }) => h(DataTableColumnHeader, { column, title: 'Task' }),
+    header: ({ column }) => h(DataTableColumnHeader, { column, title: 'Customer' }),
     cell: ({ row }) => h('div', { class: 'w-20' }, row.getValue('id')),
     enableSorting: false,
     enableHiding: false,

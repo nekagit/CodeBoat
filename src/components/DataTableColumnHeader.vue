@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ArrowDownIcon, ArrowUpIcon, CaretSortIcon, EyeNoneIcon } from '@radix-icons/vue'
 import type { Column } from '@tanstack/vue-table'
-import type { Task } from '../data/schema'
 
 import { Button } from '@/lib/registry/new-york/ui/button'
 import {
@@ -12,9 +11,10 @@ import {
   DropdownMenuTrigger,
 } from '@/lib/registry/new-york/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
+import type { Customer } from '@/data/schema'
 
 interface DataTableColumnHeaderProps {
-  column: Column<Task, any>
+  column: Column<Customer, any>
   title: string
 }
 

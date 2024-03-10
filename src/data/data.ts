@@ -10,62 +10,62 @@ import {
 } from '@radix-icons/vue'
 import { h } from 'vue'
 
-export const labels = [
+export const names = [
   {
     value: 'bug',
-    label: 'Bug'
+    name: 'Bug'
   },
   {
     value: 'feature',
-    label: 'Feature'
+    name: 'Feature'
   },
   {
     value: 'documentation',
-    label: 'Documentation'
+    name: 'Documentation'
   }
 ]
 
 export const statuses = [
   {
     value: 'backlog',
-    label: 'Backlog',
+    name: 'Backlog',
     icon: h(QuestionMarkCircledIcon)
   },
   {
     value: 'todo',
-    label: 'Todo',
+    name: 'Todo',
     icon: h(CircleIcon)
   },
   {
     value: 'in progress',
-    label: 'In Progress',
+    name: 'In Progress',
     icon: h(StopwatchIcon)
   },
   {
     value: 'done',
-    label: 'Done',
+    name: 'Done',
     icon: h(CheckCircledIcon)
   },
   {
     value: 'canceled',
-    label: 'Canceled',
+    name: 'Canceled',
     icon: h(CrossCircledIcon)
   }
 ]
 
 export const priorities = [
   {
-    label: 'Low',
+    name: 'Low',
     value: 'low',
     icon: h(ArrowDownIcon)
   },
   {
-    label: 'Medium',
+    name: 'Medium',
     value: 'medium',
     icon: h(ArrowRightIcon)
   },
   {
-    label: 'High',
+    name: 'High',
     value: 'high',
     icon: h(ArrowUpIcon)
   }

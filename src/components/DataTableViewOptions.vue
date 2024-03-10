@@ -1,8 +1,7 @@
 <script setup lang="ts">
+import { MixerHorizontalIcon } from '@radix-icons/vue'
 import type { Table } from '@tanstack/vue-table'
 import { computed } from 'vue'
-import type { Task } from '../data/schema'
-import {MixerHorizontalIcon} from '@radix-icons/vue'
 
 import { Button } from '@/lib/registry/new-york/ui/button'
 import {
@@ -13,9 +12,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/lib/registry/new-york/ui/dropdown-menu'
+import type { Customer } from '@/data/schema'
 
 interface DataTableViewOptionsProps {
-  table: Table<Task>
+  table: Table<Customer>
 }
 
 const props = defineProps<DataTableViewOptionsProps>()

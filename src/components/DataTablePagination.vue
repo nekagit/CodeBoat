@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { ChevronLeftIcon, ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from '@radix-icons/vue'
-import type { Table } from '@tanstack/vue-table'
-import type { Task } from '../data/schema'
+import { ChevronLeftIcon, ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from '@radix-icons/vue';
+import type { Table } from '@tanstack/vue-table';
 
-import { Button } from '@/lib/registry/new-york/ui/button'
+import { Button } from '@/lib/registry/new-york/ui/button';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/lib/registry/new-york/ui/select'
+} from '@/lib/registry/new-york/ui/select';
+import type { Customer } from '@/data/schema';
 
 interface DataTablePaginationProps {
-  table: Table<Task>
+  table: Table<Customer>
 }
 defineProps<DataTablePaginationProps>()
 </script>

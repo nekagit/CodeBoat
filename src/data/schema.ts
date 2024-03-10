@@ -1,13 +1,26 @@
 import { z } from 'zod'
 
-// We're keeping a simple non-relational schema here.
-// IRL, you will have a schema for your data models.
-export const taskSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  status: z.string(),
-  label: z.string(),
-  priority: z.string(),
+// Definieren des Schemas für das Anwesen (Property)
+const propertySchema = z.object({
+  address: z.string(),
+  city: z.string(),
+  state: z.string(),
+  zipCode: z.string(),
+  type: z.enum(['house', 'apartment', 'villa', 'condo']),
+  bedrooms: z.number(),
+  bathrooms: z.number(),
+  amenities: z.array(z.string()),
+  pricePerNight: z.number()
 })
 
-export type Task = z.infer<typeof taskSchema>
+// Definieren des Schemas für den Kunden (Customer)
+export const customerSchema = z.object({
+  id: z.string(),
+  fullName: z.string(),
+  address: z.string(),
+  phoneNumber: z.string(),
+  property: propertySchema
+})
+
+// Definieren des Typs Customer basierend auf dem Schema
+export type Customer = z.infer<typeof customerSchema>
