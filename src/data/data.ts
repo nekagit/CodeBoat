@@ -24,34 +24,34 @@ export const names = [
     name: 'Documentation'
   }
 ]
-
 export const statuses = [
   {
+    label: 'Backlog',
     value: 'backlog',
-    name: 'Backlog',
     icon: h(QuestionMarkCircledIcon)
   },
   {
+    label: 'Todo',
     value: 'todo',
-    name: 'Todo',
     icon: h(CircleIcon)
   },
   {
+    label: 'In Progress',
     value: 'in progress',
-    name: 'In Progress',
     icon: h(StopwatchIcon)
   },
   {
+    label: 'Done',
     value: 'done',
-    name: 'Done',
     icon: h(CheckCircledIcon)
   },
   {
+    label: 'Canceled',
     value: 'canceled',
-    name: 'Canceled',
     icon: h(CrossCircledIcon)
   }
 ]
+
 
 export const priorities = [
   {

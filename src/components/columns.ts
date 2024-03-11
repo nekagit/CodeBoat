@@ -1,7 +1,7 @@
 import type { ColumnDef } from '@tanstack/vue-table'
 import { h } from 'vue'
 
-import { labels, priorities, statuses } from '../data/data'
+import { names, priorities, statuses } from '../data/data'
 import type { Customer } from '../data/schema'
 import DataTableColumnHeader from './DataTableColumnHeader.vue'
 import DataTableRowActions from './DataTableRowActions.vue'
@@ -14,10 +14,10 @@ export const columns: ColumnDef<Customer>[] = [
     header: ({ table }) => h(Checkbox, {
       'checked': table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate'),
       'onUpdate:checked': value => table.toggleAllPageRowsSelected(!!value),
-      'ariaLabel': 'Select all',
+      'arianame': 'Select all',
       'class': 'translate-y-0.5',
     }),
-    cell: ({ row }) => h(Checkbox, { 'checked': row.getIsSelected(), 'onUpdate:checked': value => row.toggleSelected(!!value), 'ariaLabel': 'Select row', 'class': 'translate-y-0.5' }),
+    cell: ({ row }) => h(Checkbox, { 'checked': row.getIsSelected(), 'onUpdate:checked': value => row.toggleSelected(!!value), 'arianame': 'Select row', 'class': 'translate-y-0.5' }),
     enableSorting: false,
     enableHiding: false,
   },
@@ -33,10 +33,10 @@ export const columns: ColumnDef<Customer>[] = [
     header: ({ column }) => h(DataTableColumnHeader, { column, title: 'Title' }),
 
     cell: ({ row }) => {
-      const label = labels.find(label => label.value === row.original.label)
+      const name = names.find(name => name.value === row.original.fullName)
 
       return h('div', { class: 'flex space-x-2' }, [
-        label ? h(Badge, { variant: 'outline' }, () => label.label) : null,
+        name ? h(Badge, { variant: 'outline' }, () => name.name) : null,
         h('span', { class: 'max-w-[500px] truncate font-medium' }, row.getValue('title')),
       ])
     },
@@ -75,7 +75,7 @@ export const columns: ColumnDef<Customer>[] = [
 
       return h('div', { class: 'flex items-center' }, [
         priority.icon && h(priority.icon, { class: 'mr-2 h-4 w-4 text-muted-foreground' }),
-        h('span', {}, priority.label),
+        h('span', {}, priority.name),
       ])
     },
     filterFn: (row, id, value) => {

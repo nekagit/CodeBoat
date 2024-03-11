@@ -2,7 +2,7 @@
   <CustomHeader />
 
   <div class="flex gap-3">
-    <Sidebar :playlists="playlists" class="h-full sticky top-16" />
+    <Sidebar class="h-full sticky top-16" />
     <div class="flex flex-col flex-grow">
       <RouterView />
     </div>
@@ -12,7 +12,6 @@
 <script setup lang="ts">
 import CustomHeader from "@/components/CustomHeader.vue"
 import Sidebar from "@/components/Sidebar.vue"
-import { playlists } from '@/data/playlist'
 import "@/styles/base.css"
 import "@/styles/index.css"
 import "@/styles/main.css"

@@ -9,7 +9,7 @@
     "city": "Example City",
     "state": "Example State",
     "zipCode": "12345",
-    "type": "house", // Ensure this matches one of the allowed values
+    "type": "house",
     "bedrooms": 3,
     "bathrooms": 2,
     "amenities": ["WiFi", "Kitchen", "Pool"],

@@ -20,8 +20,8 @@ import type { Customer } from '@/data/schema'
 interface DataTableFacetedFilter {
   column?: Column<Customer, any>
   title?: string
-  options: {
-    label: string
+  priorities: {
+    name: string
     value: string
     icon?: Component
   }[]
@@ -58,13 +58,13 @@ const selectedValues = computed(() => new Set(props.column?.getFilterValue() as 
 
             <template v-else>
               <Badge
-                v-for="option in options
+                v-for="option in priorities
                   .filter((option) => selectedValues.has(option.value))"
                 :key="option.value"
                 variant="secondary"
                 class="rounded-sm px-1 font-normal"
               >
-                {{ option.label }}
+                {{ option.name }}
               </Badge>
             </template>
           </div>
@@ -73,14 +73,14 @@ const selectedValues = computed(() => new Set(props.column?.getFilterValue() as 
     </PopoverTrigger>
     <PopoverContent class="w-[200px] p-0" align="start">
       <Command
-        :filter-function="(list: DataTableFacetedFilter['options'], term) => list.filter(i => i.label.toLowerCase()?.includes(term)) "
+        :filter-function="(list: DataTableFacetedFilter['priorities'], term) => list.filter(i => i.name.toLowerCase()?.includes(term)) "
       >
         <CommandInput :placeholder="title" />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup>
             <CommandItem
-              v-for="option in options"
+              v-for="option in priorities"
               :key="option.value"
               :value="option"
               @select="(e) => {
@@ -109,7 +109,7 @@ const selectedValues = computed(() => new Set(props.column?.getFilterValue() as 
                 <CheckIcon :class="cn('h-4 w-4')" />
               </div>
               <component :is="option.icon" v-if="option.icon" class="mr-2 h-4 w-4 text-muted-foreground" />
-              <span>{{ option.label }}</span>
+              <span>{{ option.name }}</span>
               <span v-if="facets?.get(option.value)" class="ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs">
                 {{ facets.get(option.value) }}
               </span>
@@ -120,7 +120,7 @@ const selectedValues = computed(() => new Set(props.column?.getFilterValue() as 
             <CommandSeparator />
             <CommandGroup>
               <CommandItem
-                :value="{ label: 'Clear filters' }"
+                :value="{ name: 'Clear filters' }"
                 class="justify-center text-center"
                 @select="column?.setFilterValue(undefined)"
               >
