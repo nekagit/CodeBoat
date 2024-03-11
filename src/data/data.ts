@@ -10,19 +10,15 @@ import {
 } from '@radix-icons/vue'
 import { h } from 'vue'
 
-export const names = [
+export const types = [
   {
-    value: 'bug',
-    name: 'Bug'
+    value: 'house',
+    name: 'House'
   },
   {
-    value: 'feature',
-    name: 'Feature'
+    value: 'apartment',
+    name: 'Apartment'
   },
-  {
-    value: 'documentation',
-    name: 'Documentation'
-  }
 ]
 export const statuses = [
   {

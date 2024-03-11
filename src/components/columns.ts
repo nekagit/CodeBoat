@@ -1,7 +1,7 @@
 import type { ColumnDef } from '@tanstack/vue-table'
 import { h } from 'vue'
 
-import { names, priorities, statuses } from '../data/data'
+import { types, priorities, statuses } from '../data/data'
 import type { Customer } from '../data/schema'
 import DataTableColumnHeader from './DataTableColumnHeader.vue'
 import DataTableRowActions from './DataTableRowActions.vue'
@@ -29,15 +29,15 @@ export const columns: ColumnDef<Customer>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'title',
-    header: ({ column }) => h(DataTableColumnHeader, { column, title: 'Title' }),
+    accessorKey: 'type',
+    header: ({ column }) => h(DataTableColumnHeader, { column, title: 'type' }),
 
     cell: ({ row }) => {
-      const name = names.find(name => name.value === row.original.fullName)
-
+      const type = types.find(type => type.value === row.original.property.type)
+      console.log(type, types, row.original.property.type)
       return h('div', { class: 'flex space-x-2' }, [
-        name ? h(Badge, { variant: 'outline' }, () => name.name) : null,
-        h('span', { class: 'max-w-[500px] truncate font-medium' }, row.getValue('title')),
+        type ? h(Badge, { variant: 'outline' }, () => type.name) : null,
+        h('span', { class: 'max-w-[500px] truncate font-medium' }, row.getValue('name')),
       ])
     },
   },

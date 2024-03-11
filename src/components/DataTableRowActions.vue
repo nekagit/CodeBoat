@@ -2,7 +2,7 @@
 import { DotsHorizontalIcon } from '@radix-icons/vue'
 import type { Row } from '@tanstack/vue-table'
 import { computed } from 'vue'
-import { names } from '../data/data'
+import { types } from '../data/data'
 import { customerSchema, type Customer } from '../data/schema'
 
 import { Button } from '@/lib/registry/new-york/ui/button'
@@ -45,11 +45,11 @@ const customer = computed(() => customerSchema.parse(props.row.original))
       <DropdownMenuItem>Favorite</DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuSub>
-        <DropdownMenuSubTrigger>Names</DropdownMenuSubTrigger>
+        <DropdownMenuSubTrigger>types</DropdownMenuSubTrigger>
         <DropdownMenuSubContent>
-          <DropdownMenuRadioGroup :value="customer.name">
-            <DropdownMenuRadioItem v-for="name in names" :key="name.value" :value="name.value">
-              {{ name.name }}
+          <DropdownMenuRadioGroup :value="customer.property.type">
+            <DropdownMenuRadioItem v-for="type in types" :key="type.value" :value="type.value">
+              {{ type.name }}
             </DropdownMenuRadioItem>
           </DropdownMenuRadioGroup>
         </DropdownMenuSubContent>

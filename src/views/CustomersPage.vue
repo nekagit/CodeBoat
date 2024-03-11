@@ -1,26 +1,8 @@
 <script setup lang="ts">
 import DataTable from '@/components/DataTable.vue';
 import { columns } from '@/components/columns';
-import type { Customer } from '@/data/schema';
-const data: Array<Customer> = [
-    {
-        id: "1",
-        fullName: "John Doe",
-        address: "123 Main St",
-        phoneNumber: "123-456-7890",
-        property: {
-            address: "123 Main St",
-            city: "Anytown",
-            state: "CA",
-            zipCode: "12345",
-            type: "house",
-            bedrooms: 3,
-            bathrooms: 2,
-            amenities: ["Swimming Pool", "Gym"],
-            pricePerNight: 150
-        }
-    },
-];
+import {  data } from '@/data/schema';
+
 
 </script>
 
