@@ -27,7 +27,12 @@ app.listen(8080, () => {
 async function run() {
   try {
     // Stelle die Verbindung zur MongoDB her
-    await client.connect();
+    await client.connect(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+     useMongoClient: true
+  } );
     console.log("Successfully connected to Atlas");
 
     // Beispielprodukt für das Einfügen in die Datenbank
@@ -45,8 +50,7 @@ async function run() {
 
     // Produkt löschen (Annahme: createdProduct enthält ein id Attribut)
     const productId = createdProduct.data._id.toString(); // Convert ObjectId to string
-    console.log(createdProduct.data._id, productId);
-    await axios.delete(`http://localhost:8080/api/products/${productId}`);
+    await axios.delete(`http://localhost:8080/api/products/` , { data: { id: productId } });
     console.log("Deleted product");
 
 

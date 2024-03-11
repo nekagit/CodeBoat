@@ -76,7 +76,9 @@ const updateProductById = async (req, res) => {
 
 const deleteProductById = async (req, res) => {
   try {
+    console.log(req.params.id)
     const data = await Product.findByIdAndRemove(req.params.id);
+    console.log(data)
     if (!data) {
       return res.status(404).send({
         message: `Cannot delete Product with id=${req.params.id}. Maybe Product was not found!`,
