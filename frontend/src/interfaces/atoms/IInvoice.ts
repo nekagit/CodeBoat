@@ -1,6 +1,7 @@
+import type { IBaseColumn } from "@/components/columns"
+
 // Interface for the invoice document
-export interface IInvoice {
-  _id: string // MongoDB ObjectId
+export interface IInvoice extends IBaseColumn{
   number: number
   customer: string // Reference to Customer ObjectId
   date: Date

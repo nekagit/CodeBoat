@@ -1,59 +1,59 @@
-import type { IProduct } from '@/interfaces/atoms/IProduct'
+import type { IInvoice } from '@/interfaces/atoms/IInvoice' // Adjust the import path as needed
 import axios from 'axios'
 
-const API_URL = 'http://localhost:8080/api/products'
+const API_URL = 'http://localhost:8080/api/invoices' // Adjust the URL as needed
 
-const ProductService = {
-  async createProduct(newProduct: IProduct): Promise<IProduct> {
+const InvoiceService = {
+  async createInvoice(newInvoice: IInvoice): Promise<IInvoice> {
     try {
-      const response = await axios.post(API_URL, newProduct)
+      const response = await axios.post(API_URL, newInvoice)
       return response.data
     } catch (error: any) {
-      throw new Error(error.response?.data?.message || 'Failed to create product')
+      throw new Error(error.response.data.message || 'Failed to create invoice')
     }
   },
 
-  async getAllProducts(): Promise<IProduct[]> {
+  async getAllInvoices(): Promise<IInvoice[]> {
     try {
       const response = await axios.get(API_URL)
       return response.data
     } catch (error: any) {
-      throw new Error(error.response?.data?.message || 'Failed to fetch products')
+      throw new Error(error.response.data.message || 'Failed to fetch invoices')
     }
   },
 
-  async getProductById(id: string): Promise<IProduct> {
+  async getInvoiceById(id: string): Promise<IInvoice> {
     try {
       const response = await axios.get(`${API_URL}/${id}`)
       return response.data
     } catch (error: any) {
-      throw new Error(error.response?.data?.message || 'Failed to fetch product')
+      throw new Error(error.response.data.message || 'Failed to fetch invoice')
     }
   },
 
-  async updateProductById(id: string, updatedProductData: Partial<IProduct>): Promise<void> {
+  async updateInvoiceById(id: string, updatedInvoiceData: Partial<IInvoice>): Promise<void> {
     try {
-      await axios.put(`${API_URL}/${id}`, updatedProductData)
+      await axios.put(`${API_URL}/${id}`, updatedInvoiceData)
     } catch (error: any) {
-      throw new Error(error.response?.data?.message || 'Failed to update product')
+      throw new Error(error.response.data.message || 'Failed to update invoice')
     }
   },
 
-  async deleteProductById(id: string): Promise<void> {
+  async deleteInvoiceById(id: string): Promise<void> {
     try {
       await axios.delete(`${API_URL}/${id}`)
     } catch (error: any) {
-      throw new Error(error.response?.data?.message || 'Failed to delete product')
+      throw new Error(error.response.data.message || 'Failed to delete invoice')
     }
   },
 
-  async deleteAllProducts(): Promise<void> {
+  async deleteAllInvoices(): Promise<void> {
     try {
       await axios.delete(API_URL)
     } catch (error: any) {
-      throw new Error(error.response?.data?.message || 'Failed to delete all products')
+      throw new Error(error.response.data.message || 'Failed to delete all invoices')
     }
   }
 }
 
-export default ProductService
+export default InvoiceService

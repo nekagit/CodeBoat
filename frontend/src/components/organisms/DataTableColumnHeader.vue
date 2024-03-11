@@ -11,10 +11,10 @@ import {
   DropdownMenuTrigger,
 } from '@/lib/registry/new-york/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
-import type { IAPIData } from './DataTable.vue'
+import type { TAPIData } from './DataTable.vue'
 
 interface DataTableColumnHeaderProps {
-  column: Column<IAPIData, any>
+  column: Column<TAPIData, any>
   title: string
 }
 

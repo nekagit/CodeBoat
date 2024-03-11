@@ -5,12 +5,11 @@ import { computed } from 'vue'
 import { Button } from '@/lib/registry/new-york/ui/button'
 import { Input } from '@/lib/registry/new-york/ui/input'
 import { Cross2Icon } from '@radix-icons/vue'
-import DataTableFacetedFilter from './DataTableFacetedFilter.vue'
+import type { TAPIData } from './DataTable.vue'
 import DataTableViewOptions from './DataTableViewOptions.vue'
-import type { IAPIData } from './DataTable.vue'
 
 interface DataTableToolbarProps {
-  table: Table<IAPIData>
+  table: Table<TAPIData>
 }
 
 const props = defineProps<DataTableToolbarProps>()
@@ -27,19 +26,13 @@ const isFiltered = computed(() => props.table.getState().columnFilters.length > 
         class="h-8 w-[150px] lg:w-[250px]"
         @input="table.getColumn('name')?.setFilterValue($event.target.value)"
       />
-      <DataTableFacetedFilter
+      <!-- <DataTableFacetedFilter
         v-if="table.getColumn('status')"
         :column="table.getColumn('status')"
         title="Status"
         :statuses="statuses"
       />
-      <DataTableFacetedFilter
-        v-if="table.getColumn('priority')"
-        :column="table.getColumn('priority')"
-        title="Priority"
-        :priorities="priorities"
-      />
-
+    -->
       <Button
         v-if="isFiltered"
         variant="ghost"

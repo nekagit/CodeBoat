@@ -1,5 +1,5 @@
-export interface IProduct {
-  id: number;  
-  name:string;
-  unitPrice:number;
-  }
+import type { IBaseColumn } from '@/components/columns'
+
+export interface IProduct extends IBaseColumn {
+  unitPrice: number
+}

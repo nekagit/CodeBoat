@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { columns } from '@/components/columns';
+import { customerColumns, invoiceColumns, productColumns } from '@/components/columns';
 import DataTable from '@/components/organisms/DataTable.vue';
-import type { IProduct } from '@/interfaces/atoms/IProduct';
+import { useCustomerStore } from '@/stores/customerStore';
+import { useInvoiceStore } from '@/stores/invoiceStore';
 import { useProductStore } from '@/stores/productsStore';
-import { ref } from 'vue';
 
 // Watch for changes in the product store
-const products = useProductStore().products;
-const localProducts = ref<IProduct[]>(products);
-
+const products = useProductStore().products
+const customers = useCustomerStore().customers
+const invoices = useInvoiceStore().invoices
 </script>
 
 <template>
@@ -25,6 +25,8 @@ const localProducts = ref<IProduct[]>(products);
       <div class="flex items-center space-x-2">
       </div>
     </div>
-    <DataTable :data="localProducts" :columns="columns" />
+    <DataTable :data="products" :columns="productColumns" />
+    <DataTable :data="customers" :columns="customerColumns" />
+    <DataTable :data="invoices" :columns="invoiceColumns" />
   </div>
 </template>

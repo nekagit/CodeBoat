@@ -13,5 +13,5 @@
   </div>
 </template>
 <script setup lang="ts">
-import UserNav from "@/components/UserNav.vue"
+import UserNav from "@/components/molekules/UserNav.vue";
 </script>

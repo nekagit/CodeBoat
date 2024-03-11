@@ -10,8 +10,8 @@
 </template>
 
 <script setup lang="ts">
-import CustomHeader from "@/components/CustomHeader.vue"
-import Sidebar from "@/components/Sidebar.vue"
+import Sidebar from "@/components/molekules/Sidebar.vue"
+import CustomHeader from "@/components/organisms/CustomHeader.vue"
 import "@/styles/base.css"
 import "@/styles/index.css"
 import "@/styles/main.css"
