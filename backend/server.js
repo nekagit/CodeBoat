@@ -44,7 +44,10 @@ async function run() {
       "http://localhost:8080/api/products/",
       product
     );
-
+ await axios.post(
+      "http://localhost:8080/api/products/",
+      product
+    );
     const sampleProduct = createdProduct.data; // Use the returned product object
     console.log("Product created:", sampleProduct);
 

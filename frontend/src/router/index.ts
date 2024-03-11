@@ -1,10 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import EmailPage from '../views/EmailPage.vue'
-import CustomersPage from '../views/CustomersPage.vue'
-import ProductsPage from '../views/ProductsPage.vue'
 import FulfillmentPage from '../views/FulfillmentPage.vue'
+import HomeView from '../views/HomeView.vue'
 import InvoicePage from '../views/InvoicePage.vue'
+import ProductPage from '../views/ProductPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,9 +19,9 @@ const router = createRouter({
       component: EmailPage
     },
     {
-      path: '/customers',
-      name: 'customers',
-      component: CustomersPage
+      path: '/products',
+      name: 'products',
+      component: ProductPage
     },
     {
       path: '/fulfillment',

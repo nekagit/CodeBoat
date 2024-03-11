@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import DateRangePicker from '@/components/DateRangePicker.vue'
-import MainNav from '@/components/MainNav.vue'
-import Search from '@/components/Search.vue'
-import UserNav from '@/components/UserNav.vue'
-import { RouterLink } from 'vue-router'
 import {
   Tabs,
   TabsContent,

@@ -31,6 +31,8 @@ const createProduct = async (req, res) => {
 const findAllProducts = async (req, res) => {
   try {
     const data = await Product.find();
+    
+    console.log(data)
     res.send(data);
   } catch (err) {
     res.status(500).send({

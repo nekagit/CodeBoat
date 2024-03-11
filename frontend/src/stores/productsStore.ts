@@ -11,13 +11,13 @@ export const useProductStore = defineStore('product', {
 
   actions: {
     async onInit() {
-      await this.fetchAllProducts() // Fetch products when the store is initialized
+      const response = await this.fetchAllProducts() // Fetch products when the store is initialized
+      console.log(response, this.products)
     },
 
     async createProduct(newProduct: IProduct): Promise<IProduct> {
       try {
         const createdProduct = await ProductService.createProduct(newProduct)
-        await this.fetchAllProducts()
         return createdProduct
       } catch (error: any) {
         this.setError(error.message)

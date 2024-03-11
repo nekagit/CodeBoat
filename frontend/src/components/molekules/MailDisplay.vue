@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { Mail } from '@/interfaces/mail'
 import { Avatar, AvatarFallback } from '@/lib/registry/new-york/ui/avatar'
 import { Button } from '@/lib/registry/new-york/ui/button'
 import { Calendar } from '@/lib/registry/new-york/ui/calendar'
@@ -15,7 +16,6 @@ import format from 'date-fns/format'
 import nextSaturday from 'date-fns/nextSaturday'
 import { Archive, ArchiveX, Clock, Forward, MoreVertical, Reply, ReplyAll, Trash2 } from 'lucide-vue-next'
 import { computed } from 'vue'
-import type { Mail } from '../data/mail'
 
 interface MailDisplayProps {
   mail: Mail | undefined
