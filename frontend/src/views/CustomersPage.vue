@@ -1,9 +1,18 @@
 <script setup lang="ts">
 import DataTable from '@/components/DataTable.vue';
 import { columns } from '@/components/columns';
-import {  data } from '@/data/schema';
+import type { IProduct } from '@/interfaces/atoms/IProduct';
+import { useProductStore } from '@/stores/productsStore';
+import { ref, onMounted } from 'vue';
 
+// Typo fixed: loclaProducts -> localProducts
+const localProducts = ref<IProduct[]>([]);
 
+// Watch for changes in the product store
+const productStore = useProductStore();
+onMounted(async () => {
+  localProducts.value = await productStore.getAll();
+});
 </script>
 
 <template>
@@ -20,6 +29,6 @@ import {  data } from '@/data/schema';
       <div class="flex items-center space-x-2">
       </div>
     </div>
-    <DataTable :data="data" :columns="columns" />
+    <DataTable :data="localProducts" :columns="columns" />
   </div>
 </template>
