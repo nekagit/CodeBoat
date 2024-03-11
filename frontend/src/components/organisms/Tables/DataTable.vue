@@ -16,6 +16,7 @@ import {
   useVueTable,
 } from '@tanstack/vue-table'
 
+import type { AppModule } from '@/interfaces/enums'
 import {
   Table,
   TableBody,
@@ -29,9 +30,12 @@ import { ref } from 'vue'
 import DataTablePagination from './DataTablePagination.vue'
 import DataTableToolbar from './DataTableToolbar.vue'
 
+
 export interface IBaseColumn {
-  id: string
+  _id: string
   name: string
+  entityKey: AppModule
+  status: string
 }
 
 interface DataTableProps {
@@ -42,12 +46,22 @@ const baseColumns: ColumnDef<IBaseColumn>[] = [
   {
     accessorKey: 'id',
     header: 'ID',
-    cell: ({ row }) => row.original.id
+    cell: ({ row }) => row.original._id
   },
   {
     accessorKey: 'name',
     header: 'Name',
     cell: ({ row }) => row.original.name
+  },
+    {
+    accessorKey: 'status',
+    header: 'Status',
+    cell: ({ row }) => row.original.status
+  },
+    {
+    accessorKey: 'entityKey',
+    header: 'Type',
+    cell: ({ row }) => row.original.entityKey
   }
 ]
 

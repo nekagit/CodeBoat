@@ -15,6 +15,8 @@ const createCustomer = async (req, res) => {
 
     const newCustomer = new Customer({
       name: req.body.name,
+      status: "Created",
+      entityKey: "Customer"
     });
 
     const data = await newCustomer.save();

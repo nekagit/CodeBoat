@@ -11,28 +11,31 @@ export const useProductStore = defineStore('product', {
 
   actions: {
     async onInit() {
-      const response = await this.fetchAllProducts() // Fetch products when the store is initialized
-      console.log(response, this.products)
+      console.log('init')
+      await this.fetchAllProducts() // Fetch products when the store is initialized
     },
 
-    async createProduct(newProduct: IProduct): Promise<IProduct> {
+    async createProduct(newProduct: IProduct): Promise<IProduct[]> {
       try {
-        const createdProduct = await ProductService.createProduct(newProduct)
-        return createdProduct
+        await ProductService.createProduct(newProduct)
+        return this.fetchAllProducts()
       } catch (error: any) {
         this.setError(error.message)
         throw error
       }
     },
 
-    async fetchAllProducts(): Promise<void> {
+    async fetchAllProducts(): Promise<IProduct[]> {
       try {
         this.isLoading = true
         this.products = await ProductService.getAllProducts()
+        console.log('fetched', this.products.length)
         this.isLoading = false
+        return this.products
       } catch (error: any) {
         this.setError(error.message)
         this.isLoading = false
+        return this.products
       }
     },
 

@@ -3,10 +3,14 @@ const mongoose = require('mongoose');
 const ProductSchema = new mongoose.Schema({
     name: String,
     unitPrice: Number, 
+    status: String,
+    entityKey: String
 });
 
 const CustomerSchema = new mongoose.Schema({
     name: String,
+    status: String,
+    entityKey: String
 });
 
 const InvoiceSchema = new mongoose.Schema({
@@ -17,6 +21,8 @@ const InvoiceSchema = new mongoose.Schema({
     },
     date: Date,
     invoiceTotal: Number,
+    status: String,
+    entityKey: String
 });
 
 const InvoiceLineSchema = new mongoose.Schema({
@@ -25,6 +31,8 @@ const InvoiceLineSchema = new mongoose.Schema({
     unitPrice: Number,
     quantity: Number,
     lineTotal: Number,
+    status: String,
+    entityKey: String
 });
 
 
