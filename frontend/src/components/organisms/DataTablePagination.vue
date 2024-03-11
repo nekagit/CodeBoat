@@ -10,10 +10,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/lib/registry/new-york/ui/select';
-import type { Customer } from '@/data/schema';
+import type { IAPIData } from './DataTable.vue';
 
 interface DataTablePaginationProps {
-  table: Table<Customer>
+  table: Table<IAPIData>
 }
 defineProps<DataTablePaginationProps>()
 </script>

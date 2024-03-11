@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import Mail from '@/components/Mail.vue'
-import { accounts, mails } from '@/data/mail'
+import Mail from '@/components/Mail.vue';
+import { accounts, mails } from '@/data/mail';
 </script>
 <template>
      <div class="md:hidden w-full">
@@ -27,3 +27,4 @@ import { accounts, mails } from '@/data/mail'
     />
   </div>
 </template>
+@/interfaces/mail

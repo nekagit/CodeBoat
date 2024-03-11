@@ -15,10 +15,10 @@ import {
 } from '@/lib/registry/new-york/ui/popover'
 import { Separator } from '@/lib/registry/new-york/ui/separator'
 import { cn } from '@/lib/utils'
-import type { Customer } from '@/data/schema'
+import type { IAPIData } from './DataTable.vue'
 
 interface DataTableFacetedFilter {
-  column?: Column<Customer, any>
+  column?: Column<IAPIData, any>
   title?: string
   priorities: {
     name: string

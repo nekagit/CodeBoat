@@ -1,18 +1,14 @@
 <script setup lang="ts">
-import DataTable from '@/components/DataTable.vue';
 import { columns } from '@/components/columns';
+import DataTable from '@/components/organisms/DataTable.vue';
 import type { IProduct } from '@/interfaces/atoms/IProduct';
 import { useProductStore } from '@/stores/productsStore';
-import { ref, onMounted } from 'vue';
-
-// Typo fixed: loclaProducts -> localProducts
-const localProducts = ref<IProduct[]>([]);
+import { ref } from 'vue';
 
 // Watch for changes in the product store
-const productStore = useProductStore();
-onMounted(async () => {
-  localProducts.value = await productStore.getAll();
-});
+const products = useProductStore().products;
+const localProducts = ref<IProduct[]>(products);
+
 </script>
 
 <template>

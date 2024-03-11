@@ -12,10 +12,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/lib/registry/new-york/ui/dropdown-menu'
-import type { Customer } from '@/data/schema'
+import type { IAPIData } from './DataTable.vue'
 
 interface DataTableViewOptionsProps {
-  table: Table<Customer>
+  table: Table<IAPIData>
 }
 
 const props = defineProps<DataTableViewOptionsProps>()

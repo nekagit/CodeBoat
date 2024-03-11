@@ -234,3 +234,4 @@ const today = new Date()
     </div>
   </div>
 </template>
+../interfaces/mail

@@ -221,3 +221,4 @@ function onExpand() {
     </ResizablePanelGroup>
   </TooltipProvider>
 </template>
+../interfaces/mail

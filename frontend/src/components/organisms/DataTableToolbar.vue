@@ -5,13 +5,12 @@ import { computed } from 'vue'
 import { Button } from '@/lib/registry/new-york/ui/button'
 import { Input } from '@/lib/registry/new-york/ui/input'
 import { Cross2Icon } from '@radix-icons/vue'
-import { priorities, statuses } from '../data/data'
 import DataTableFacetedFilter from './DataTableFacetedFilter.vue'
 import DataTableViewOptions from './DataTableViewOptions.vue'
-import type { Customer } from '@/data/schema'
+import type { IAPIData } from './DataTable.vue'
 
 interface DataTableToolbarProps {
-  table: Table<Customer>
+  table: Table<IAPIData>
 }
 
 const props = defineProps<DataTableToolbarProps>()
@@ -53,4 +52,5 @@ const isFiltered = computed(() => props.table.getState().columnFilters.length > 
     </div>
     <DataTableViewOptions :table="table" />
   </div>
-</template>
+</template>./organisms/Tables/DataTableFacetedFilter.vue
+../../../data/data

@@ -91,3 +91,4 @@ function getBadgeVariantFromLabel(label: string) {
   position: absolute;
 }
 </style>
+../interfaces/mail

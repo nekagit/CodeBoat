@@ -2,8 +2,6 @@
 import { DotsHorizontalIcon } from '@radix-icons/vue'
 import type { Row } from '@tanstack/vue-table'
 import { computed } from 'vue'
-import { types } from '../data/data'
-import { customerSchema, type Customer } from '../data/schema'
 
 import { Button } from '@/lib/registry/new-york/ui/button'
 import {
@@ -19,9 +17,10 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/lib/registry/new-york/ui/dropdown-menu'
+import type { IAPIData } from './DataTable.vue'
 
 interface DataTableRowActionsProps {
-  row: Row<Customer>
+  row: Row<IAPIData>
 }
 const props = defineProps<DataTableRowActionsProps>()
 
@@ -62,3 +61,4 @@ const customer = computed(() => customerSchema.parse(props.row.original))
     </DropdownMenuContent>
   </DropdownMenu>
 </template>
+../../../data/data../../../data/schema

@@ -17,7 +17,6 @@ import {
 } from '@tanstack/vue-table'
 
 import { ref } from 'vue'
-import type { Customer } from '../data/schema'
 import DataTablePagination from './DataTablePagination.vue'
 import DataTableToolbar from './DataTableToolbar.vue'
 import { valueUpdater } from '@/lib/utils'
@@ -29,10 +28,15 @@ import {
   TableHeader,
   TableRow,
 } from '@/lib/registry/new-york/ui/table'
+import type { ICustomer } from '@/interfaces/atoms/ICustomer'
+import type { IProduct } from '@/interfaces/atoms/IProduct'
+import type { IInvoice } from '@/interfaces/atoms/IInvoice'
+
+export type IAPIData = ICustomer | IProduct | IInvoice
 
 interface DataTableProps {
-  columns: ColumnDef<Customer, any>[]
-  data: Customer[]
+  columns: ColumnDef<IAPIData, any>[]
+  data: IAPIData[]
 }
 const props = defineProps<DataTableProps>()
 
