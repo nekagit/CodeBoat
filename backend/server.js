@@ -17,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Implementiere den Router für Produkte
 const productApi = require("./app/controllers/ProductsController.js");
+const { ProductS } = require("./app/models/ShopModel.js");
 app.use("/api/products", productApi);
 
 app.listen(8080, () => {
@@ -34,18 +35,20 @@ async function run() {
       name: "John",
       unitPrice: 1000,
     };
-
     // Produkt erstellen
     const createdProduct = await axios.post("http://localhost:8080/api/products/", product);
     console.log("Product created:", createdProduct.data);
 
     // Alle Produkte abrufen
     const allProducts = await axios.get("http://localhost:8080/api/products/");
-    console.log("Got All:", allProducts.data);
+    console.log("Got All:", allProducts.data.length);
 
     // Produkt löschen (Annahme: createdProduct enthält ein id Attribut)
-    await axios.delete(`http://localhost:8080/api/products/${createdProduct.data._id}`);
+    const productId = createdProduct.data._id.toString(); // Convert ObjectId to string
+    console.log(createdProduct.data._id, productId);
+    await axios.delete(`http://localhost:8080/api/products/${productId}`);
     console.log("Deleted product");
+
 
   } catch (err) {
     console.log(err.stack);
