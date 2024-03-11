@@ -13,7 +13,6 @@ const createProduct = async (req, res) => {
     if (!req.body.name) {
       return res.status(400).send({ message: "Name can not be empty!" });
     }
-    console.log(req.body)
     const newProduct = new Product({ // Change variable name from 'Product' to 'newProduct'
       name: req.body.name,
       unitPrice: req.body.unitPrice,
@@ -21,7 +20,6 @@ const createProduct = async (req, res) => {
       entityKey: "Products"
     });
     const data = await newProduct.save(); // Use 'newProduct' instead of 'Product'
-    console.log(data)
     res.send(data);
   } catch (err) {
     res.status(500).send({
@@ -33,8 +31,6 @@ const createProduct = async (req, res) => {
 const findAllProducts = async (req, res) => {
   try {
     const data = await Product.find();
-    
-    console.log(data)
     res.send(data);
   } catch (err) {
     res.status(500).send({
