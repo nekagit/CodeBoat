@@ -57,7 +57,8 @@ import DataTableToolbar from './DataTableToolbar.vue'
   interface DataTableProps {
     data: IBaseColumn[]
   }
-
+  const selectedRow = ref<IBaseColumn>({} as IBaseColumn)
+  const showDialog = ref(false)
   const baseColumns: ColumnDef<IBaseColumn>[] = [
     {
       accessorKey: 'id',
@@ -85,14 +86,14 @@ import DataTableToolbar from './DataTableToolbar.vue'
     id: 'actions',
     cell: ({ row }) => {
       const handleClick = () => {
-        console.log(selectedRow.value, showDialog.value)
+        console.log(selectedRow.value.name,row.original.name, showDialog.value)
         selectedRow.value = row.original; // Set the selected row
         showDialog.value = true; // Show the dialog
       };
 
-      return h('div', { class: 'relative' }, [
+      return h('DialogTrigger', {props: "as-child", class: 'relative' }, [
         h('button', {
-          class: 'bg-black p-1',
+          class: 'p-1 z-99',
           onClick: handleClick
         }, 'Open Dialog')
       ]);
@@ -129,13 +130,13 @@ import DataTableToolbar from './DataTableToolbar.vue'
     getFacetedUniqueValues: getFacetedUniqueValues(),
   })
 
-  const selectedRow = ref<IBaseColumn>({} as IBaseColumn)
-  const showDialog = ref(false)
+
 
 </script>
 
 <template>
-  <Dialog v-if="true">
+  <hr>
+  <Dialog v-model="showDialog" >
     <DialogContent class="sm:max-w-[425px]">
       <DialogHeader>
         <DialogTitle>Edit profile</DialogTitle>
@@ -149,12 +150,14 @@ import DataTableToolbar from './DataTableToolbar.vue'
             Name
           </Label>
           <Input id="name" :value="selectedRow.name" class="col-span-3" />
+
         </div>
         <div class="grid grid-cols-4 items-center gap-4">
           <Label for="username" class="text-right">
             Username
           </Label>
-          <Input id="username" :value="selectedRow.name" class="col-span-3" />
+          <Input id="unitPrice" :value="selectedRow.unitPrice" class="col-span-3" />
+
         </div>
       </div>
       <DialogFooter>
@@ -164,6 +167,7 @@ import DataTableToolbar from './DataTableToolbar.vue'
       </DialogFooter>
     </DialogContent>
   </Dialog>
+  <hr>
   <div class="space-y-4">
     <DataTableToolbar :table="table" />
         <div class="flex gap-2 items-center py-4">
