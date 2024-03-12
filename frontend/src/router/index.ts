@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import EmailPage from '../views/EmailPage.vue'
-import FulfillmentPage from '../views/FulfillmentPage.vue'
+import CustomerPage from '../views/CustomerPage.vue'
 import HomeView from '../views/HomeView.vue'
 import InvoicePage from '../views/InvoicePage.vue'
 import ProductPage from '../views/ProductPage.vue'
@@ -24,9 +24,9 @@ const router = createRouter({
       component: ProductPage
     },
     {
-      path: '/fulfillment',
-      name: 'fulfillment',
-      component: FulfillmentPage
+      path: '/customer',
+      name: 'customer',
+      component: CustomerPage
     },
     {
       path: '/invoice',
