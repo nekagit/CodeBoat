@@ -28,13 +28,16 @@ import {
   getSortedRowModel,
   useVueTable
 } from '@tanstack/vue-table'
-import { ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import CreateDialog from '../../Dialgos/Custom/CreateDialog.vue'
 
-useProductStore().onInit()
-const localProducts = ref(useProductStore().products)
-console.log('localProducts: ', localProducts)
-
+onBeforeMount(async () => {
+  await useProductStore().onInit()
+  localProducts.value = useProductStore().products
+})
+const storeProducts =  useProductStore().products
+const localProducts = ref(storeProducts)
+console.log(localProducts.value)
 const productColumns: ColumnDef<IProduct>[] = [
   {
     accessorKey: 'id',
@@ -101,6 +104,7 @@ const table = useVueTable({
   getFacetedRowModel: getFacetedRowModel(),
   getFacetedUniqueValues: getFacetedUniqueValues()
 })
+
 async function handleOnChange(values: IProduct) {
   localProducts.value = await useProductStore().createProduct({
     name: values.name,
@@ -109,7 +113,6 @@ async function handleOnChange(values: IProduct) {
     entityKey: AppModule.Product
   } as IProduct)
 }
-
 </script>
 
 <template>

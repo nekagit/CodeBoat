@@ -2,10 +2,8 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const ProductSchema = require("../models/ShopModel.js");
-
-const url =
-  "mongodb+srv://njoco:pSVJjBxVVFfRRhwq@soprotterdam.v4bx2oh.mongodb.net/?retryWrites=true&w=majority";
-const connection = mongoose.createConnection(url);
+const dbConfig = require("../config/db.config.js")
+const connection = mongoose.createConnection(dbConfig.URL);
 const Product = connection.model("Product", ProductSchema);
 
 
