@@ -3,7 +3,7 @@ const { MongoClient } = require("mongodb");
 const axios = require("axios");
 const cors = require("cors");
 
-const corsOptions = { origin: "http://localhost:5174", credentials: true };
+const corsOptions = { origin: "http://localhost:5173", credentials: true };
 
 const url = "mongodb+srv://njoca:ECfsAUI5CxrMONug@shop.oldvczw.mongodb.net/";
 

@@ -45,5 +45,4 @@ const isFiltered = computed(() => props.table.getState().columnFilters.length > 
     </div>
     <DataTableViewOptions :table="table" />
   </div>
-</template>./organisms/Tables/DataTableFacetedFilter.vue
-../../../data/data
+</template>
