@@ -14,7 +14,7 @@ export const useInvoiceStore = defineStore('invoice', {
       await this.fetchAllInvoices() // Fetch invoices when the store is initialized
     },
 
-    async createInvoice(newInvoice: IInvoice): Promise<IInvoice[]> {
+    async createInvoice(newInvoice: IInvoice): Promise<IInvoice[] | undefined> {
       try {
         await InvoiceService.createInvoice(newInvoice)
         return await this.fetchAllInvoices()
@@ -24,7 +24,7 @@ export const useInvoiceStore = defineStore('invoice', {
       }
     },
 
-    async fetchAllInvoices(): Promise<IInvoice[]> {
+    async fetchAllInvoices(): Promise<IInvoice[]| undefined> {
       try {
         this.isLoading = true
         this.invoices = await InvoiceService.getAllInvoices()

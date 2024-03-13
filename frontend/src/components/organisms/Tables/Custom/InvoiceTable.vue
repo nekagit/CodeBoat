@@ -129,14 +129,16 @@ async function handleOnChange(values: IInvoice) {
     customer: values.customer,
     date: values.date,
     invoiceTotal: values.invoiceTotal
-  } as IInvoice)
+  } as IInvoice) ?? []
 }
 </script>
 
 <template>
   <div class="space-y-4">
     <DataTableToolbar :table="table" />
-    <CreateDialog :onChange="(values: IInvoice) => handleOnChange(values) "/>
+    <CreateDialog :onChange="(item: IInvoice) => handleOnChange(item)" :item="{} as IInvoice"/>
+
+    <CreateDialog :onChange="(values: IInvoice) => handleOnChange(values)" :item="{} as IInvoice"/>
     <div>
       <div class="rounded-md border">
         <Table>

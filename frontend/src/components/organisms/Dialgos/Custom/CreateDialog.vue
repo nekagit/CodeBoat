@@ -10,6 +10,8 @@ import {
   DialogTrigger
 } from '@/components/ui/dialog'
 import type { IProduct } from '@/interfaces/atoms/IProduct'
+import type { ICustomer } from "@/interfaces/atoms/ICustomer"
+import type { IInvoice } from "@/interfaces/atoms/IInvoice"
 import { AppModule, EntityStatus } from '@/interfaces/enums'
 import { useProductStore } from '@/stores/productsStore'
 import { toTypedSchema } from '@vee-validate/zod'
@@ -26,7 +28,8 @@ import {
 } from '@/components/ui/form'
 
 interface CreateDialogProps {
-  onChange:(items: IProduct) => void
+  onChange: (item: IProduct | ICustomer | IInvoice) => Promise<void>
+  item: IProduct | ICustomer | IInvoice
 }
 
 const props = defineProps<CreateDialogProps>()
@@ -42,49 +45,51 @@ const { handleSubmit } = useForm({
 })
 const onSubmit = handleSubmit(async (values) => {
    props.onChange(values)
-
 })
 </script>
 
 <template>
   <Dialog>
-    <DialogTrigger> 
-    <Button>
-      Create 
-    </Button>  
+    <DialogTrigger>
+      <Button>
+        Create
+      </Button>
     </DialogTrigger>
     <DialogContent>
       <DialogHeader>
         <DialogTitle>Edit Product</DialogTitle>
         <DialogDescription>
           <form class="w-2/3 space-y-6" @submit="onSubmit">
-            <FormField v-slot="{ componentField }" name="name">
+            <FormField v-slot="{ componentField }" name="name" v-if="props.item instanceof IProduct">
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input type="text" placeholder="shadcn" v-bind="componentField" />
+                  <Input type="text" placeholder="Product Name" v-bind="componentField" />
                 </FormControl>
-                <FormDescription> Products name. </FormDescription>
+                <FormDescription>Product's name.</FormDescription>
                 <FormMessage />
               </FormItem>
             </FormField>
 
-            <FormField v-slot="{ componentField }" name="unitPrice">
+            <FormField v-slot="{ componentField }" name="unitPrice" v-if="props.item instanceof IProduct">
               <FormItem>
-                <FormLabel>UnitPrice</FormLabel>
+                <FormLabel>Unit Price</FormLabel>
                 <FormControl>
                   <Input type="number" placeholder="0" v-bind="componentField" />
                 </FormControl>
-                <FormDescription> Products price per unit. </FormDescription>
+                <FormDescription>Product's price per unit.</FormDescription>
                 <FormMessage />
               </FormItem>
             </FormField>
-            <Button  type="submit"> Submit </Button>
+
+            <!-- Add similar blocks for other types (ICustomer, IInvoice) if needed -->
+
+            <Button type="submit">Submit</Button>
           </form>
         </DialogDescription>
       </DialogHeader>
 
-      <DialogFooter> Save changes </DialogFooter>
+      <DialogFooter>Save changes</DialogFooter>
     </DialogContent>
   </Dialog>
 </template>
