@@ -11,7 +11,7 @@ import {
   TableRow
 } from '@/lib/registry/new-york/ui/table'
 import { valueUpdater } from '@/lib/utils'
-import { useCustomerStore } from '@/stores/CustomersStore'
+import { useCustomerStore } from '@/stores/customerStore'
 import type {
   ColumnDef,
   ColumnFiltersState,

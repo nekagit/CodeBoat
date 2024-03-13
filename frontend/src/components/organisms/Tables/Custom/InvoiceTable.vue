@@ -11,7 +11,7 @@ import {
   TableRow
 } from '@/lib/registry/new-york/ui/table'
 import { valueUpdater } from '@/lib/utils'
-import { useInvoiceStore } from '@/stores/InvoicesStore'
+import { useInvoiceStore } from '@/stores/invoiceStore'
 import type {
   ColumnDef,
   ColumnFiltersState,
@@ -33,9 +33,9 @@ import CreateDialog from '../../Dialgos/Custom/CreateDialog.vue'
 
 onBeforeMount(async () => {
   await useInvoiceStore().onInit()
-  localInvoices.value = useInvoiceStore().Invoices
+  localInvoices.value = useInvoiceStore().invoices
 })
-const storeInvoices =  useInvoiceStore().Invoices
+const storeInvoices =  useInvoiceStore().invoices
 const localInvoices = ref(storeInvoices)
 console.log(localInvoices.value)
 const invoiceColumns: ColumnDef<IInvoice>[] = [
@@ -50,9 +50,9 @@ const invoiceColumns: ColumnDef<IInvoice>[] = [
     cell: ({ row }) => row.original.name
   },
   {
-    accessorKey: 'unitPrice',
-    header: 'Price',
-    cell: ({ row }) => row.original.unitPrice
+    accessorKey: 'number',
+    header: 'Number',
+    cell: ({ row }) => row.original.number
   },
   {
     accessorKey: 'status',
@@ -63,6 +63,21 @@ const invoiceColumns: ColumnDef<IInvoice>[] = [
     accessorKey: 'entityKey',
     header: 'Type',
     cell: ({ row }) => row.original.entityKey
+  },
+  {
+    accessorKey: 'customer',
+    header: 'Customer',
+    cell: ({row}) => row.original.customer.name
+  },
+  {
+    accessorKey: 'date',
+    header: 'Creation',
+    cell: ({row}) => row.original.date
+  },
+  {
+    accessorKey: 'invoiceTotal',
+    header: 'Total',
+    cell: ({row}) => row.original.invoiceTotal
   }
 ]
 
@@ -108,9 +123,12 @@ const table = useVueTable({
 async function handleOnChange(values: IInvoice) {
   localInvoices.value = await useInvoiceStore().createInvoice({
     name: values.name,
-    unitPrice: values.unitPrice,
+    number: values.number,
     status: EntityStatus.Created,
-    entityKey: AppModule.Invoice
+    entityKey: AppModule.Order,
+    customer: values.customer,
+    date: values.date,
+    invoiceTotal: values.invoiceTotal
   } as IInvoice)
 }
 </script>
