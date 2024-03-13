@@ -1,4 +1,5 @@
 import type { IProduct } from '@/interfaces/atoms/IProduct'
+import { AppModule, EntityStatus } from '@/interfaces/enums'
 import ProductService from '@/service/ProductService'
 import { defineStore } from 'pinia'
 
@@ -12,7 +13,10 @@ export const useProductStore = defineStore('product', {
   actions: {
     async onInit() {
       console.log('init')
-      this.products = await ProductService.getAllProducts()
+       await this.fetchAllProducts()
+       if(this.products.length < 1) {
+         await this.createProduct({name: "sample", unitPrice: 0, entityKey: AppModule.Product, status: EntityStatus.Created})
+        }
     },
 
     async createProduct(newProduct: IProduct): Promise<IProduct[]> {

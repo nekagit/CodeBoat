@@ -39,6 +39,7 @@ async function run() {
       product
     );
     await axios.post("http://localhost:8080/api/products/", product);
+    await axios.post("http://localhost:8080/api/products/", product);
     const sampleProduct = createdProduct.data; // Use the returned product object
     console.log("Product created:", sampleProduct);
 
@@ -63,6 +64,14 @@ async function run() {
 
     // Rechnung erstellen
     const createdInvoice = await axios.post(
+      "http://localhost:8080/api/invoices/",
+      invoice
+    );
+    await axios.post(
+      "http://localhost:8080/api/invoices/",
+      invoice
+    );
+    await axios.post(
       "http://localhost:8080/api/invoices/",
       invoice
     );

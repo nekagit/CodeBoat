@@ -33,7 +33,9 @@ import CreateDialog from '../../Dialgos/Custom/CreateDialog.vue'
 
 onBeforeMount(async () => {
   await useProductStore().onInit()
-  localProducts.value = useProductStore().products
+  const products = useProductStore().products
+  console.log(products, localProducts.value)
+  localProducts.value = products
 })
 const storeProducts =  useProductStore().products
 const localProducts = ref(storeProducts)

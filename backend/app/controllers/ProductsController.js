@@ -28,7 +28,9 @@ const createProduct = async (req, res) => {
 
 const findAllProducts = async (req, res) => {
   try {
+    console.log(req.body)
     const data = await Product.find();
+    console.log("GetAll", data.length)
     res.send(data);
   } catch (err) {
     res.status(500).send({
