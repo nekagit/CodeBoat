@@ -58,7 +58,7 @@ onBeforeMount(async () => {
     </DialogTrigger>
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>{{ props.item.name }} </DialogTitle>
+        <DialogTitle>Edit/Create </DialogTitle>
       </DialogHeader>
 
       <DialogDescription>

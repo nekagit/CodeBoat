@@ -14,6 +14,7 @@ const CustomerSchema = new mongoose.Schema({
 });
 
 const InvoiceSchema = new mongoose.Schema({
+    name: String,
     number: Number,
     customer: {
         type: mongoose.Schema.Types.ObjectId,
