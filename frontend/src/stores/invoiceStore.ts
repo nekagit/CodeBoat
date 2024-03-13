@@ -1,22 +1,20 @@
 import type { IInvoice } from '@/interfaces/atoms/IInvoice' // Adjust the import path as needed
 import InvoiceService from '@/service/InvoiceService' // Adjust the import path as needed
 import { defineStore } from 'pinia'
+import { useAppStore } from './appStore'
 
 export const useInvoiceStore = defineStore('invoice', {
   state: () => ({
-    invoices: [] as IInvoice[],
+    appStore: useAppStore(),
     isLoading: false,
     error: null as string | null
   }),
 
   actions: {
-    async onInit() {
-      await this.fetchAllInvoices() // Fetch invoices when the store is initialized
-    },
-
     async createInvoice(newInvoice: IInvoice): Promise<IInvoice[] | undefined> {
       try {
         await InvoiceService.createInvoice(newInvoice)
+        console.log('create invoice')
         return await this.fetchAllInvoices()
       } catch (error: any) {
         this.setError(error.message)
@@ -24,14 +22,14 @@ export const useInvoiceStore = defineStore('invoice', {
       }
     },
 
-    async fetchAllInvoices(): Promise<IInvoice[]| undefined> {
+    async fetchAllInvoices(): Promise<IInvoice[]> {
       try {
-        this.isLoading = true
-        this.invoices = await InvoiceService.getAllInvoices()
-        return this.invoices
+        this.appStore.invoices = await InvoiceService.getAllInvoices()
+        console.log('fetched invoices', this.appStore.invoices.length)
+        return this.appStore.invoices
       } catch (error: any) {
         this.setError(error.message)
-        this.isLoading = false
+        return this.appStore.invoices
       }
     },
 

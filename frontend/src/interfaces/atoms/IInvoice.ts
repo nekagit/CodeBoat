@@ -1,11 +1,10 @@
-import type { IBaseColumn } from "@/components/organisms/Tables/tablesFunctions"
-import type { ICustomer } from "./ICustomer"
+import type { IBaseColumn } from '@/components/organisms/Tables/tablesFunctions'
 
 // Interface for the invoice document
-export interface IInvoice extends IBaseColumn{
+export interface IInvoice extends IBaseColumn {
   number: number
-  customer: ICustomer // Reference to Customer ObjectId
-  date: Date
+  customer: string // Reference to Customer ObjectId
+  date?: Date
   invoiceTotal: number
 }
 

@@ -5,17 +5,17 @@ import { computed } from 'vue'
 
 import { Button } from '@/lib/registry/new-york/ui/button'
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuRadioGroup,
+    DropdownMenuRadioItem,
+    DropdownMenuSeparator,
+    DropdownMenuShortcut,
+    DropdownMenuSub,
+    DropdownMenuSubContent,
+    DropdownMenuSubTrigger,
+    DropdownMenuTrigger,
 } from '@/lib/registry/new-york/ui/dropdown-menu'
 import type { IBaseColumn } from './DataTable.vue'
 
@@ -61,4 +61,4 @@ const customer = computed(() => customerSchema.parse(props.row.original))
     </DropdownMenuContent>
   </DropdownMenu>
 </template>
-../../../data/data../../../data/schema
+../../Data/data../../Data/schema

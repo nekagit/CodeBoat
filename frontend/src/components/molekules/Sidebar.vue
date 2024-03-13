@@ -33,7 +33,7 @@ import { cn } from '@/lib/utils';
               ></router-link
             >
           </Button>
-          <Button variant="ghost" class="w-full justify-start">
+          <!-- <Button variant="ghost" class="w-full justify-start">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -54,7 +54,7 @@ import { cn } from '@/lib/utils';
                 >Email</a
               ></router-link
             >
-          </Button>
+          </Button> -->
           <Button variant="ghost" class="w-full justify-start">
               <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -98,29 +98,7 @@ import { cn } from '@/lib/utils';
               ></router-link
             >
           </Button>
-          <Button variant="ghost" class="w-full justify-start">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              class="mr-2 h-4 w-4"
-            >
-              <path d="M21 15V6" />
-              <path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
-              <path d="M12 12H3" />
-              <path d="M16 6H3" />
-              <path d="M12 18H3" />
-            </svg>
-            <router-link to="/fulfillment"
-              ><a class="text-sm font-medium transition-colors hover:text-primary"
-                >Fulfillment</a
-              ></router-link
-            >
-          </Button>
+     
           <Button variant="ghost" class="w-full justify-start">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -139,7 +117,7 @@ import { cn } from '@/lib/utils';
               <path d="M19.1 4.9C23 8.8 23 15.1 19.1 19" />
             </svg>
 
-            <router-link to="/invoice"
+            <router-link to="/invoices"
               ><a class="text-sm font-medium transition-colors hover:text-primary"
                 >Invoice</a
               ></router-link

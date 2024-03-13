@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import CreateDialog from '@/components/organisms/Dialgos/CreateDialog.vue'
 import DataTablePagination from '@/components/organisms/Tables/DataTablePagination.vue'
 import DataTableToolbar from '@/components/organisms/Tables/DataTableToolbar.vue'
 import type { IInvoice } from '@/interfaces/atoms/IInvoice'
@@ -11,6 +12,7 @@ import {
   TableRow
 } from '@/lib/registry/new-york/ui/table'
 import { valueUpdater } from '@/lib/utils'
+import { useAppStore } from '@/stores/appStore'
 import { useInvoiceStore } from '@/stores/invoiceStore'
 import type {
   ColumnDef,
@@ -29,15 +31,16 @@ import {
   useVueTable
 } from '@tanstack/vue-table'
 import { onBeforeMount, ref } from 'vue'
-import CreateDialog from '../../Dialgos/Custom/CreateDialog.vue'
 
 onBeforeMount(async () => {
-  await useInvoiceStore().onInit()
-  localInvoices.value = useInvoiceStore().invoices
+  await useAppStore().onInit()
+  localInvoices.value = useAppStore().invoices
+  console.log(localInvoices.value, "invoicetable")
+  console.log(useAppStore().invoices, "invoicestores")
 })
-const storeInvoices =  useInvoiceStore().invoices
+const storeInvoices =  useAppStore().invoices
 const localInvoices = ref(storeInvoices)
-console.log(localInvoices.value)
+const initValues = localInvoices.value[0]
 const invoiceColumns: ColumnDef<IInvoice>[] = [
   {
     accessorKey: 'id',
@@ -67,7 +70,7 @@ const invoiceColumns: ColumnDef<IInvoice>[] = [
   {
     accessorKey: 'customer',
     header: 'Customer',
-    cell: ({row}) => row.original.customer.name
+    cell: ({row}) => row.original.customer
   },
   {
     accessorKey: 'date',
@@ -131,14 +134,22 @@ async function handleOnChange(values: IInvoice) {
     invoiceTotal: values.invoiceTotal
   } as IInvoice) ?? []
 }
+
+// const initValues: Ref<IInvoice> =ref({
+//   name: "", 
+//   customer: {}as ICustomer,
+//   date: undefined ,
+//   invoiceTotal: 0,
+//   number: 0,
+//   entityKey: AppModule.Order,
+//   status: EntityStatus.None
+// })
 </script>
 
 <template>
   <div class="space-y-4">
     <DataTableToolbar :table="table" />
-    <CreateDialog :onChange="(item: IInvoice) => handleOnChange(item)" :item="{} as IInvoice"/>
-
-    <CreateDialog :onChange="(values: IInvoice) => handleOnChange(values)" :item="{} as IInvoice"/>
+    <CreateDialog :onChange="(item: IInvoice) => handleOnChange(item)" :item="initValues" />
     <div>
       <div class="rounded-md border">
         <Table>
@@ -176,4 +187,4 @@ async function handleOnChange(values: IInvoice) {
     <DataTablePagination :table="table" />
   </div>
 </template>
-
+../Dialgos/CreateDialog.vue

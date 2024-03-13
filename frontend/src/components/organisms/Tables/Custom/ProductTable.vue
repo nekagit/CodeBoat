@@ -28,16 +28,17 @@ import {
   getSortedRowModel,
   useVueTable
 } from '@tanstack/vue-table'
-import { onBeforeMount, ref } from 'vue'
-import CreateDialog from '../../Dialgos/Custom/CreateDialog.vue'
+import { onBeforeMount, ref, type Ref } from 'vue'
+import CreateDialog from '../../Dialgos/CreateDialog.vue'
+import { useAppStore } from '@/stores/appStore'
 
 onBeforeMount(async () => {
-  await useProductStore().onInit()
-  const products = useProductStore().products
+  await useAppStore().onInit()
+  const products = useAppStore().products
   console.log(products, localProducts.value)
   localProducts.value = products
 })
-const storeProducts =  useProductStore().products
+const storeProducts =  useAppStore().products
 const localProducts = ref(storeProducts)
 console.log(localProducts.value)
 const productColumns: ColumnDef<IProduct>[] = [
@@ -115,12 +116,18 @@ async function handleOnChange(values: IProduct) {
     entityKey: AppModule.Product
   } as IProduct)
 }
+const initValues: Ref<IProduct> =ref({
+  name: "",
+  unitPrice: 0,
+  entityKey: AppModule.Product,
+  status: EntityStatus.None
+})
 </script>
-
+ 
 <template>
   <div class="space-y-4">
     <DataTableToolbar :table="table" />
-    <CreateDialog :onChange="(values: IProduct) => handleOnChange(values) "/>
+    <CreateDialog :onChange="(values: IProduct) => handleOnChange(values) " :item="initValues"/>
     <div>
       <div class="rounded-md border">
         <Table>
@@ -159,3 +166,4 @@ async function handleOnChange(values: IProduct) {
   </div>
 </template>
 
+../Dialgos/CreateDialog.vue

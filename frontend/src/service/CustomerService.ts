@@ -7,6 +7,7 @@ const CustomerService = {
   async createCustomer(newCustomer: ICustomer): Promise<ICustomer> {
     try {
       const response = await axios.post(API_URL, newCustomer)
+      console.log("response",response)
       return response.data
     } catch (error: any) {
       throw new Error(error.response.data.message || 'Failed to create customer')
@@ -15,8 +16,9 @@ const CustomerService = {
 
   async getAllCustomers(): Promise<ICustomer[]> {
     try {
-      const response = await axios.get(API_URL)
-      return response.data
+      const response = (await axios.get(API_URL)).data
+      console.log(response, 'hehe')
+      return response
     } catch (error: any) {
       throw new Error(error.response.data.message || 'Failed to fetch customers')
     }

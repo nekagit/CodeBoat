@@ -1,27 +1,19 @@
 import type { IProduct } from '@/interfaces/atoms/IProduct'
-import { AppModule, EntityStatus } from '@/interfaces/enums'
 import ProductService from '@/service/ProductService'
 import { defineStore } from 'pinia'
-
+import { useAppStore } from './appStore'
 export const useProductStore = defineStore('product', {
   state: () => ({
-    products: [] as IProduct[],
+    appStore: useAppStore(),
     isLoading: false,
     error: null as string | null
   }),
 
   actions: {
-    async onInit() {
-      console.log('init')
-       await this.fetchAllProducts()
-       if(this.products.length < 1) {
-         await this.createProduct({name: "sample", unitPrice: 0, entityKey: AppModule.Product, status: EntityStatus.Created})
-        }
-    },
-
-    async createProduct(newProduct: IProduct): Promise<IProduct[]> {
+     async createProduct(newProduct: IProduct): Promise<IProduct[]> {
       try {
         await ProductService.createProduct(newProduct)
+        console.log('create products')
         return this.fetchAllProducts()
       } catch (error: any) {
         this.setError(error.message)
@@ -31,12 +23,12 @@ export const useProductStore = defineStore('product', {
 
     async fetchAllProducts(): Promise<IProduct[]> {
       try {
-        this.products = await ProductService.getAllProducts()
-        console.log('fetched', this.products.length)
-        return this.products
+        this.appStore.products = await ProductService.getAllProducts()
+        console.log('fetched products', this.appStore.products.length)
+        return this.appStore.products
       } catch (error: any) {
         this.setError(error.message)
-        return this.products
+        return this.appStore.products
       }
     },
 

@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import EmailPage from '../views/EmailPage.vue'
 import CustomerPage from '../views/CustomerPage.vue'
 import HomeView from '../views/HomeView.vue'
 import InvoicePage from '../views/InvoicePage.vue'
@@ -13,24 +12,24 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
-    {
-      path: '/email',
-      name: 'email',
-      component: EmailPage
-    },
+    // {
+    //   path: '/email',
+    //   name: 'email',
+    //   component: EmailPage
+    // },
     {
       path: '/products',
       name: 'products',
       component: ProductPage
     },
     {
-      path: '/customer',
-      name: 'customer',
+      path: '/customers',
+      name: 'customers',
       component: CustomerPage
     },
     {
-      path: '/invoice',
-      name: 'invoice',
+      path: '/invoices',
+      name: 'invoices',
       component: InvoicePage
     }
   ]

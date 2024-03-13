@@ -1,22 +1,22 @@
 <script lang="ts" setup>
 import {
-  Search,
+    Search,
 } from 'lucide-vue-next'
 
+import type { Mail } from '@/interfaces/mail'
 import { Input } from '@/lib/registry/new-york/ui/input'
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/lib/registry/new-york/ui/resizable'
 import { Separator } from '@/lib/registry/new-york/ui/separator'
 import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
+    Tabs,
+    TabsContent,
+    TabsList,
+    TabsTrigger,
 } from '@/lib/registry/new-york/ui/tabs'
 import { TooltipProvider } from '@/lib/registry/new-york/ui/tooltip'
 import { cn } from '@/lib/utils'
 import { refDebounced } from '@vueuse/core'
 import { computed, ref } from 'vue'
-import type { Mail } from '@/interfaces/mail'
 import AccountSwitcher from './AccountSwitcher.vue'
 import MailDisplay from './MailDisplay.vue'
 import MailList from './MailList.vue'
@@ -158,7 +158,7 @@ function onExpand() {
     >
       <ResizablePanel
         id="resize-panel-1"
-        :default-size="defaultLayout[0]"
+        :default-size="defaultLayout{}as I
         :collapsed-size="navCollapsedSize"
         collapsible
         :min-size="15"

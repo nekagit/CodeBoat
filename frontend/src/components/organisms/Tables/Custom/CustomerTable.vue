@@ -11,6 +11,7 @@ import {
   TableRow
 } from '@/lib/registry/new-york/ui/table'
 import { valueUpdater } from '@/lib/utils'
+import { useAppStore } from '@/stores/appStore'
 import { useCustomerStore } from '@/stores/customerStore'
 import type {
   ColumnDef,
@@ -28,14 +29,14 @@ import {
   getSortedRowModel,
   useVueTable
 } from '@tanstack/vue-table'
-import { onBeforeMount, ref } from 'vue'
-import CreateDialog from '../../Dialgos/Custom/CreateDialog.vue'
+import { onBeforeMount, ref, type Ref } from 'vue'
+import CreateDialog from '../../Dialgos/CreateDialog.vue'
 
 onBeforeMount(async () => {
-  await useCustomerStore().onInit()
-  localCustomers.value = useCustomerStore().Customers
+  await useAppStore().onInit()
+  localCustomers.value = useAppStore().customers
 })
-const storeCustomers =  useCustomerStore().Customers
+const storeCustomers =  useAppStore().customers
 const localCustomers = ref(storeCustomers)
 console.log(localCustomers.value)
 const customerColumns: ColumnDef<ICustomer>[] = [
@@ -48,11 +49,6 @@ const customerColumns: ColumnDef<ICustomer>[] = [
     accessorKey: 'name',
     header: 'Name',
     cell: ({ row }) => row.original.name
-  },
-  {
-    accessorKey: 'unitPrice',
-    header: 'Price',
-    cell: ({ row }) => row.original.unitPrice
   },
   {
     accessorKey: 'status',
@@ -106,19 +102,26 @@ const table = useVueTable({
 })
 
 async function handleOnChange(values: ICustomer) {
+  console.log("henlooo")
   localCustomers.value = await useCustomerStore().createCustomer({
     name: values.name,
-    unitPrice: values.unitPrice,
     status: EntityStatus.Created,
     entityKey: AppModule.Customer
   } as ICustomer)
 }
+
+const initValues: Ref<ICustomer> =ref({
+  name: "",
+  entityKey: AppModule.Customer,
+  status: EntityStatus.None
+})
+
 </script>
 
 <template>
   <div class="space-y-4">
     <DataTableToolbar :table="table" />
-    <CreateDialog :onChange="(values: ICustomer) => handleOnChange(values) "/>
+    <CreateDialog :onChange="(values: ICustomer) => handleOnChange(values)" :item="initValues"/>
     <div>
       <div class="rounded-md border">
         <Table>
@@ -157,3 +160,4 @@ async function handleOnChange(values: ICustomer) {
   </div>
 </template>
 
+../Dialgos/CreateDialog.vue

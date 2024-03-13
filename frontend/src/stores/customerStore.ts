@@ -1,38 +1,37 @@
 import type { ICustomer } from '@/interfaces/atoms/ICustomer' // Adjust the import path as needed
 import CustomerService from '@/service/CustomerService' // Adjust the import path as needed
 import { defineStore } from 'pinia'
+import { useAppStore } from './appStore'
 
 export const useCustomerStore = defineStore('customer', {
   state: () => ({
-    customers: [] as ICustomer[],
+    appStore: useAppStore(),
     isLoading: false,
     error: null as string | null
   }),
 
   actions: {
-    async onInit() {
-      await this.fetchAllCustomers() // Fetch customers when the store is initialized
-    },
-
-    async createCustomer(newCustomer: ICustomer): Promise<ICustomer> {
+    async createCustomer(newCustomer: ICustomer): Promise<ICustomer[]> {
       try {
-        const createdCustomer = await CustomerService.createCustomer(newCustomer)
+        console.log('store', newCustomer)
+        console.log('create customer')
+        await CustomerService.createCustomer(newCustomer)
         await this.fetchAllCustomers()
-        return createdCustomer
+        return this.appStore.customers
       } catch (error: any) {
         this.setError(error.message)
         throw error
       }
     },
 
-    async fetchAllCustomers(): Promise<void> {
+    async fetchAllCustomers(): Promise<ICustomer[]> {
       try {
-        this.isLoading = true
-        this.customers = await CustomerService.getAllCustomers()
-        this.isLoading = false
+        this.appStore.customers = await CustomerService.getAllCustomers()
+        console.log('fetched Customers', this.appStore.customers.length)
+        return this.appStore.customers
       } catch (error: any) {
         this.setError(error.message)
-        this.isLoading = false
+        return this.appStore.customers
       }
     },
 

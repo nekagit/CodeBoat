@@ -5,17 +5,18 @@ const dbConfig = require("../config/db.config.js")
 const connection = mongoose.createConnection(dbConfig.URL);
 const shopModal = require("../models/ShopModel.js");
 const Customer = connection.model("Customer", shopModal.CustomerS);
-
+console.log("sadfas")
 const createCustomer = async (req, res) => {
   try {
     if (!req.body.name) {
       return res.status(400).send({ message: "Name cannot be empty!" });
     }
+    console.log("customercontroller",req.body.name)
 
     const newCustomer = new Customer({
       name: req.body.name,
-      status: "Created",
-      entityKey: "Customer"
+      status: req.body.status,
+      entityKey: req.body.entityKey
     });
 
     const data = await newCustomer.save();

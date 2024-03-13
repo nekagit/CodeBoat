@@ -5,7 +5,7 @@ const cors = require("cors");
 const dbConfig = require("../backend/app/config/db.config.js");
 const corsOptions = { origin: dbConfig.CORS, credentials: true };
 const app = express();
-const client = new MongoClient(dbConfig.URL);
+const client = new MongoClient("mongodb+srv://njoco:OZCYn16yxbOtjQ2x@cluster0.dkvowsi.mongodb.net/");
 const productApi = require("./app/controllers/ProductsController.js");
 const customerApi = require("./app/controllers/CustomerController.js");
 const invoiceApi = require("./app/controllers/InvoiceController.js");
@@ -38,8 +38,6 @@ async function run() {
       "http://localhost:8080/api/products/",
       product
     );
-    await axios.post("http://localhost:8080/api/products/", product);
-    await axios.post("http://localhost:8080/api/products/", product);
     const sampleProduct = createdProduct.data; // Use the returned product object
     console.log("Product created:", sampleProduct);
 
@@ -64,14 +62,6 @@ async function run() {
 
     // Rechnung erstellen
     const createdInvoice = await axios.post(
-      "http://localhost:8080/api/invoices/",
-      invoice
-    );
-    await axios.post(
-      "http://localhost:8080/api/invoices/",
-      invoice
-    );
-    await axios.post(
       "http://localhost:8080/api/invoices/",
       invoice
     );
