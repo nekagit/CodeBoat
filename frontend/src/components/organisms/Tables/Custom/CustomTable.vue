@@ -2,85 +2,55 @@
 import CreateDialog from '@/components/organisms/Dialgos/CreateDialog.vue'
 import DataTablePagination from '@/components/organisms/Tables/DataTablePagination.vue'
 import DataTableToolbar from '@/components/organisms/Tables/DataTableToolbar.vue'
-import type { IInvoice } from '@/interfaces/atoms/IInvoice'
 import { AppModule, EntityStatus } from '@/interfaces/enums'
 import {
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow
 } from '@/lib/registry/new-york/ui/table'
 import { valueUpdater } from '@/lib/utils'
 import { useAppStore } from '@/stores/appStore'
+import { useCustomerStore } from '@/stores/customerStore'
 import { useInvoiceStore } from '@/stores/invoiceStore'
+import { useProductStore } from '@/stores/productsStore'
+
 import type {
-  ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState
+    ColumnFiltersState,
+    SortingState,
+    VisibilityState
 } from '@tanstack/vue-table'
 import {
-  FlexRender,
-  getCoreRowModel,
-  getFacetedRowModel,
-  getFacetedUniqueValues,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useVueTable
+    FlexRender,
+    getCoreRowModel,
+    getFacetedRowModel,
+    getFacetedUniqueValues,
+    getFilteredRowModel,
+    getPaginationRowModel,
+    getSortedRowModel,
+    useVueTable
 } from '@tanstack/vue-table'
-import { onBeforeMount, ref, type Ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
+import { instanceOfICustomer, instanceOfIInvoice, instanceOfIProduct, invoiceColumns } from './tableService'
+
+// Define props
+const props = defineProps<{
+  item: any
+}>()
+const localItems = ref([] as any[])
 
 onBeforeMount(async () => {
   await useAppStore().onInit()
-  localInvoices.value = useAppStore().invoices
-  console.log(localInvoices.value, "invoicetable")
-})
-const storeInvoices =  useAppStore().invoices
-const localInvoices = ref(storeInvoices)
-const invoiceColumns: ColumnDef<IInvoice>[] = [
-  {
-    accessorKey: 'id',
-    header: 'ID',
-    cell: ({ row }) => row.original._id
-  },
-  {
-    accessorKey: 'name',
-    header: 'Name',
-    cell: ({ row }) => row.original.name
-  },
-  {
-    accessorKey: 'number',
-    header: 'Number',
-    cell: ({ row }) => row.original.number
-  },
-  {
-    accessorKey: 'status',
-    header: 'Status',
-    cell: ({ row }) => row.original.status
-  },
-  {
-    accessorKey: 'entityKey',
-    header: 'Type',
-    cell: ({ row }) => row.original.entityKey
-  },
-  {
-    accessorKey: 'customer',
-    header: 'Customer',
-    cell: ({row}) => row.original.customer
-  },
-  {
-    accessorKey: 'date',
-    header: 'Creation',
-    cell: ({row}) => row.original.date
-  },
-  {
-    accessorKey: 'invoiceTotal',
-    header: 'Total',
-    cell: ({row}) => row.original.invoiceTotal
+  if (instanceOfIInvoice(props.item)) {
+    localItems.value = useAppStore().invoices
+  } else if (instanceOfIProduct(props.item)) {
+    localItems.value = useAppStore().products
+  } else if (instanceOfICustomer(props.item)) {
+    localItems.value = useAppStore().customers
   }
-]
+  console.log(localItems.value, "customtable")
+})
 
 const sorting = ref<SortingState>([])
 const columnFilters = ref<ColumnFiltersState>([])
@@ -89,7 +59,7 @@ const rowSelection = ref({})
 
 const table = useVueTable({
   get data() {
-    return localInvoices.value
+    return localItems.value
   },
   get columns() {
     return invoiceColumns
@@ -120,33 +90,38 @@ const table = useVueTable({
   getFacetedRowModel: getFacetedRowModel(),
   getFacetedUniqueValues: getFacetedUniqueValues()
 })
-
-async function handleOnChange(values: IInvoice) {
-  localInvoices.value = await useInvoiceStore().createInvoice({
-    name: values.name,
-    number: values.number,
-    status: EntityStatus.Created,
-    entityKey: AppModule.Order,
-    customer: values.customer,
-    date: values.date,
-    invoiceTotal: values.invoiceTotal
-  } as IInvoice) ?? []
+async function handleOnChange(values: any) {
+  if (instanceOfIInvoice(props.item)) {
+    localItems.value = await useInvoiceStore().createInvoice({
+      name: values.name,
+      number: values.number,
+      status: EntityStatus.Created,
+      entityKey: AppModule.Order,
+      customer: values.customer,
+      date: values.date,
+      invoiceTotal: values.invoiceTotal
+    }) ?? []
+  } else if (instanceOfIProduct(props.item)) {
+    localItems.value = await useProductStore().createProduct({
+      name: values.name,
+      unitPrice: values.unitPrice,
+      status: EntityStatus.Created,
+      entityKey: AppModule.Product
+    }) ?? []
+  } else if (instanceOfICustomer(props.item)) {
+    localItems.value = await useCustomerStore().createCustomer({
+      name: values.name,
+      status: EntityStatus.Created,
+      entityKey: AppModule.Customer
+    }) ?? []
+  }
 }
 
-const initValues: Ref<IInvoice> =ref({
-  name: "", 
-  customer: '',
-  date: undefined ,
-  invoiceTotal: 0,
-  number: 0,
-  entityKey: AppModule.Order,
-  status: EntityStatus.None
-})
 </script>
 <template>
   <div class="space-y-4">
     <DataTableToolbar :table="table" />
-    <CreateDialog :onChange="(item: IInvoice) => handleOnChange(item)" :item="initValues" />
+    <CreateDialog :onChange="(item: any) => handleOnChange(item)" :item="props.item" />
     <div>
       <div class="rounded-md border">
         <Table>

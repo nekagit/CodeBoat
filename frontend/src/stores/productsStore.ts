@@ -14,7 +14,7 @@ export const useProductStore = defineStore('product', {
       try {
         await ProductService.createProduct(newProduct)
         console.log('create products')
-        return this.fetchAllProducts()
+        return await this.fetchAllProducts()
       } catch (error: any) {
         this.setError(error.message)
         throw error

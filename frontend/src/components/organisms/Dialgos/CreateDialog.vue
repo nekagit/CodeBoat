@@ -20,7 +20,7 @@ import {
   FormMessage
 } from '@/components/ui/form'
 import { useAppStore } from '@/stores/appStore'
-import { h, onBeforeMount, ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 
 import { Input } from '@/lib/registry/new-york/ui/input'
 import {
@@ -31,16 +31,19 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/lib/registry/new-york/ui/select'
-import { toast } from '@/lib/registry/new-york/ui/toast'
 import type { IForm } from '../Tables/tablesFunctions'
 
-// Define shopModalSchema
 const shopModalSchema = z.object({
   name: z.string(),
-  unitPrice: z.number(),
-  customer: z.string().nullable()
-})
-
+  unitPrice: z.number().nullable(),
+  number: z.number().nullable(),
+  invoiceTotal: z.number().nullable(),
+  customer: z.string().nullable(),
+  invoice: z.string().nullable(),
+  product: z.string().nullable(),
+  quantity: z.number().nullable(),
+  lineTotal: z.number().nullable()
+});
 // Define FormData interface
 interface FormData {
   [key: string]: string | number | null
@@ -67,20 +70,10 @@ const { handleSubmit, resetForm } = useForm({
   validationSchema: formSchema,
   initialValues: formData.value
 })
-
-const onSubmit = handleSubmit((values) => {
+const handleSub = handleSubmit((values) => {
   console.log('Submit button clicked. Values:', values); // Add this line
   props.onChange(values);
-  toast({
-    title: 'You submitted the following values:',
-    description: h(
-      'pre',
-      { class: 'mt-2 w-[340px] rounded-md bg-slate-950 p-4' },
-      h('code', { class: 'text-white' }, JSON.stringify(values, null, 2))
-    )
-  });
 });
-
 
 // Define props
 const props = defineProps<{
@@ -122,7 +115,7 @@ filterFormDataKeys()
       </DialogHeader>
 
       <DialogDescription>
-        <form class="space-y-8" @submit.prevent="onSubmit">
+        <form class="space-y-8"  @submit.prevent="handleSub" >
           <FormField
             v-for="(value, key) in formData"
             :key="key"
