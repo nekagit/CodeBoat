@@ -2,6 +2,7 @@
 import CreateDialog from '@/components/organisms/Dialgos/CreateDialog.vue'
 import DataTablePagination from '@/components/organisms/Tables/DataTablePagination.vue'
 import DataTableToolbar from '@/components/organisms/Tables/DataTableToolbar.vue'
+import type { ICustomer } from '@/interfaces/atoms/ICustomer'
 import type { IInvoice } from '@/interfaces/atoms/IInvoice'
 import { AppModule, EntityStatus } from '@/interfaces/enums'
 import {
@@ -30,7 +31,7 @@ import {
   getSortedRowModel,
   useVueTable
 } from '@tanstack/vue-table'
-import { onBeforeMount, ref } from 'vue'
+import { onBeforeMount, ref, type Ref } from 'vue'
 
 onBeforeMount(async () => {
   await useAppStore().onInit()
@@ -40,7 +41,6 @@ onBeforeMount(async () => {
 })
 const storeInvoices =  useAppStore().invoices
 const localInvoices = ref(storeInvoices)
-const initValues = localInvoices.value[0]
 const invoiceColumns: ColumnDef<IInvoice>[] = [
   {
     accessorKey: 'id',
@@ -135,17 +135,17 @@ async function handleOnChange(values: IInvoice) {
   } as IInvoice) ?? []
 }
 
-// const initValues: Ref<IInvoice> =ref({
-//   name: "", 
-//   customer: {}as ICustomer,
-//   date: undefined ,
-//   invoiceTotal: 0,
-//   number: 0,
-//   entityKey: AppModule.Order,
-//   status: EntityStatus.None
-// })
+const initValues: Ref<IInvoice> =ref({
+  name: "", 
+  customer: {}as ICustomer,
+  date: undefined ,
+  invoiceTotal: 0,
+  number: 0,
+  entityKey: AppModule.Order,
+  status: EntityStatus.None
+})
 </script>
-
+console.log(initValues)
 <template>
   <div class="space-y-4">
     <DataTableToolbar :table="table" />
@@ -187,4 +187,3 @@ async function handleOnChange(values: IInvoice) {
     <DataTablePagination :table="table" />
   </div>
 </template>
-../Dialgos/CreateDialog.vue

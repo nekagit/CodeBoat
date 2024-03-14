@@ -74,7 +74,7 @@ export const useAppStore = defineStore('app', {
     async initInvoiceTable(id: string): Promise<IInvoice[]> {
       const invoiceStore = useInvoiceStore()
       const sampleInvoice = {
-        name: 'samplInvoice',
+        name: 'sampleInvoice',
         number: 1001,
         customer: id,
         date: new Date('2024-03-13'),

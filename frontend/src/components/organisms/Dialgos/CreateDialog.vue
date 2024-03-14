@@ -49,6 +49,7 @@ onBeforeMount(async () => {
   const customers = appStore.customers
   customersIDs.value = customers.map((x) => x._id ?? '')
 })
+console.log(customersIDs.value, "customersids")
 </script>
 
 <template>
@@ -62,8 +63,8 @@ onBeforeMount(async () => {
       </DialogHeader>
 
       <DialogDescription>
-        <form class="w-2/3 space-y-6" @submit="onSubmit">
-          <FormField v-slot="{ componentField }" name="name" v-if="props.item.name != undefined">
+        <form class="w-2/3 space-y-6" @submit="onSubmit" v-if="props.item">
+          <FormField  v-if="props.item.name != undefined" v-slot="{ componentField }" name="props.item.name">
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
@@ -112,18 +113,17 @@ onBeforeMount(async () => {
               <FormControl>
                 <Select>
                   <SelectTrigger class="w-[180px]">
-                    <SelectValue placeholder="Select a Customer" />
+                    <SelectValue value="safd" placeholder="Select a Customer" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      <SelectLabel>Fruits</SelectLabel>
+                      <SelectLabel>Customer</SelectLabel>
                       <div v-for="customer in customersIDs" :key="customer">
-                        <SelectItem value="customer"> {{ customer }} </SelectItem>
+                        <SelectItem value="customer" v-bind="componentField"> {{ customer }} </SelectItem>
                       </div>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
-                <Select type="select" placeholder="" v-bind="componentField" />
               </FormControl>
               <FormMessage />
             </FormItem>

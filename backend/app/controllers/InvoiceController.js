@@ -13,6 +13,7 @@ const createInvoice = async (req, res) => {
     }
 
     const newInvoice = new Invoice({
+      name: req.body.name,
       number: req.body.number,
       customer: req.body.customer,
       date: req.body.date,
