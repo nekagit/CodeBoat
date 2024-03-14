@@ -21,35 +21,88 @@ import {
   FormMessage
 } from '@/components/ui/form'
 import { useAppStore } from '@/stores/appStore'
-import { onBeforeMount, ref } from 'vue'
+import { h, onBeforeMount, ref } from 'vue'
 
-interface CreateDialogProps {
-  onChange: (item: any) => Promise<void>
-  item: any
+import { Input } from '@/lib/registry/new-york/ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/lib/registry/new-york/ui/select'
+import { toast } from '@/lib/registry/new-york/ui/toast'
+
+// Define shopModalSchema
+const shopModalSchema = z.object({
+  name: z.string(),
+  unitPrice: z.number(),
+  customer: z.string().nullable()
+})
+
+// Define FormData interface
+interface FormData {
+  [key: string]: string | number | null
 }
 
-const props = defineProps<CreateDialogProps>()
+// Initialize formData
+const formData = ref<FormData>({
+  name: 'Initial Name',
+  unitPrice: 10,
+  customer: null
+})
 
-const formSchema = toTypedSchema(
-  z.object({
-    name: z.string().min(2).max(50),
-    unitPrice: z.number()
-  })
-)
-const { handleSubmit } = useForm({
-  validationSchema: formSchema
+// Define formSchema
+const formSchema = toTypedSchema(shopModalSchema)
+
+// Destructure useForm result
+const { handleSubmit, resetForm } = useForm({
+  validationSchema: formSchema,
+  initialValues: formData.value
 })
-const onSubmit = handleSubmit(async (values) => {
-  console.log('begiinning')
+
+// Define onSubmit function
+const onSubmit = handleSubmit((values) => {
   props.onChange(values)
+  toast({
+    title: 'You submitted the following values:',
+    description: h(
+      'pre',
+      { class: 'mt-2 w-[340px] rounded-md bg-slate-950 p-4' },
+      h('code', { class: 'text-white' }, JSON.stringify(values, null, 2))
+    )
+  })
 })
-const customersIDs = ref([''])
+
+// Define props
+const props = defineProps<{
+  onChange: (item: any) => Promise<void>
+  item: any
+}>()
+
+// Initialize customersIDs
+const customersIDs = ref<string[]>([''])
+
+// Fetch customers IDs on component mount
 onBeforeMount(async () => {
   const appStore = useAppStore()
   const customers = appStore.customers
   customersIDs.value = customers.map((x) => x._id ?? '')
 })
-console.log(customersIDs.value, 'customersids')
+
+// Define method to filter formData keys based on props.item
+const filterFormDataKeys = () => {
+  const filteredKeys = Object.keys(formData.value).filter(key => props.item.hasOwnProperty(key))
+  const filteredFormData: FormData = {}
+  filteredKeys.forEach(key => {
+    filteredFormData[key] = formData.value[key]
+  })
+  formData.value = filteredFormData
+}
+
+// Call the method to filter formData keys based on props.item
+filterFormDataKeys()
 </script>
 
 <template>
@@ -63,90 +116,74 @@ console.log(customersIDs.value, 'customersids')
       </DialogHeader>
 
       <DialogDescription>
-        <form class="w-2/3 space-y-6" @submit="onSubmit" v-if="props.item">
+        <form class="space-y-8" @submit.prevent="onSubmit">
           <FormField
-            v-if="props.item.name != undefined"
+            v-for="(value, key) in formData"
+            :key="key"
             v-slot="{ componentField }"
-            name="props.item.name"
+            :name="key.toString()"
           >
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>{{ key }}</FormLabel>
               <FormControl>
-                <Input type="text" placeholder=" Name" v-bind="componentField" />
+                <Input
+                  v-if="typeof value === 'number'"
+                  type="number"
+                  placeholder="0"
+                  v-bind="componentField"
+                />
+
+                <Input
+                  v-if="typeof value === 'string'"
+                  type="text"
+                  v-model="formData[key.toString()]"
+                  v-bind="componentField"
+                />
+                <Select
+                  v-else
+                  v-model="formData[key.toString()]"
+                  :options="customersIDs"
+                  v-bind="componentField"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           </FormField>
 
-          <FormField
-            v-slot="{ componentField }"
-            name="unitPrice"
-            v-if="props.item.unitPrice != undefined"
-          >
-            <FormItem>
-              <FormLabel>Unit Price</FormLabel>
-              <FormControl>
-                <Input type="number" placeholder="0" v-bind="componentField" />
-              </FormControl>
-              <FormDescription>'s price per unit.</FormDescription>
-              <FormMessage />
-            </FormItem>
-          </FormField>
 
           <FormField
-            v-slot="{ componentField }"
-            name="number"
-            v-if="props.item.number != undefined"
-          >
-            <FormItem>
-              <FormLabel>Number</FormLabel>
-              <FormControl>
-                <Input type="number" placeholder="0" v-bind="componentField" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          </FormField>
-
-          <FormField
+            v-if="props.item.customer != undefined"
             v-slot="{ componentField }"
             name="customer"
-            v-if="props.item.customer != undefined"
           >
             <FormItem>
               <FormLabel>Customer</FormLabel>
-              <FormControl>
-                <Select>
-                  <SelectTrigger class="w-[180px]">
-                    <SelectValue value="safd" placeholder="Select a Customer" />
+
+              <Select v-bind="componentField">
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select an customer" />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectLabel>Customer</SelectLabel>asdf
-                      <div v-for="customer in customersIDs" :key="customer">
-                        <select>
-                          <option value="customer" v-bind="componentField">{{ customer }}</option>
-                        </select>
-                        <!-- <SelectItem :value="customer" v-bind="componentField"> {{ customer }} </SelectItem> -->
-                      </div>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </FormControl>
+                </FormControl>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectItem v-for="customer in customersIDs" :key="customer" :value="customer">
+                      {{ customer }}
+                    </SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+              <FormDescription>
+                You can manage verified email addresses in your email settings.
+              </FormDescription>
               <FormMessage />
             </FormItem>
           </FormField>
 
-          <FormField v-slot="{ componentField }" name="Date" v-if="props.item.number != undefined">
-            <FormItem>
-              <FormLabel>Date</FormLabel>
-              <FormControl>
-                <Input type="Date" placeholder="0" v-bind="componentField" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          </FormField>
-
-          <Button type="submit">Submit</Button>
+          <div class="flex gap-2 justify-start">
+            <Button type="submit"> Submit </Button>
+            <Button type="button" @click="resetForm"> Reset </Button>
+          </div>
         </form>
       </DialogDescription>
     </DialogContent>

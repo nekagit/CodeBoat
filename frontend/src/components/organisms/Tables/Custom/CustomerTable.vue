@@ -115,7 +115,7 @@ const initValues: Ref<ICustomer> =ref({
   entityKey: AppModule.Customer,
   status: EntityStatus.None
 })
-
+console.log("asdf")
 </script>
 
 <template>
@@ -159,5 +159,3 @@ const initValues: Ref<ICustomer> =ref({
     <DataTablePagination :table="table" />
   </div>
 </template>
-
-../Dialgos/CreateDialog.vue

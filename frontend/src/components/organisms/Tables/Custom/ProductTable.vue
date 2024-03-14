@@ -165,5 +165,3 @@ const initValues: Ref<IProduct> =ref({
     <DataTablePagination :table="table" />
   </div>
 </template>
-
-../Dialgos/CreateDialog.vue
