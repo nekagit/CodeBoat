@@ -13,7 +13,7 @@ export const useInvoiceStore = defineStore('invoice', {
   actions: {
     async createInvoice(newInvoice: IInvoice): Promise<IInvoice[] | undefined> {
       try {
-        await InvoiceService.createInvowice(newInvoice)
+        await InvoiceService.createInvoice(newInvoice)
         console.log('create invoice')
         return await this.fetchAllInvoices()
       } catch (error: any) {
