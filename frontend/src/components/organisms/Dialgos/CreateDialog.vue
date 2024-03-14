@@ -14,7 +14,6 @@ import { z } from 'zod'
 
 import {
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -33,6 +32,7 @@ import {
   SelectValue
 } from '@/lib/registry/new-york/ui/select'
 import { toast } from '@/lib/registry/new-york/ui/toast'
+import type { IForm } from '../Tables/tablesFunctions'
 
 // Define shopModalSchema
 const shopModalSchema = z.object({
@@ -47,10 +47,16 @@ interface FormData {
 }
 
 // Initialize formData
-const formData = ref<FormData>({
+const formData = ref<IForm>({
   name: 'Initial Name',
   unitPrice: 10,
-  customer: null
+  number: 0,
+  invoiceTotal: 0,
+  customer: undefined,
+  invoice: '',
+  product: '',
+  quantity: 0,
+  lineTotal: 0
 })
 
 // Define formSchema
@@ -62,9 +68,9 @@ const { handleSubmit, resetForm } = useForm({
   initialValues: formData.value
 })
 
-// Define onSubmit function
 const onSubmit = handleSubmit((values) => {
-  props.onChange(values)
+  console.log('Submit button clicked. Values:', values); // Add this line
+  props.onChange(values);
   toast({
     title: 'You submitted the following values:',
     description: h(
@@ -72,8 +78,9 @@ const onSubmit = handleSubmit((values) => {
       { class: 'mt-2 w-[340px] rounded-md bg-slate-950 p-4' },
       h('code', { class: 'text-white' }, JSON.stringify(values, null, 2))
     )
-  })
-})
+  });
+});
+
 
 // Define props
 const props = defineProps<{
@@ -101,7 +108,6 @@ const filterFormDataKeys = () => {
   formData.value = filteredFormData
 }
 
-// Call the method to filter formData keys based on props.item
 filterFormDataKeys()
 </script>
 
@@ -134,32 +140,18 @@ filterFormDataKeys()
                 />
 
                 <Input
-                  v-if="typeof value === 'string'"
+                  v-else-if="typeof value === 'string'"
                   type="text"
-                  v-model="formData[key.toString()]"
+                  v-model="formData[key]"
                   v-bind="componentField"
                 />
-                <Select
-                  v-else
-                  v-model="formData[key.toString()]"
+                <div v-else>
+
+                  <Select 
+                  v-model="formData[key]"
                   :options="customersIDs"
-                  v-bind="componentField"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          </FormField>
+                  v-bind="componentField">
 
-
-          <FormField
-            v-if="props.item.customer != undefined"
-            v-slot="{ componentField }"
-            name="customer"
-          >
-            <FormItem>
-              <FormLabel>Customer</FormLabel>
-
-              <Select v-bind="componentField">
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select an customer" />
@@ -173,9 +165,8 @@ filterFormDataKeys()
                   </SelectGroup>
                 </SelectContent>
               </Select>
-              <FormDescription>
-                You can manage verified email addresses in your email settings.
-              </FormDescription>
+            </div>
+              </FormControl>
               <FormMessage />
             </FormItem>
           </FormField>

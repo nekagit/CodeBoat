@@ -8,6 +8,22 @@ export interface IBaseColumn {
   status: string
 }
 
+export interface IForm {
+  _id?: string
+  name: string
+  entityKey?: AppModule
+  status?: string
+  invoice: string
+  product: string
+  unitPrice: number
+  quantity: number
+  lineTotal: number
+  number: number
+  customer: string | undefined
+  date?: Date
+  invoiceTotal: number
+}
+
 export interface DataTableProps {
   data: IBaseColumn[]
 }
