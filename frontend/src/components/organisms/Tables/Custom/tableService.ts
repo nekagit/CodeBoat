@@ -1,4 +1,6 @@
+import type { ICustomer } from '@/interfaces/atoms/ICustomer'
 import type { IInvoice } from '@/interfaces/atoms/IInvoice'
+import type { IProduct } from '@/interfaces/atoms/IProduct'
 import { AppModule, EntityStatus } from '@/interfaces/enums'
 import type { ColumnDef } from '@tanstack/vue-table'
 import { ref, type Ref } from 'vue'
@@ -45,39 +47,13 @@ export const invoiceColumns: ColumnDef<IInvoice>[] = [
     cell: ({ row }) => row.original.invoiceTotal
   }
 ]
-export const invoiceItem: Ref<IInvoice> = ref({
-  name: '',
-  customer: '',
-  date: undefined,
-  invoiceTotal: 0,
-  number: 0,
-  entityKey: AppModule.Order,
-  status: EntityStatus.None
-})
-
-
-// Define types for products and customers
-interface IProduct {
-  id: string;
-  name: string;
-  unitPrice: number;
-  status: EntityStatus;
-  entityKey: AppModule.Product;
-}
-
-interface ICustomer {
-  id: string;
-  name: string;
-  status: EntityStatus;
-  entityKey: AppModule.Customer;
-}
 
 // Define columns for products
 export const productColumns: ColumnDef<IProduct>[] = [
   {
     accessorKey: 'id',
     header: 'ID',
-    cell: ({ row }) => row.original.id
+    cell: ({ row }) => row.original._id
   },
   {
     accessorKey: 'name',
@@ -106,7 +82,7 @@ export const customerColumns: ColumnDef<ICustomer>[] = [
   {
     accessorKey: 'id',
     header: 'ID',
-    cell: ({ row }) => row.original.id
+    cell: ({ row }) => row.original._id
   },
   {
     accessorKey: 'name',
@@ -127,28 +103,46 @@ export const customerColumns: ColumnDef<ICustomer>[] = [
 
 // Define initial values for products and customers
 export const productItem: Ref<IProduct> = ref({
-  id: '',
   name: '',
   unitPrice: 0,
-  status: EntityStatus.None,
-  entityKey: AppModule.Product
+  entityKey: AppModule.Product,
+  status: EntityStatus.Created
 })
-
-export const customerItem: Ref<ICustomer> = ref({
-  id: '',
+export const invoiceItem: Ref<IInvoice> = ref({
   name: '',
-  status: EntityStatus.None,
-  entityKey: AppModule.Customer
+  customer: '',
+  date: undefined,
+  invoiceTotal: 0,
+  number: 0,
+  entityKey: AppModule.Order,
+  status: EntityStatus.None
 })
-
-// Define instance checks for products and customers
-export function instanceOfIProduct(object: any): object is IProduct {
-  return 'unitPrice' in object;
+export const customerItem: Ref<ICustomer> = ref({
+  name: '',
+  entityKey: AppModule.Customer,
+  status: EntityStatus.Created
+})
+// Define classes for each type
+class Invoice implements IInvoice {
+  // Define properties and methods for the Invoice class
 }
 
-export function instanceOfICustomer(object: any): object is ICustomer {
-  return 'status' in object;
+class Product implements IProduct {
+  // Define properties and methods for the Product class
 }
-export function instanceOfIInvoice(object: any): object is IInvoice {
-  return 'customer' in object
+
+class Customer implements ICustomer {
+  // Define properties and methods for the Customer class
+}s
+// Define instance of functions for checking types
+function instanceOfIInvoice(object: any): object is IInvoice {
+  return object instanceof Invoice;
+}
+
+function instanceOfIProduct(object: any): object is IProduct {
+  return object instanceof Product;
+}
+
+function instanceOfICustomer(object: any): object is ICustomer {
+  return object instanceof Customer;
 }

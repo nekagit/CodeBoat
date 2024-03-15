@@ -10,18 +10,18 @@ export interface IBaseColumn {
 
 export interface IForm {
   _id?: string
-  name: string
+  name?: string
   entityKey?: AppModule
   status?: string
-  invoice: string
-  product: string
-  unitPrice: number
-  quantity: number
-  lineTotal: number
-  number: number
-  customer: string | undefined
+  invoice?: string
+  product?: string
+  unitPrice?: number
+  quantity?: number
+  lineTotal?: number
+  number?: number
+  customer?: string | undefined
   date?: Date
-  invoiceTotal: number
+  invoiceTotal?: number
 }
 
 export interface DataTableProps {

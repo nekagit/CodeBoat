@@ -4,11 +4,12 @@ import DataTablePagination from '@/components/organisms/Tables/DataTablePaginati
 import DataTableToolbar from '@/components/organisms/Tables/DataTableToolbar.vue'
 import { AppModule, EntityStatus } from '@/interfaces/enums'
 import {
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
 } from '@/lib/registry/new-york/ui/table'
 import { valueUpdater } from '@/lib/utils'
 import { useAppStore } from '@/stores/appStore'
@@ -17,19 +18,19 @@ import { useInvoiceStore } from '@/stores/invoiceStore'
 import { useProductStore } from '@/stores/productsStore'
 
 import type {
-    ColumnFiltersState,
-    SortingState,
-    VisibilityState
+  ColumnFiltersState,
+  SortingState,
+  VisibilityState
 } from '@tanstack/vue-table'
 import {
-    FlexRender,
-    getCoreRowModel,
-    getFacetedRowModel,
-    getFacetedUniqueValues,
-    getFilteredRowModel,
-    getPaginationRowModel,
-    getSortedRowModel,
-    useVueTable
+  FlexRender,
+  getCoreRowModel,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useVueTable
 } from '@tanstack/vue-table'
 import { onBeforeMount, ref } from 'vue'
 import { instanceOfICustomer, instanceOfIInvoice, instanceOfIProduct, invoiceColumns } from './tableService'
@@ -43,13 +44,15 @@ const localItems = ref([] as any[])
 onBeforeMount(async () => {
   await useAppStore().onInit()
   if (instanceOfIInvoice(props.item)) {
+    console.log(localItems.value, "invocie")
     localItems.value = useAppStore().invoices
   } else if (instanceOfIProduct(props.item)) {
+    console.log(localItems.value, "prodcuts")
     localItems.value = useAppStore().products
   } else if (instanceOfICustomer(props.item)) {
+    console.log(localItems.value, "customtable")
     localItems.value = useAppStore().customers
   }
-  console.log(localItems.value, "customtable")
 })
 
 const sorting = ref<SortingState>([])
@@ -91,6 +94,7 @@ const table = useVueTable({
   getFacetedUniqueValues: getFacetedUniqueValues()
 })
 async function handleOnChange(values: any) {
+  console.log('onchange')
   if (instanceOfIInvoice(props.item)) {
     localItems.value = await useInvoiceStore().createInvoice({
       name: values.name,
