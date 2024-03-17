@@ -1,4 +1,4 @@
-<script setup lang="ts">
+q<script setup lang="ts">
 import { useAppStore } from '@/stores/appStore'
 
 import DataTable from '@/components/organisms/Tables/DataTable.vue'

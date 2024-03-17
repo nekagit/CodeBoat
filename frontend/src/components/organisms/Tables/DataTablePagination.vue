@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/lib/registry/new-york/ui/select';
-import type { IBaseColumn } from './DataTable.vue';
+import type { IBaseColumn } from './tablesFunctions';
 
 interface DataTablePaginationProps {
   table: Table<IBaseColumn>
@@ -24,16 +24,16 @@ defineProps<DataTablePaginationProps>()
       {{ table.getFilteredSelectedRowModel().rows.length }} of
       {{ table.getFilteredRowModel().rows.length }} row(s) selected.
     </div>
-    <div class="flex items-center space-x-6 lg:space-x-8">
-      <div class="flex items-center space-x-2">
-        <p class="text-sm font-medium">
+    <div class="flex flex-col items-center space-x-6 lg:space-x-8">
+      <div class="flex ml-auto space-x-2">
+        <p class="text-sm ml-auto font-medium">
           Rows per page
         </p>
         <Select
           :model-value="`${table.getState().pagination.pageSize}`"
           @update:model-value="table.setPageSize"
         >
-          <SelectTrigger class="h-8 w-[70px]">
+          <SelectTrigger class="h-8 w-[70px] ml-auto">
             <SelectValue :placeholder="`${table.getState().pagination.pageSize}`" />
           </SelectTrigger>
           <SelectContent side="top">
@@ -43,7 +43,7 @@ defineProps<DataTablePaginationProps>()
           </SelectContent>
         </Select>
       </div>
-      <div class="flex w-[100px] items-center justify-center text-sm font-medium">
+      <div class="flex w-[100px] items-center ml-auto text-sm font-medium">
         Page {{ table.getState().pagination.pageIndex + 1 }} of
         {{ table.getPageCount() }}
       </div>

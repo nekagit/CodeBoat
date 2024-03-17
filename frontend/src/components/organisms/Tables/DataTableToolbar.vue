@@ -19,7 +19,7 @@ const isFiltered = computed(() => props.table.getState().columnFilters.length > 
 
 <template>
   <div class="flex items-center">
-    <div class="flex flex-1 items-center space-x-2">
+    <div class="flex ml-auto space-x-2">
       <Input
         placeholder="Filter..."
         :model-value="(table.getColumn('name')?.getFilterValue() as string) ?? ''"

@@ -17,33 +17,33 @@ export const useAppStore = defineStore('app', {
 
   actions: {
     async onInit() {
-      const productStore = useProductStore()
-      const customerStore = useCustomerStore()
-      const invoiceStore = useInvoiceStore()
-      console.log('appstore')
-      if (this.products.length + this.invoices.length + this.customers.length == 0) {
-        console.log('appstore empty')
+      // const productStore = useProductStore()
+      // const customerStore = useCustomerStore()
+      // const invoiceStore = useInvoiceStore()
+      // console.log('appstore')
+      // if (this.products.length + this.invoices.length + this.customers.length == 0) {
+      //   console.log('appstore empty')
 
-        const responseProducts = await productStore.fetchAllProducts()
-        const responseInvoices = await invoiceStore.fetchAllInvoices()
-        const responseCustomers = await customerStore.fetchAllCustomers()
+      //   const responseProducts = await productStore.fetchAllProducts()
+      //   const responseInvoices = await invoiceStore.fetchAllInvoices()
+      //   const responseCustomers = await customerStore.fetchAllCustomers()
 
-        if (responseCustomers?.length < 1) {
-          console.log('customers empty')
+      //   if (responseCustomers?.length < 1) {
+      //     console.log('customers empty')
 
-          this.customers = await this.initCustomerTable()
-          console.log('onInit AppStore', this.customers)
-        }
-        if (responseProducts?.length < 1) {
-          this.products = await this.initProductTable()
-          console.log('onInit AppStore', this.products)
-        }
-        if (responseInvoices?.length < 1 && this.customers[0]._id != undefined) {
-          this.invoices = await this.initInvoiceTable(this.customers[0]._id)
-          console.log('onInit AppStore', this.invoices)
-        }
-      }
-      console.log('init over')
+      //     this.customers = await this.initCustomerTable()
+      //     console.log('onInit AppStore', this.customers)
+      //   }
+      //   if (responseProducts?.length < 1) {
+      //     this.products = await this.initProductTable()
+      //     console.log('onInit AppStore', this.products)
+      //   }
+      //   if (responseInvoices?.length < 1 && this.customers[0]._id != undefined) {
+      //     this.invoices = await this.initInvoiceTable(this.customers[0]._id)
+      //     console.log('onInit AppStore', this.invoices)
+      //   }
+      // }
+      // console.log('init over')
     },
 
     async initCustomerTable(): Promise<ICustomer[]> {

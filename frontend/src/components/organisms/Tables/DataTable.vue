@@ -19,7 +19,6 @@ import { baseColumns, type DataTableProps } from './tablesFunctions'
 
 import { AppModule, EntityStatus } from '@/interfaces/enums'
 import { useProductStore } from '@/stores/productsStore'
-
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 import { z } from 'zod'
@@ -34,7 +33,7 @@ const props = defineProps<DataTableProps>()
 const sorting = ref<SortingState>([])
 const columnFilters = ref<ColumnFiltersState>([])
 const columnVisibility = ref<VisibilityState>({})
-const rowSelection = ref({})
+const rowSelection = ref()
 
 const table = useVueTable({
   get data() {
@@ -90,32 +89,40 @@ const { handleSubmit, resetForm } = useForm({
 })
 
 const onSubmit = handleSubmit(async (values) => {
-  console.log('onchange')
-  ;(await useProductStore().createProduct({
+  (await useProductStore().createProduct({
     name: values.name,
     unitPrice: values.unitPrice,
     status: EntityStatus.Created,
     entityKey: AppModule.Product
   })) ?? []
 })
+
+
 const editMode = ref(false)
-const editElement = ref()
+const editList = ref()
 const handleEdit = () => {
-  const rowKey = parseInt(Object.keys(rowSelection.value)[0])
-  console.log(rowKey)
+  const ids = Object.keys(rowSelection.value)
+  console.log(ids)
+  const list = ids.map( x => props.data[parseInt(x)])
+  console.log(list)
   editMode.value = !editMode.value
-  editElement.value = props.data[rowKey]
-  console.log(editElement.value)
+  editList.value = list
 }
+
 const handleDelete = () => {}
+
+const handleFormOnChange = (values: any) => {
+  console.log(values)
+} 
 </script>
 
 <template>
-  <div class="space-y-4 mx-auto">
+    <Button v-if="rowSelection != undefined" @click="handleDelete" class="w-fit">Delete</Button>
+    <Button v-if="rowSelection != undefined" @click="handleEdit" class="w-fit">Edit</Button>
+
+  <div class="space-y-4 mx-auto"> 
     <DataTableToolbar :table="table" />
-    <Button @click="handleEdit" class="w-fit">Edit</Button>
-    <Button @click="handleDelete" class="w-fit">Delete</Button>
-    <div v-if="editMode" class="mx-auto">
+
       <form class="space-y-8" @submit.prevent="onSubmit">
         <FormField v-slot="{ componentField }" name="name ">
           <Input class="w-fit" type="text" v-model="formData.name" v-bind="componentField" />
@@ -126,14 +133,14 @@ const handleDelete = () => {}
           UnitPrice
         </FormField>
 
-        <div class="flex gap-2 justify-start">
+        <div class="flex gap-2 justify-start"> 
           <Button type="submit"> Submit </Button>
           <Button type="button" @click="resetForm"> Reset </Button>
         </div>
       </form>
-    </div>
+    
 
-    <DataTableContent v-else :table="table" :columns="baseColumns" />
+    <DataTableContent :table="table" :columns="baseColumns" />
     <DataTablePagination :table="table" />
-  </div>
+   </div>
 </template>
