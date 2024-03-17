@@ -16,7 +16,6 @@ export const useCustomerStore = defineStore('customer', {
         console.log('store', newCustomer)
         console.log('create customer')
         await CustomerService.createCustomer(newCustomer)
-        await this.fetchAllCustomers()
         return this.appStore.customers
       } catch (error: any) {
         this.setError(error.message)
@@ -47,7 +46,6 @@ export const useCustomerStore = defineStore('customer', {
     async updateCustomerById(id: string, updatedCustomerData: Partial<ICustomer>): Promise<void> {
       try {
         await CustomerService.updateCustomerById(id, updatedCustomerData)
-        await this.fetchAllCustomers()
       } catch (error: any) {
         this.setError(error.message)
       }
@@ -56,7 +54,6 @@ export const useCustomerStore = defineStore('customer', {
     async deleteCustomerById(id: string): Promise<void> {
       try {
         await CustomerService.deleteCustomerById(id)
-        await this.fetchAllCustomers()
       } catch (error: any) {
         this.setError(error.message)
       }
@@ -65,7 +62,6 @@ export const useCustomerStore = defineStore('customer', {
     async deleteAllCustomers(): Promise<void> {
       try {
         await CustomerService.deleteAllCustomers()
-        await this.fetchAllCustomers()
       } catch (error: any) {
         this.setError(error.message)
       }

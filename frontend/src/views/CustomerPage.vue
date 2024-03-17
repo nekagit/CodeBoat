@@ -1,26 +1,30 @@
 <script setup lang="ts">
-import { useAppStore } from '@/stores/appStore';
+import { useAppStore } from '@/stores/appStore'
 
-import DataTable from '@/components/organisms/Tables/DataTable.vue';
-import { AppModule, EntityStatus } from '@/interfaces/enums';
-import { useCustomerStore } from '@/stores/customerStore';
-import { onBeforeMount, ref } from 'vue';
+import DataTable from '@/components/organisms/Tables/DataTable.vue'
+import { AppModule, EntityStatus } from '@/interfaces/enums'
+import { useCustomerStore } from '@/stores/customerStore'
+import { onBeforeMount, ref, type Ref } from 'vue'
 
-import { toTypedSchema } from '@vee-validate/zod';
-import { useForm } from 'vee-validate';
-import { z } from 'zod';
+import Button from '@/components/ui/button/Button.vue'
+import { FormField } from '@/components/ui/form'
+import type { ICustomer } from '@/interfaces/atoms/ICustomer'
+import { toTypedSchema } from '@vee-validate/zod'
+import { useForm } from 'vee-validate'
+import { z } from 'zod'
 
-import Button from '@/components/ui/button/Button.vue';
-import {
-  FormField
-} from '@/components/ui/form';
-import type { ICustomer } from '@/interfaces/atoms/ICustomer';
-
-import { Input } from '@/lib/registry/new-york/ui/input';
-
+import { Input } from '@/lib/registry/new-york/ui/input'
+const createMode = ref(false)
+const customerItem: Ref<ICustomer> = ref({
+  name: '',
+  entityKey: AppModule.Customer,
+  status: EntityStatus.Created
+})
+const selectedRow = ref()
 const customerSchema = z.object({
-  name: z.string(),
-});
+  id: z.string().nullable(),
+  name: z.string()
+})
 
 // Initialize formData
 const formData = ref<ICustomer>({
@@ -38,23 +42,29 @@ const { handleSubmit, resetForm } = useForm({
   initialValues: formData.value
 })
 
-
-
 const onSubmit = handleSubmit(async (values) => {
   console.log('onchange')
-    localItems.value = await useCustomerStore().createCustomer({
+  if (values.id) {
+    await useCustomerStore().updateCustomerById(values.id, {
       name: values.name,
       status: EntityStatus.Created,
       entityKey: AppModule.Customer
-    }) ?? [] 
-});
+    })
+  } else {
+    localItems.value =
+      (await useCustomerStore().createCustomer({
+        name: values.name,
+        status: EntityStatus.Created,
+        entityKey: AppModule.Customer
+      })) ?? []
+  }
+})
 
 const localItems = ref([] as any[])
 onBeforeMount(async () => {
   await useAppStore().onInit()
   localItems.value = useAppStore().customers
 })
-
 </script>
 
 <template>
@@ -66,19 +76,31 @@ onBeforeMount(async () => {
       </div>
       <div class="flex items-center space-x-2"></div>
     </div>
-     <form class="space-y-8"  @submit.prevent="onSubmit" >
-          <FormField
-            v-slot="{ componentField }"
-            name="name"
-          >
-          <Input type="text" v-model="formData " v-bind="componentField" />
-          </FormField>
-
-          <div class="flex gap-2 justify-start">
-            <Button type="submit"> Submit </Button>
-            <Button type="button" @click="resetForm"> Reset </Button>
-          </div>
-        </form>
+    <div v-if="createMode">
+      <form class="space-y-8" @submit.prevent="onSubmit">
+        <FormField v-slot="{ componentField }" name="name">
+          <Input type="text" v-model="formData" v-bind="componentField" />
+        </FormField>
+        
+        <div class="flex gap-2 justify-start">
+          <Button type="submit"> Submit </Button>
+          <Button type="button" @click="resetForm"> Reset </Button>
+        </div>
+      </form>
+    </div>
     <DataTable :data="localItems" />
+    <div v-if="selectedRow?.id != undefined">
+      <h1>Edit Selected Row</h1>
+      <form class="space-y-8" @submit.prevent="onSubmit">
+        <FormField v-slot="{ componentField }" name="name">
+          <Input type="text" v-model="customerItem" v-bind="componentField" />
+        </FormField>
+        
+        <div class="flex gap-2 justify-start">
+          <Button type="submit"> Submit </Button>
+          <Button type="button" @click="resetForm"> Reset </Button>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
