@@ -133,16 +133,16 @@ class Product implements IProduct {
 
 class Customer implements ICustomer {
   // Define properties and methods for the Customer class
-}s
+}
 // Define instance of functions for checking types
-function instanceOfIInvoice(object: any): object is IInvoice {
+export function instanceOfIInvoice(object: any): object is IInvoice {
   return object instanceof Invoice;
 }
 
-function instanceOfIProduct(object: any): object is IProduct {
+export function instanceOfIProduct(object: any): object is IProduct {
   return object instanceof Product;
 }
 
-function instanceOfICustomer(object: any): object is ICustomer {
+export function instanceOfICustomer(object: any): object is ICustomer {
   return object instanceof Customer;
 }

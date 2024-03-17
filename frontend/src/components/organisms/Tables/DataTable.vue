@@ -18,7 +18,7 @@ import { ref } from 'vue'
 import DataTableContent from './DataTableContent.vue'
 import DataTablePagination from './DataTablePagination.vue'
 import DataTableToolbar from './DataTableToolbar.vue'
-import { baseColumns, type DataTableProps, type IBaseColumn } from './tablesFunctions'
+import { baseColumns, type DataTableProps } from './tablesFunctions'
 
 
 const props = defineProps<DataTableProps>()

@@ -96,8 +96,6 @@ const shopModalSchema = z.object({
   number: z.number(),
   invoiceTotal: z.number(),
   customer: z.string(),
-  invoice: z.string(),
-  product: z.string(),
   quantity: z.number(),
 });
 // Define FormData interface
@@ -112,8 +110,6 @@ const formData = ref<IForm>({
   number: 0,
   invoiceTotal: 0,
   customer: undefined,
-  invoice: '',
-  product: '',
   quantity: 0,
 })
 

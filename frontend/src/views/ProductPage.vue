@@ -1,5 +1,60 @@
 <script setup lang="ts">
-import ProductTable from "@/components/organisms/Tables/Custom/ProductTable.vue";
+import { useAppStore } from '@/stores/appStore';
+
+import DataTable from '@/components/organisms/Tables/DataTable.vue';
+import { AppModule, EntityStatus } from '@/interfaces/enums';
+import { useProductStore } from '@/stores/productsStore';
+import { onBeforeMount, ref } from 'vue';
+
+import { toTypedSchema } from '@vee-validate/zod';
+import { useForm } from 'vee-validate';
+import { z } from 'zod';
+
+import Button from '@/components/ui/button/Button.vue';
+import {
+  FormField
+} from '@/components/ui/form';
+import type { IProduct } from '@/interfaces/atoms/IProduct';
+
+import { Input } from '@/lib/registry/new-york/ui/input';
+
+const productSchema = z.object({
+  name: z.string(),
+  unitPrice: z.number()
+});
+
+const formData = ref<IProduct>({
+  name: 'Initial Name',
+  unitPrice: 0,
+  entityKey: AppModule.Product,
+  status: EntityStatus.None
+})
+
+const formSchema = toTypedSchema(productSchema)
+
+const { handleSubmit, resetForm } = useForm({
+  validationSchema: formSchema,
+  initialValues: formData.value
+})
+
+
+
+const onSubmit = handleSubmit(async (values) => {
+  console.log('onchange')
+    localItems.value = await useProductStore().createProduct({
+      name: values.name,
+      unitPrice: values.unitPrice,
+      status: EntityStatus.Created,
+      entityKey: AppModule.Product
+    }) ?? [] 
+});
+
+const localItems = ref([] as any[])
+onBeforeMount(async () => {
+  await useAppStore().onInit()
+  localItems.value = useAppStore().products
+})
+
 </script>
 
 <template>
@@ -7,12 +62,29 @@ import ProductTable from "@/components/organisms/Tables/Custom/ProductTable.vue"
     <div class="flex items-center justify-between space-y-2">
       <div>
         <h2 class="text-2xl font-bold tracking-tight">Product Management</h2>
-        <p class="text-muted-foreground">Table over Customer Datas</p>
+        <p class="text-muted-foreground">Table over Product Datassss</p>
       </div>
-      <div class="flex items-center space-x-2">
-      </div>
+      <div class="flex items-center space-x-2"></div>
     </div>
-    <ProductTable />
-   
+     <form class="space-y-8"  @submit.prevent="onSubmit" >
+           <FormField
+            v-slot="{ componentField }"
+            name="name "
+          >
+          <Input type="text" v-model="formData.name " v-bind="componentField" />
+          </FormField>
+         <FormField
+            v-slot="{ componentField }"
+            name="unitPrice"
+          >
+          <Input type="number" v-model="formData.unitPrice" v-bind="componentField" />
+          </FormField>
+
+          <div class="flex gap-2 justify-start">
+            <Button type="submit"> Submit </Button>
+            <Button type="button" @click="resetForm"> Reset </Button>
+          </div>
+        </form>
+    <DataTable :data="localItems" />
   </div>
 </template>

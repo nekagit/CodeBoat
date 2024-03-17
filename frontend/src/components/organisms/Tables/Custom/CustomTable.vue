@@ -16,12 +16,7 @@ import { useAppStore } from '@/stores/appStore'
 import { useCustomerStore } from '@/stores/customerStore'
 import { useInvoiceStore } from '@/stores/invoiceStore'
 import { useProductStore } from '@/stores/productsStore'
-
-import type {
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState
-} from '@tanstack/vue-table'
+import type { ColumnFiltersState, SortingState, VisibilityState } from '@tanstack/vue-table'
 import {
   FlexRender,
   getCoreRowModel,
@@ -33,7 +28,7 @@ import {
   useVueTable
 } from '@tanstack/vue-table'
 import { onBeforeMount, ref } from 'vue'
-import { instanceOfICustomer, instanceOfIInvoice, instanceOfIProduct, invoiceColumns } from './tableService'
+import { instanceOfICustomer, instanceOfIProduct, invoiceColumns } from './tableService'
 
 // Define props
 const props = defineProps<{
@@ -43,14 +38,14 @@ const localItems = ref([] as any[])
 
 onBeforeMount(async () => {
   await useAppStore().onInit()
-  if (instanceOfIInvoice(props.item)) {
-    console.log(localItems.value, "invocie")
+  if (Object.keys(props.item).find((x) => x == 'customer')) {
+    console.log(localItems.value, 'invocie')
     localItems.value = useAppStore().invoices
   } else if (instanceOfIProduct(props.item)) {
-    console.log(localItems.value, "prodcuts")
+    console.log(localItems.value, 'prodcuts')
     localItems.value = useAppStore().products
   } else if (instanceOfICustomer(props.item)) {
-    console.log(localItems.value, "customtable")
+    console.log(localItems.value, 'customtable')
     localItems.value = useAppStore().customers
   }
 })
@@ -94,33 +89,35 @@ const table = useVueTable({
   getFacetedUniqueValues: getFacetedUniqueValues()
 })
 async function handleOnChange(values: any) {
-  console.log('onchange')
-  if (instanceOfIInvoice(props.item)) {
-    localItems.value = await useInvoiceStore().createInvoice({
-      name: values.name,
-      number: values.number,
-      status: EntityStatus.Created,
-      entityKey: AppModule.Order,
-      customer: values.customer,
-      date: values.date,
-      invoiceTotal: values.invoiceTotal
-    }) ?? []
+  if (Object.keys(props.item).find((x) => x == 'customer')) {
+    console.log('onchange')
+    localItems.value =
+      (await useInvoiceStore().createInvoice({
+        name: values.name,
+        number: values.number,
+        status: EntityStatus.Created,
+        entityKey: AppModule.Order,
+        customer: values.customer,
+        date: new Date(), // This will set the date to the current date and time
+        invoiceTotal: values.invoiceTotal 
+      })) ?? []
   } else if (instanceOfIProduct(props.item)) {
-    localItems.value = await useProductStore().createProduct({
-      name: values.name,
-      unitPrice: values.unitPrice,
-      status: EntityStatus.Created,
-      entityKey: AppModule.Product
-    }) ?? []
+    localItems.value =
+      (await useProductStore().createProduct({
+        name: values.name,
+        unitPrice: values.unitPrice,
+        status: EntityStatus.Created,
+        entityKey: AppModule.Product
+      })) ?? []
   } else if (instanceOfICustomer(props.item)) {
-    localItems.value = await useCustomerStore().createCustomer({
-      name: values.name,
-      status: EntityStatus.Created,
-      entityKey: AppModule.Customer
-    }) ?? []
+    localItems.value =
+      (await useCustomerStore().createCustomer({
+        name: values.name,
+        status: EntityStatus.Created,
+        entityKey: AppModule.Customer
+      })) ?? []
   }
 }
-
 </script>
 <template>
   <div class="space-y-4">
