@@ -1,6 +1,8 @@
 import type { AppModule } from '@/interfaces/enums'
 import type { ColumnDef } from '@tanstack/vue-table'
+import { h } from 'vue'
 
+import { Checkbox } from '@/components/ui/checkbox'
 export interface IBaseColumn {
   _id?: string
   name: string
@@ -26,12 +28,28 @@ export interface IForm {
 
 export interface DataTableProps {
   data: IBaseColumn[]
+  onRowSelect?: (row: any) => void
 }
 export const baseColumns: ColumnDef<IBaseColumn>[] = [
   {
-    accessorKey: 'id',
-    header: 'ID',
-    cell: ({ row }) => row.original._id
+    id: 'select',
+    header: ({ table }) =>
+      h(Checkbox, {
+        checked:
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && 'indeterminate'),
+        'onUpdate:checked': (value) => table.toggleAllPageRowsSelected(!!value),
+        ariaLabel: 'Select all'
+      }),
+    cell: ({ row }) => {
+      return h(Checkbox, {
+        checked: row.getIsSelected(),
+        'onUpdate:checked': (value) => row.toggleSelected(!!value),
+        ariaLabel: 'Select row'
+      })
+    },
+    enableSorting: false,
+    enableHiding: false
   },
   {
     accessorKey: 'name',

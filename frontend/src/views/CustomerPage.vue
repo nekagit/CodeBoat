@@ -65,30 +65,37 @@ onBeforeMount(async () => {
   await useAppStore().onInit()
   localItems.value = useAppStore().customers
 })
+
+const handleCreate = () => {
+  createMode.value = !createMode.value
+}
+const handleRowSelect = (row: any) => {
+  selectedRow.value = row
+}
 </script>
 
 <template>
   <div class="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
-    <div class="flex items-center justify-between space-y-2">
+    <div class="flex items-center justify-between space-y-2 mx-auto">
       <div>
-        <h2 class="text-2xl font-bold tracking-tight">Customer Management</h2>
-        <p class="text-muted-foreground">Table over Customer Datas</p>
+        <h2 class="text-4xl font-bold tracking-tight">Customer Management</h2>
+        <p class="text-muted-foreground text-center">Table over Customer Datas</p>
       </div>
       <div class="flex items-center space-x-2"></div>
     </div>
-    <div v-if="createMode">
-      <form class="space-y-8" @submit.prevent="onSubmit">
+    <Button @click="handleCreate" class="w-fit" >Create</Button>
+    <div v-if="createMode" class="">
+      <h1 class="text-3xl">Create Product: </h1>
+      <form class="space-y-8 flex flex-row align-center justify-end items-center" @submit.prevent="onSubmit">
         <FormField v-slot="{ componentField }" name="name">
-          <Input type="text" v-model="formData" v-bind="componentField" />
+          <Input class="w-fit" type="text" v-model="formData" v-bind="componentField" />
         </FormField>
         
-        <div class="flex gap-2 justify-start">
-          <Button type="submit"> Submit </Button>
-          <Button type="button" @click="resetForm"> Reset </Button>
-        </div>
+          <Button class="m-0" type="submit"> Submit </Button>
+          <Button class="m-0" type="button" @click="resetForm"> Reset </Button>
       </form>
     </div>
-    <DataTable :data="localItems" />
+    <DataTable :data="localItems" :onRowSelect="handleRowSelect" />
     <div v-if="selectedRow?.id != undefined">
       <h1>Edit Selected Row</h1>
       <form class="space-y-8" @submit.prevent="onSubmit">
@@ -104,3 +111,6 @@ onBeforeMount(async () => {
     </div>
   </div>
 </template>
+<style scoped>
+
+</style>
