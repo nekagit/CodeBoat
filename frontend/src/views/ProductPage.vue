@@ -54,30 +54,40 @@ onBeforeMount(async () => {
   await useAppStore().onInit()
   localItems.value = useAppStore().products
 })
+const createMode = ref(false)
 
+const handleCreate = () => {
+  createMode.value = !createMode.value
+}
 </script>
 
 <template>
   <div class="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
-    <div class="flex items-center justify-between space-y-2">
+    <div class="flex items-center justify-between space-y-2 mx-auto">
       <div>
-        <h2 class="text-2xl font-bold tracking-tight">Product Management</h2>
-        <p class="text-muted-foreground">Table over Product Datassss</p>
+        <h2 class="text-4xl mx-auto font-bold tracking-tight">Product Management</h2>
+        <p class="text-muted-foreground text-center">Table over Product Datassss</p>
+        
       </div>
       <div class="flex items-center space-x-2"></div>
     </div>
+    <Button @click="handleCreate" class="w-fit" >Create</Button>
+    <div v-if="createMode" class=" mx-auto">
+
      <form class="space-y-8"  @submit.prevent="onSubmit" >
            <FormField
             v-slot="{ componentField }"
             name="name "
           >
-          <Input type="text" v-model="formData.name " v-bind="componentField" />
+          <Input class="w-fit" type="text" v-model="formData.name " v-bind="componentField" />
+          Name
           </FormField>
          <FormField
             v-slot="{ componentField }"
             name="unitPrice"
           >
-          <Input type="number" v-model="formData.unitPrice" v-bind="componentField" />
+          <Input class="w-fit" type="number"  v-model="formData.unitPrice" v-bind="componentField" />
+          UnitPrice
           </FormField>
 
           <div class="flex gap-2 justify-start">
@@ -85,6 +95,8 @@ onBeforeMount(async () => {
             <Button type="button" @click="resetForm"> Reset </Button>
           </div>
         </form>
+          </div>
+
     <DataTable :data="localItems" />
   </div>
 </template>

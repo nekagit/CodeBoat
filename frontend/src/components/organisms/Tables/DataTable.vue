@@ -1,10 +1,7 @@
 <script setup lang="ts">
+import Button from '@/components/ui/button/Button.vue'
 import { valueUpdater } from '@/lib/utils'
-import type {
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState
-} from '@tanstack/vue-table'
+import type { ColumnFiltersState, SortingState, VisibilityState } from '@tanstack/vue-table'
 import {
   getCoreRowModel,
   getFacetedRowModel,
@@ -20,6 +17,17 @@ import DataTablePagination from './DataTablePagination.vue'
 import DataTableToolbar from './DataTableToolbar.vue'
 import { baseColumns, type DataTableProps } from './tablesFunctions'
 
+import { AppModule, EntityStatus } from '@/interfaces/enums'
+import { useProductStore } from '@/stores/productsStore'
+
+import { toTypedSchema } from '@vee-validate/zod'
+import { useForm } from 'vee-validate'
+import { z } from 'zod'
+
+import { FormField } from '@/components/ui/form'
+import type { IProduct } from '@/interfaces/atoms/IProduct'
+
+import { Input } from '@/lib/registry/new-york/ui/input'
 
 const props = defineProps<DataTableProps>()
 
@@ -61,12 +69,71 @@ const table = useVueTable({
   getFacetedRowModel: getFacetedRowModel(),
   getFacetedUniqueValues: getFacetedUniqueValues()
 })
+
+const productSchema = z.object({
+  name: z.string(),
+  unitPrice: z.number()
+})
+
+const formData = ref<IProduct>({
+  name: 'Initial Name',
+  unitPrice: 0,
+  entityKey: AppModule.Product,
+  status: EntityStatus.None
+})
+
+const formSchema = toTypedSchema(productSchema)
+
+const { handleSubmit, resetForm } = useForm({
+  validationSchema: formSchema,
+  initialValues: formData.value
+})
+
+const onSubmit = handleSubmit(async (values) => {
+  console.log('onchange')
+  ;(await useProductStore().createProduct({
+    name: values.name,
+    unitPrice: values.unitPrice,
+    status: EntityStatus.Created,
+    entityKey: AppModule.Product
+  })) ?? []
+})
+const editMode = ref(false)
+const editElement = ref()
+const handleEdit = () => {
+  const rowKey = parseInt(Object.keys(rowSelection.value)[0])
+  console.log(rowKey)
+  editMode.value = !editMode.value
+  editElement.value = props.data[rowKey]
+  console.log(editElement.value)
+}
+const handleDelete = () => {}
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="space-y-4 mx-auto">
     <DataTableToolbar :table="table" />
-    <DataTableContent :table="table" :columns="baseColumns" />
+    <Button @click="handleEdit" class="w-fit">Edit</Button>
+    <Button @click="handleDelete" class="w-fit">Delete</Button>
+    <div v-if="editMode" class="mx-auto">
+      <form class="space-y-8" @submit.prevent="onSubmit">
+        <FormField v-slot="{ componentField }" name="name ">
+          <Input class="w-fit" type="text" v-model="formData.name" v-bind="componentField" />
+          Name
+        </FormField>
+        <FormField v-slot="{ componentField }" name="unitPrice">
+          <Input class="w-fit" type="number" v-model="formData.unitPrice" v-bind="componentField" />
+          UnitPrice
+        </FormField>
+
+        <div class="flex gap-2 justify-start">
+          <Button type="submit"> Submit </Button>
+          <Button type="button" @click="resetForm"> Reset </Button>
+        </div>
+      </form>
+    </div>
+
+    <DataTableContent v-else :table="table" :columns="baseColumns" />
     <DataTablePagination :table="table" />
   </div>
 </template>

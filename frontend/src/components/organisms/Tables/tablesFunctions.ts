@@ -28,7 +28,6 @@ export interface IForm {
 
 export interface DataTableProps {
   data: IBaseColumn[]
-  onRowSelect?: (row: any) => void
 }
 export const baseColumns: ColumnDef<IBaseColumn>[] = [
   {

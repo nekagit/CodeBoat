@@ -4,7 +4,7 @@ import { useAppStore } from '@/stores/appStore'
 import DataTable from '@/components/organisms/Tables/DataTable.vue'
 import { AppModule, EntityStatus } from '@/interfaces/enums'
 import { useCustomerStore } from '@/stores/customerStore'
-import { onBeforeMount, ref, type Ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 
 import Button from '@/components/ui/button/Button.vue'
 import { FormField } from '@/components/ui/form'
@@ -15,12 +15,6 @@ import { z } from 'zod'
 
 import { Input } from '@/lib/registry/new-york/ui/input'
 const createMode = ref(false)
-const customerItem: Ref<ICustomer> = ref({
-  name: '',
-  entityKey: AppModule.Customer,
-  status: EntityStatus.Created
-})
-const selectedRow = ref()
 const customerSchema = z.object({
   id: z.string().nullable(),
   name: z.string()
@@ -44,20 +38,20 @@ const { handleSubmit, resetForm } = useForm({
 
 const onSubmit = handleSubmit(async (values) => {
   console.log('onchange')
-  if (values.id) {
-    await useCustomerStore().updateCustomerById(values.id, {
-      name: values.name,
-      status: EntityStatus.Created,
-      entityKey: AppModule.Customer
-    })
-  } else {
+  // if (values.id) {
+  //   await useCustomerStore().updateCustomerById(values.id, {
+  //     name: values.name,
+  //     status: EntityStatus.Created,
+  //     entityKey: AppModule.Customer
+  //   })
+  // } else {
     localItems.value =
       (await useCustomerStore().createCustomer({
         name: values.name,
         status: EntityStatus.Created,
         entityKey: AppModule.Customer
       })) ?? []
-  }
+  // }
 })
 
 const localItems = ref([] as any[])
@@ -68,9 +62,6 @@ onBeforeMount(async () => {
 
 const handleCreate = () => {
   createMode.value = !createMode.value
-}
-const handleRowSelect = (row: any) => {
-  selectedRow.value = row
 }
 </script>
 
@@ -88,15 +79,15 @@ const handleRowSelect = (row: any) => {
       <h1 class="text-3xl">Create Product: </h1>
       <form class="space-y-8 flex flex-row align-center justify-end items-center" @submit.prevent="onSubmit">
         <FormField v-slot="{ componentField }" name="name">
-          <Input class="w-fit" type="text" v-model="formData" v-bind="componentField" />
+          <Input class="w-fit" type="text" v-model="formData.name" v-bind="componentField" />
         </FormField>
         
           <Button class="m-0" type="submit"> Submit </Button>
           <Button class="m-0" type="button" @click="resetForm"> Reset </Button>
       </form>
     </div>
-    <DataTable :data="localItems" :onRowSelect="handleRowSelect" />
-    <div v-if="selectedRow?.id != undefined">
+    <DataTable :data="localItems" />
+    <!-- <div v-if="selectedRow?.id != undefined">
       <h1>Edit Selected Row</h1>
       <form class="space-y-8" @submit.prevent="onSubmit">
         <FormField v-slot="{ componentField }" name="name">
@@ -108,7 +99,7 @@ const handleRowSelect = (row: any) => {
           <Button type="button" @click="resetForm"> Reset </Button>
         </div>
       </form>
-    </div>
+    </div> -->
   </div>
 </template>
 <style scoped>
