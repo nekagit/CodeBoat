@@ -85,7 +85,7 @@ const handleCreate = () => {
 </script>
 
 <template>
-  <div class="flex items-center justify-between space-y-2 mx-auto mt-5">
+  <div class="flex justify-between space-y-2 mx-auto mt-5">
     <div>
       <h2 class="text-4xl mx-auto font-bold tracking-tight">Product Management</h2>
       <p class="text-muted-foreground text-center">Table over Product Datassss</p>

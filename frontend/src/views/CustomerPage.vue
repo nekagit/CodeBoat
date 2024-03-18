@@ -74,7 +74,7 @@ onBeforeMount(async () => {
       </form>
     </div>
     <DataTable :data="localItems" />
-    <div v-if="selectedRow.id != undefined">
+    <div v-if="selectedRow?.id != undefined">
       <h1>Edit Selected Row</h1>
       <form class="space-y-8" @submit.prevent="onSubmit">
         <FormField v-slot="{ componentField }" name="name">

@@ -24,16 +24,10 @@ import { useForm } from 'vee-validate'
 import { z } from 'zod'
 
 import { FormField } from '@/components/ui/form'
-import type { IProduct } from '@/interfaces/atoms/IProduct'
 
 import { Input } from '@/lib/registry/new-york/ui/input'
 
 const props = defineProps<DataTableProps>()
-
-const sorting = ref<SortingState>([])
-const columnFilters = ref<ColumnFiltersState>([])
-const columnVisibility = ref<VisibilityState>({})
-const rowSelection = ref()
 
 const table = useVueTable({
   get data() {
@@ -69,18 +63,6 @@ const table = useVueTable({
   getFacetedUniqueValues: getFacetedUniqueValues()
 })
 
-const productSchema = z.object({
-  name: z.string(),
-  unitPrice: z.number()
-})
-
-const formData = ref<IProduct>({
-  name: 'Initial Name',
-  unitPrice: 0,
-  entityKey: AppModule.Product,
-  status: EntityStatus.None
-})
-
 const formSchema = toTypedSchema(productSchema)
 
 const { handleSubmit, resetForm } = useForm({
@@ -88,33 +70,6 @@ const { handleSubmit, resetForm } = useForm({
   initialValues: formData.value
 })
 
-const onSubmit = handleSubmit(async (values) => {
-  ;(await useProductStore().createProduct({
-    name: values.name,
-    unitPrice: values.unitPrice,
-    status: EntityStatus.Created,
-    entityKey: AppModule.Product
-  })) ?? []
-})
-const editIfRow = Object.keys(rowSelection).length > 0
-console.log(Object.keys(rowSelection).length)
-
-const editMode = ref(false)
-const editList = ref()
-const handleEdit = () => {
-  const ids = Object.keys(rowSelection.value)
-  console.log(ids)
-  const list = ids.map((x) => props.data[parseInt(x)])
-  console.log(list)
-  editMode.value = !editMode.value
-  editList.value = list
-}
-
-const handleDelete = () => {}
-
-const handleFormOnChange = (values: any) => {
-  console.log(values)
-}
 </script>
 
 <template>
