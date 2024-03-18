@@ -81,6 +81,7 @@ const handleCreate = () => {
   createMode.value = !createMode.value
 }
 
+
 </script>
 
 <template>
@@ -132,5 +133,6 @@ const handleCreate = () => {
       </form>
     </div>
     <DataTable :data="localItems" />
+  </div>
   </div>
 </template>
