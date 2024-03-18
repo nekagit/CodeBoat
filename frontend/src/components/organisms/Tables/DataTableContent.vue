@@ -49,7 +49,7 @@ import type { Table } from '@tanstack/vue-table';
 import {
     FlexRender
 } from '@tanstack/vue-table';
-import type { IBaseColumn } from './tablesFunctions';
+import type { IBaseColumn } from '@/service/tableService';
 
 
 interface DataTableContentProps {

@@ -15,7 +15,7 @@ import {
 } from '@/lib/registry/new-york/ui/popover'
 import { Separator } from '@/lib/registry/new-york/ui/separator'
 import { cn } from '@/lib/utils'
-import type { IBaseColumn } from './DataTable.vue'
+import type { IBaseColumn } from '@/service/tableService';
 
 interface DataTableFacetedFilter {
   column?: Column<IBaseColumn, any>

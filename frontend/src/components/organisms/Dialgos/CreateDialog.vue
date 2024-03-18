@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import CreateDialogForm from '@/components/organisms/Forms/CreateDialogForm.vue';
 import Button from '@/components/ui/button/Button.vue';
 import {
   Dialog,
@@ -9,8 +10,6 @@ import {
   DialogTrigger
 } from '@/components/ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import {productItem, customerItem, invoiceItem} from "@/components/organisms/Tables/Custom/tableService"
-import CreateDialogForm from '@/components/organisms/Forms/CreateDialogForm.vue';
  // Define props
 const props = defineProps<{
   onChange: (item: any) => Promise<void>

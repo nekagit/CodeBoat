@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from '@/lib/registry/new-york/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
-import type { IBaseColumn } from './DataTable.vue'
+import type { IBaseColumn } from '@/service/tableService'
 
 interface DataTableColumnHeaderProps {
   column: Column<IBaseColumn, any>

@@ -34,7 +34,7 @@
 
 <script setup lang="ts">
 import type { Table } from '@tanstack/vue-table';
-import type { IBaseColumn } from './DataTable.vue';
+import type { IBaseColumn } from '@/service/tableService';
 
  import type { Button } from '@/components/ui/button';
 import {

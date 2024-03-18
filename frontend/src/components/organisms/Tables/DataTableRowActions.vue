@@ -17,7 +17,7 @@ import {
     DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from '@/lib/registry/new-york/ui/dropdown-menu'
-import type { IBaseColumn } from './DataTable.vue'
+import type { IBaseColumn } from '@/service/tableService';
 
 interface DataTableRowActionsProps {
   row: Row<IBaseColumn>
@@ -61,4 +61,3 @@ const customer = computed(() => customerSchema.parse(props.row.original))
     </DropdownMenuContent>
   </DropdownMenu>
 </template>
-../../Data/data../../Data/schema

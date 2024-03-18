@@ -8,6 +8,15 @@ import { h, ref, type Ref } from 'vue'
 import { z } from 'zod'
 
 export default function TableService() {
+  const {
+    getItemAppModule,
+    editIfRow,
+    handleEdit,
+    handleDelete,
+    handleCreate,
+    handleFormOnChange
+  } = TableHelper()
+
   const { customerSchema, productSchema } = TableModel()
   const {
     baseColumns,
@@ -20,6 +29,7 @@ export default function TableService() {
   } = TableData()
 
   return {
+    getItemAppModule,
     baseColumns,
     customerItem,
     customerColumns,
@@ -28,10 +38,45 @@ export default function TableService() {
     invoiceItem,
     invoiceColumns,
     customerSchema,
-    productSchema
+    productSchema,
+    editIfRow,
+    handleEdit,
+    handleDelete,
+    handleCreate,
+    handleFormOnChange
   }
 }
-function TableHelper() {}
+function TableHelper() {
+  const editMode = ref(false)
+  const editList = ref()
+  const getItemAppModule = (item: any) => {
+    if (Object.keys(item).find((x) => x == 'customer')) {
+      return AppModule.Order
+    } else if (Object.keys(item).find((x) => x == 'unitPrice')) {
+      return AppModule.Product
+    } else {
+      return AppModule.Customer
+    }
+  }
+  const editIfRow = (rowSelection: any) => Object.keys(rowSelection).length > 0
+  const handleEdit = (rowSelection: any, items: any[]) => {
+    const ids = Object.keys(rowSelection.value)
+    const list = ids.map((x) => items[parseInt(x)])
+    editMode.value = !editMode.value
+    editList.value = list
+  }
+
+  const handleDelete = () => {}
+
+  const handleCreate = (createMode: Ref<boolean>) => {
+    createMode.value = !createMode.value
+  }
+
+  const handleFormOnChange = (values: any) => {
+    console.log(values)
+  }
+  return { getItemAppModule, editIfRow, handleEdit, handleDelete, handleCreate, handleFormOnChange }
+}
 
 /// MODEL
 function TableModel() {
@@ -285,6 +330,6 @@ export interface IForm {
   invoiceTotal?: number
 }
 
-export interface DataTableProps {
-  data: IBaseColumn[]
+export interface ICustomTable {
+  item: any
 }

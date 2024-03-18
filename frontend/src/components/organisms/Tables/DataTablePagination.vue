@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/lib/registry/new-york/ui/select';
-import type { IBaseColumn } from './tablesFunctions';
+import type { IBaseColumn } from '@/service/tableService';
 
 interface DataTablePaginationProps {
   table: Table<IBaseColumn>

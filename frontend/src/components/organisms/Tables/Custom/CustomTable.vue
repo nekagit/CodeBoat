@@ -12,6 +12,7 @@ import {
   TableRow
 } from '@/lib/registry/new-york/ui/table'
 import { valueUpdater } from '@/lib/utils'
+import TableService, { type ICustomTable } from '@/service/tableService'
 import { useAppStore } from '@/stores/appStore'
 import { useCustomerStore } from '@/stores/customerStore'
 import { useInvoiceStore } from '@/stores/invoiceStore'
@@ -28,25 +29,45 @@ import {
   useVueTable
 } from '@tanstack/vue-table'
 import { onBeforeMount, ref } from 'vue'
-import { instanceOfICustomer, instanceOfIProduct, invoiceColumns } from './tableService'
-
 // Define props
-const props = defineProps<{
-  item: any
-}>()
+
+const {
+  getItemAppModule,
+  baseColumns,
+  customerItem,
+  customerColumns,
+  productItem,
+  productColumns,
+  invoiceItem,
+  invoiceColumns,
+  customerSchema,
+  productSchema,
+  editIfRow,
+  handleEdit,
+  handleDelete,
+  handleCreate,
+  handleFormOnChange
+} = TableService()
+
+const props = defineProps<ICustomTable>()
 const localItems = ref([] as any[])
+const localColumns = ref()
+const appMod = getItemAppModule(props.item)
 
 onBeforeMount(async () => {
   await useAppStore().onInit()
-  if (Object.keys(props.item).find((x) => x == 'customer')) {
+  if (appMod == AppModule.Order) {
     console.log(localItems.value, 'invocie')
     localItems.value = useAppStore().invoices
-  } else if (instanceOfIProduct(props.item)) {
+    localColumns.value = invoiceColumns
+  } else if (appMod == AppModule.Product) {
     console.log(localItems.value, 'prodcuts')
     localItems.value = useAppStore().products
-  } else if (instanceOfICustomer(props.item)) {
+    localColumns.value = productColumns
+  } else if (appMod == AppModule.Customer) {
     console.log(localItems.value, 'customtable')
     localItems.value = useAppStore().customers
+    localColumns.value = customerColumns
   }
 })
 
@@ -60,7 +81,7 @@ const table = useVueTable({
     return localItems.value
   },
   get columns() {
-    return invoiceColumns
+    return localColumns.value
   },
   state: {
     get sorting() {
@@ -88,8 +109,8 @@ const table = useVueTable({
   getFacetedRowModel: getFacetedRowModel(),
   getFacetedUniqueValues: getFacetedUniqueValues()
 })
-async function handleOnChange(values: any) {
-  if (Object.keys(props.item).find((x) => x == 'customer')) {
+async function handleOnCreate(values: any) {
+  if (appMod == AppModule.Order) {
     console.log('onchange')
     localItems.value =
       (await useInvoiceStore().createInvoice({
@@ -99,9 +120,9 @@ async function handleOnChange(values: any) {
         entityKey: AppModule.Order,
         customer: values.customer,
         date: new Date(), // This will set the date to the current date and time
-        invoiceTotal: values.invoiceTotal 
+        invoiceTotal: values.invoiceTotal
       })) ?? []
-  } else if (instanceOfIProduct(props.item)) {
+  } else if (appMod == AppModule.Product) {
     localItems.value =
       (await useProductStore().createProduct({
         name: values.name,
@@ -109,7 +130,7 @@ async function handleOnChange(values: any) {
         status: EntityStatus.Created,
         entityKey: AppModule.Product
       })) ?? []
-  } else if (instanceOfICustomer(props.item)) {
+  } else if (appMod == AppModule.Customer) {
     localItems.value =
       (await useCustomerStore().createCustomer({
         name: values.name,
@@ -122,7 +143,7 @@ async function handleOnChange(values: any) {
 <template>
   <div class="space-y-4">
     <DataTableToolbar :table="table" />
-    <CreateDialog :onChange="(item: any) => handleOnChange(item)" :item="props.item" />
+    <CreateDialog :onChange="(item: any) => handleOnCreate(item)" :item="props.item" />
     <div>
       <div class="rounded-md border">
         <Table>

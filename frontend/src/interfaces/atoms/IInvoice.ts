@@ -1,4 +1,4 @@
-import type { IBaseColumn } from '@/components/organisms/Tables/tablesFunctions'
+import type { IBaseColumn } from "@/service/tableService"
 
 // Interface for the invoice document
 export interface IInvoice extends IBaseColumn {

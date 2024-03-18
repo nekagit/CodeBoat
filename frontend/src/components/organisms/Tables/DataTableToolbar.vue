@@ -4,8 +4,8 @@ import { computed } from 'vue'
 
 import { Button } from '@/lib/registry/new-york/ui/button'
 import { Input } from '@/lib/registry/new-york/ui/input'
+import type { IBaseColumn } from '@/service/tableService'
 import { Cross2Icon } from '@radix-icons/vue'
-import type { IBaseColumn } from './DataTable.vue'
 import DataTableViewOptions from './DataTableViewOptions.vue'
 
 interface DataTableToolbarProps {
