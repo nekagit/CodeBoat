@@ -89,21 +89,22 @@ const { handleSubmit, resetForm } = useForm({
 })
 
 const onSubmit = handleSubmit(async (values) => {
-  (await useProductStore().createProduct({
+  ;(await useProductStore().createProduct({
     name: values.name,
     unitPrice: values.unitPrice,
     status: EntityStatus.Created,
     entityKey: AppModule.Product
   })) ?? []
 })
-
+const editIfRow = Object.keys(rowSelection).length > 0
+console.log(Object.keys(rowSelection).length)
 
 const editMode = ref(false)
 const editList = ref()
 const handleEdit = () => {
   const ids = Object.keys(rowSelection.value)
   console.log(ids)
-  const list = ids.map( x => props.data[parseInt(x)])
+  const list = ids.map((x) => props.data[parseInt(x)])
   console.log(list)
   editMode.value = !editMode.value
   editList.value = list
@@ -113,16 +114,15 @@ const handleDelete = () => {}
 
 const handleFormOnChange = (values: any) => {
   console.log(values)
-} 
+}
 </script>
 
 <template>
-    <Button v-if="rowSelection != undefined" @click="handleDelete" class="w-fit">Delete</Button>
-    <Button v-if="rowSelection != undefined" @click="handleEdit" class="w-fit">Edit</Button>
+  <div class="space-y-4 mx-auto">
+    <Button v-if="editIfRow" @click="handleDelete" class="w-fit">Delete</Button>
+    <Button v-if="editIfRow" @click="handleEdit" class="w-fit">Edit</Button>
 
-  <div class="space-y-4 mx-auto"> 
-    <DataTableToolbar :table="table" />
-
+    <div v-if="editIfRow && editMode" class="space-y-4 mx-auto">
       <form class="space-y-8" @submit.prevent="onSubmit">
         <FormField v-slot="{ componentField }" name="name ">
           <Input class="w-fit" type="text" v-model="formData.name" v-bind="componentField" />
@@ -133,14 +133,16 @@ const handleFormOnChange = (values: any) => {
           UnitPrice
         </FormField>
 
-        <div class="flex gap-2 justify-start"> 
+        <div class="flex gap-2 justify-start">
           <Button type="submit"> Submit </Button>
           <Button type="button" @click="resetForm"> Reset </Button>
         </div>
       </form>
-    
-
-    <DataTableContent :table="table" :columns="baseColumns" />
-    <DataTablePagination :table="table" />
-   </div>
+    </div>
+    <div v-else>
+      <DataTableToolbar :table="table" />
+      <DataTableContent :table="table" :columns="baseColumns" />
+      <DataTablePagination :table="table" />
+    </div>
+  </div>
 </template>

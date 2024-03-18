@@ -1,4 +1,4 @@
-q<script setup lang="ts">
+<script setup lang="ts">
 import { useAppStore } from '@/stores/appStore'
 
 import DataTable from '@/components/organisms/Tables/DataTable.vue'
@@ -8,32 +8,20 @@ import { onBeforeMount, ref } from 'vue'
 
 import Button from '@/components/ui/button/Button.vue'
 import { FormField } from '@/components/ui/form'
-import type { ICustomer } from '@/interfaces/atoms/ICustomer'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
-import { z } from 'zod'
 
 import { Input } from '@/lib/registry/new-york/ui/input'
+import APIData from './APIData'
 const createMode = ref(false)
-const customerSchema = z.object({
-  id: z.string().nullable(),
-  name: z.string()
-})
 
-// Initialize formData
-const formData = ref<ICustomer>({
-  name: 'Initial Name',
-  entityKey: AppModule.Customer,
-  status: EntityStatus.None
-})
+const { customerFormData, customerSchema, handleCreate } = APIData()
 
-// Define formSchema
-const formSchema = toTypedSchema(customerSchema)
+const customerFormSchema = toTypedSchema(customerSchema)
 
-// Destructure useForm result
 const { handleSubmit, resetForm } = useForm({
-  validationSchema: formSchema,
-  initialValues: formData.value
+  validationSchema: customerFormSchema,
+  initialValues: customerFormData.value
 })
 
 const onSubmit = handleSubmit(async (values) => {
@@ -45,12 +33,12 @@ const onSubmit = handleSubmit(async (values) => {
   //     entityKey: AppModule.Customer
   //   })
   // } else {
-    localItems.value =
-      (await useCustomerStore().createCustomer({
-        name: values.name,
-        status: EntityStatus.Created,
-        entityKey: AppModule.Customer
-      })) ?? []
+  localItems.value =
+    (await useCustomerStore().createCustomer({
+      name: values.name,
+      status: EntityStatus.Created,
+      entityKey: AppModule.Customer
+    })) ?? []
   // }
 })
 
@@ -59,10 +47,6 @@ onBeforeMount(async () => {
   await useAppStore().onInit()
   localItems.value = useAppStore().customers
 })
-
-const handleCreate = () => {
-  createMode.value = !createMode.value
-}
 </script>
 
 <template>
@@ -74,20 +58,23 @@ const handleCreate = () => {
       </div>
       <div class="flex items-center space-x-2"></div>
     </div>
-    <Button @click="handleCreate" class="w-fit" >Create</Button>
+    <Button @click="handleCreate" class="w-fit">Create</Button>
     <div v-if="createMode" class="">
-      <h1 class="text-3xl">Create Product: </h1>
-      <form class="space-y-8 flex flex-row align-center justify-end items-center" @submit.prevent="onSubmit">
+      <h1 class="text-3xl">Create Product:</h1>
+      <form
+        class="space-y-8 flex flex-row align-center justify-end items-center"
+        @submit.prevent="onSubmit"
+      >
         <FormField v-slot="{ componentField }" name="name">
-          <Input class="w-fit" type="text" v-model="formData.name" v-bind="componentField" />
+          <Input class="w-fit" type="text" v-model="customerFormData.name" v-bind="componentField" />
         </FormField>
-        
-          <Button class="m-0" type="submit"> Submit </Button>
-          <Button class="m-0" type="button" @click="resetForm"> Reset </Button>
+
+        <Button class="m-0" type="submit"> Submit </Button>
+        <Button class="m-0" type="button" @click="resetForm"> Reset </Button>
       </form>
     </div>
     <DataTable :data="localItems" />
-    <!-- <div v-if="selectedRow?.id != undefined">
+    <div v-if="selectedRow.id != undefined">
       <h1>Edit Selected Row</h1>
       <form class="space-y-8" @submit.prevent="onSubmit">
         <FormField v-slot="{ componentField }" name="name">
@@ -99,9 +86,7 @@ const handleCreate = () => {
           <Button type="button" @click="resetForm"> Reset </Button>
         </div>
       </form>
-    </div> -->
+    </div> 
   </div>
 </template>
-<style scoped>
-
-</style>
+<style scoped></style>
