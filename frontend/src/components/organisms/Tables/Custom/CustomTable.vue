@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import CreateDialog from '@/components/organisms/Dialgos/CreateDialog.vue'
 import DataTablePagination from '@/components/organisms/Tables/DataTablePagination.vue'
-import DataTableToolbar from '@/components/organisms/Tables/DataTableToolbar.vue'
 import { AppModule, EntityStatus } from '@/interfaces/enums'
 import {
   Table,
@@ -33,32 +32,25 @@ import { onBeforeMount, onUpdated, ref } from 'vue'
 
 const {
   getItemAppModule,
-  baseColumns,
-  customerItem,
   customerColumns,
-  productItem,
   productColumns,
-  invoiceItem,
   invoiceColumns,
-  customerSchema,
-  productSchema,
-  editIfRow,
-  handleEdit,
-  handleDelete,
-  handleCreate,
-  handleFormOnChange
 } = TableService()
 
 const props = defineProps<ICustomTable>()
 const localItems = ref([] as any[])
 const localColumns = ref([]as ColumnDef<any>[])
 const appMod = getItemAppModule(props.item)
+const refItem = ref(props.item)
 onUpdated(() => {
   console.log("asdf")
 })
-const refItem = ref(props.item)
+const sorting = ref<SortingState>([])
+const columnFilters = ref<ColumnFiltersState>([])
+const columnVisibility = ref<VisibilityState>({})
+const rowSelection = ref({})
+
 onBeforeMount(async () => {
-  refItem.value.date = new Date().toISOString()
   await useAppStore().onInit()
   if (appMod == AppModule.Order) {
     console.log(localItems.value, 'invocie')
@@ -77,11 +69,6 @@ onBeforeMount(async () => {
     localColumns.value = customerColumns
   }
 })
-
-const sorting = ref<SortingState>([])
-const columnFilters = ref<ColumnFiltersState>([])
-const columnVisibility = ref<VisibilityState>({})
-const rowSelection = ref({})
 
 const table = useVueTable({
   get data() {
@@ -147,13 +134,12 @@ async function handleOnCreate(values: any) {
       })) ?? []
   }
 }
-const editMode = ref(false)
 
-console.log(refItem, "customtableinvoice")
+console.log(refItem,appMod, "customtableinvoice")
 </script>
 <template>
   <div class="space-y-4">
-    <CreateDialog :editMode="false" :onChange="(item: any) => handleOnCreate(item)" :item="refItem" />
+    <CreateDialog :onChange="(item: any) => handleOnCreate(item)" :item="refItem" />
     <div>
       <div class="rounded-md border">
         <Table>

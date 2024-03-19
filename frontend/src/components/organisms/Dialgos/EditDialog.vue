@@ -1,21 +1,17 @@
 <script setup lang="ts">
-import CreateDialogForm from '@/components/organisms/Forms/CreateDialogForm.vue'
+import EditDialogForm from '@/components/organisms/Forms/EditDialogForm.vue'
 import Button from '@/components/ui/button/Button.vue'
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger
 } from '@/components/ui/dialog'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import type { ICustomer } from '@/interfaces/atoms/ICustomer'
-import type { IInvoice } from '@/interfaces/atoms/IInvoice'
-import type { IProduct } from '@/interfaces/atoms/IProduct'
 import { AppModule } from '@/interfaces/enums'
-import { mapToForm } from '@/service/tableService'
-import { defineProps, ref } from 'vue'
+import { defineProps } from 'vue'
 const props = defineProps<{
   onChange: (item: any) => Promise<void>
   item: any
@@ -25,13 +21,13 @@ const isTabDisabled = (tabValue: string) => {
   // Determine if the tab should be disabled based on the item type
   return props.item.entityKey !== tabValue
 }
-const refItem = ref(props.item)
+console.log("editdialog")
 </script>
 
 <template>
   <Dialog>
     <DialogTrigger>
-      <Button>{{ 'Create' }}</Button>
+      <Button>{{ 'Edit'  }}</Button>
     </DialogTrigger>
     <DialogContent>
       <DialogHeader>
@@ -51,13 +47,13 @@ const refItem = ref(props.item)
             >
           </TabsList>
           <TabsContent :value="AppModule.Product">
-            <CreateDialogForm :item="refItem" :onChange="props.onChange" />
+            <EditDialogForm :item="props.item" :onChange="props.onChange" />
           </TabsContent>
           <TabsContent :value="AppModule.Customer">
-            <CreateDialogForm :item="refItem" :onChange="props.onChange" />
+            <EditDialogForm :item="props.item" :onChange="props.onChange" />
           </TabsContent>
           <TabsContent :value="AppModule.Order">
-            <CreateDialogForm :item="refItem" :onChange="props.onChange" />
+            <EditDialogForm :item="props.item" :onChange="props.onChange" />
           </TabsContent>
         </Tabs>
       </DialogDescription>

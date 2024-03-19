@@ -17,69 +17,7 @@ import {
 } from '@/lib/registry/new-york/ui/select'
 import type { IForm } from '@/service/tableService'
 import { useAppStore } from '@/stores/appStore'
-import { z, ZodType } from 'zod';
 
-// Define form schema using zod
-const formSchema = z.object({
-  id: z.string().nullable(),
-  name: z.string(),
-  unitPrice: z.number(),
-  number: z.number(),
-  invoiceTotal: z.number(),
-  customer: z.string(),
-  date: z.string(),
-});
-
-// Define form schema for each type
-const formSchemas: Record<string, ZodType<any>> = {
-  customer: z.object({
-    id: z.string().nullable(),
-    name: z.string(),
-    status: z.string(),
-    entityKey: z.string(),
-  }),
-  product: z.object({
-    id: z.string().nullable(),
-    name: z.string(),
-    unitPrice: z.number(),
-    status: z.string(),
-    entityKey: z.string(),
-  }),
-  invoice: z.object({
-    id: z.string().nullable(),
-    name: z.string(),
-    number: z.number(),
-    customer: z.string(),
-    date: z.string(),
-    invoiceTotal: z.number(),
-    status: z.string(),
-    entityKey: z.string(),
-  }),
-};
-
-// Define a function to map data to the form
- function mapToForm(item: any): any {
-  // Determine the type of item
-  const itemType = getItemType(item);
-
-  // Use the corresponding form schema for the item type
-  const formSchema = formSchemas[itemType];
-
-  // Parse the item using the form schema
-  return formSchema.safeParse(item).data ?? {};
-}
-
-// Function to get the type of item
-function getItemType(item: any): string {
-  if (item.customer !== undefined) {
-    return 'invoice';
-  } else if (item.unitPrice !== undefined) {
-    return 'product';
-  } else if (item.invoiceTotal !== undefined) {
-    return 'customer';
-  }
-  return '';
-}
   // Define props
   const props = defineProps<{
     onChange: (item: any) => Promise<void>
@@ -107,32 +45,57 @@ onBeforeMount(async () => {
   customersIDs.value = customers.map((x) => x._id ?? ' ')
   filterFormDataKeys()
 })
+// Function to determine item type
+function getItemType(item: any): string {
+  if (item.customer !== undefined) {
+    return 'customer';
+  } else if (item.unitPrice !== undefined) {
+    return 'product';
+  } else if (item.invoiceTotal !== undefined) {
+    return 'invoice';
+  }
+  return '';
+}
 
-// Define formSchema
-const formSchema = toTypedSchema(
-  z.object({
-    id: z.string(),
+// Define form schema for each type
+const formSchemas: Record<string, z.ZodObject<any>> = {
+  customer: z.object({
+    name: z.string(),
+    status: z.string(),
+    entityKey: z.string(),
+  }),
+  product: z.object({
     name: z.string(),
     unitPrice: z.number(),
+    status: z.string(),
+    entityKey: z.string(),
+  }),
+  invoice: z.object({
+    name: z.string(),
     number: z.number(),
-    invoiceTotal: z.number(),
     customer: z.string(),
-    date: z.string()
-  })
-)
+    date: z.string(),
+    invoiceTotal: z.number(),
+    status: z.string(),
+    entityKey: z.string(),
+  }),
+};
+
+// Get item type and corresponding form schema
+const itemType = getItemType(props.item);
+const formSchema = toTypedSchema(formSchemas[itemType]);
 
 // Destructure useForm result
 const { handleSubmit, resetForm } = useForm({
   validationSchema: formSchema,
   initialValues: formData.value // Initialize with formData.value
-})
-
+});
 const handleSub = handleSubmit((values) => {
   console.log('Submit button clicked. Values:', values)
   props.onChange(values)
 })
 
-  console.log(formData.value, props.item)
+  console.log(itemType, props.item)
   </script>
 
   <template>

@@ -1,10 +1,7 @@
 <script setup lang="ts">
-import CreateDialog from '@/components/organisms/Dialgos/CreateDialog.vue';
-import type { ICustomer } from '@/interfaces/atoms/ICustomer';
-import type { IInvoice } from '@/interfaces/atoms/IInvoice';
-import type { IProduct } from '@/interfaces/atoms/IProduct';
+import EditDialog from '../organisms/Dialgos/EditDialog.vue';
 defineProps<{
-  item: ICustomer | IInvoice | IProduct;
+  item: any;
 }>()
 
 async function edit(item: any) {
@@ -14,6 +11,6 @@ async function edit(item: any) {
 </script>
 
 <template>
-    <CreateDialog :editMode="true" :onChange="edit" :item="item" />
+    <EditDialog :onChange="edit" :item="item" />
 </template>
 

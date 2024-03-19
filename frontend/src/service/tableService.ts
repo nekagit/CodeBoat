@@ -17,7 +17,6 @@ export default function TableService() {
     handleFormOnChange
   } = TableHelper()
 
-  const { customerSchema, productSchema } = TableModel()
   const {
     baseColumns,
     customerItem,
@@ -37,8 +36,6 @@ export default function TableService() {
     productColumns,
     invoiceItem,
     invoiceColumns,
-    customerSchema,
-    productSchema,
     editIfRow,
     handleEdit,
     handleDelete,
@@ -76,21 +73,6 @@ function TableHelper() {
   return { getItemAppModule, editIfRow, handleEdit, handleDelete, handleCreate, handleFormOnChange }
 }
 
-/// MODEL
-function TableModel() {
-  //Schemas
-  const customerSchema = z.object({
-    id: z.string().nullable(),
-    name: z.string()
-  })
-
-  const productSchema = z.object({
-    name: z.string(),
-    unitPrice: z.number()
-  })
-
-  return { customerSchema, productSchema }
-}
 
 /// DATA
 function TableData() {

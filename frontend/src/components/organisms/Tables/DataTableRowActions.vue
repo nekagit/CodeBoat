@@ -1,31 +1,16 @@
 <script setup lang="ts">
-import { DotsHorizontalIcon } from '@radix-icons/vue'
 import type { Row } from '@tanstack/vue-table'
-import { computed } from 'vue'
 
-import { Button } from '@/lib/registry/new-york/ui/button'
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuRadioGroup,
-    DropdownMenuRadioItem,
-    DropdownMenuSeparator,
-    DropdownMenuShortcut,
-    DropdownMenuSub,
-    DropdownMenuSubContent,
-    DropdownMenuSubTrigger,
-    DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuSubContent
 } from '@/lib/registry/new-york/ui/dropdown-menu'
-import type { IBaseColumn } from '@/service/tableService';
+import type { IBaseColumn } from '@/service/tableService'
 
 interface DataTableRowActionsProps {
   row: Row<IBaseColumn>
-}
-const props = defineProps<DataTableRowActionsProps>()
-
-const customer = computed(() => customerSchema.parse(props.row.original))
-</script>
 
 <template>
   <DropdownMenu>
