@@ -1,4 +1,4 @@
-import DropdownAction from '@/components/molekules/DataTableDemoColumn.vue'
+import DropdownAction from '@/components/molekules/DataTableAction.vue'
 import { Checkbox } from '@/components/ui/checkbox'
 import type { ICustomer } from '@/interfaces/atoms/ICustomer'
 import type { IInvoice } from '@/interfaces/atoms/IInvoice'
@@ -234,13 +234,13 @@ function TableData() {
       enableHiding: false,
       cell: ({ row }) => {
         const item = {
-          name: 'sampleInvoice',
-          number: 1001,
-          customer: row.original.customer,
-          date: new Date('2024-03-13'),
-          invoiceTotal: 150.75,
-          status: EntityStatus.Created,
-          entityKey: AppModule.Order
+          name: row.original.name ?? '',
+          number: row.original.number ?? 0,
+          customer: row.original.customer ?? '',
+          date: row.original.date ?? new Date(),
+          invoiceTotal: row.original.invoiceTotal ?? 0,
+          status: row.original.status ?? EntityStatus.None,
+          entityKey: row.original.entityKey ?? AppModule.Order
         } as IInvoice
         console.log(item, row)
 
@@ -302,12 +302,12 @@ function TableData() {
       enableHiding: false,
       cell: ({ row }) => {
         const item = {
-          name: 'sampleProduct',
-          unitPrice: 0,
-          entityKey: AppModule.Product,
-          status: EntityStatus.Created
+          name: row.original.name,
+          unitPrice: row.original.unitPrice ?? 0,
+          status: row.original.status ?? EntityStatus.None,
+          entityKey: row.original.entityKey ?? AppModule.Order
         } as IProduct
-
+        console.log(item)
         return h(
           'div',
           { class: 'relative' },
@@ -361,9 +361,9 @@ function TableData() {
       enableHiding: false,
       cell: ({ row }) => {
         const item = {
-          name: 'sampleCustomer',
-          entityKey: AppModule.Customer,
-          status: EntityStatus.Created
+          name: row.original.name ?? '',
+          entityKey: row.original.entityKey ?? AppModule.Customer,
+          status: row.original.status ?? EntityStatus.None
         } as ICustomer
 
         return h(

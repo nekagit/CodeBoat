@@ -146,14 +146,13 @@ async function handleOnCreate(values: any) {
   }
 }
 const editMode = ref(false)
-const editList = ref([])
 
 console.log(editMode.value)
 </script>
 <template>
   <div class="space-y-4">
     <DataTableToolbar :table="table" />
-    <CreateDialog :onChange="(item: any) => handleOnCreate(item)" :item="props.item" />
+    <CreateDialog :editMode="false" :onChange="(item: any) => handleOnCreate(item)" :item="props.item" />
     <div>
       <div class="rounded-md border">
         <Table>
@@ -175,7 +174,6 @@ console.log(editMode.value)
                 :key="row.id"
                 aria-Row-Index = "row.id"
                 :data-state="row.getIsSelected() && 'selected'"
-                @click="handleOnRowClick"
               >
                 <TableCell v-for="cell in row.getVisibleCells()" :key="cell.id" >
                   <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
