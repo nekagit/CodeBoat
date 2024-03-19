@@ -1,3 +1,4 @@
+import DropdownAction from '@/components/molekules/DataTableDemoColumn.vue'
 import { Checkbox } from '@/components/ui/checkbox'
 import type { ICustomer } from '@/interfaces/atoms/ICustomer'
 import type { IInvoice } from '@/interfaces/atoms/IInvoice'
@@ -6,7 +7,6 @@ import { AppModule, EntityStatus } from '@/interfaces/enums'
 import type { ColumnDef } from '@tanstack/vue-table'
 import { h, ref, type Ref } from 'vue'
 import { z } from 'zod'
-
 export default function TableService() {
   const {
     getItemAppModule,
@@ -60,10 +60,10 @@ function TableHelper() {
   }
   const editIfRow = (rowSelection: any) => Object.keys(rowSelection).length > 0
   const handleEdit = (rowSelection: any, items: any[]) => {
-    const ids = Object.keys(rowSelection.value)
-    const list = ids.map((x) => items[parseInt(x)])
-    editMode.value = !editMode.value
-    editList.value = list
+    // const ids = Object.keys(rowSelection.value)
+    // const list = ids.map((x) => items[parseInt(x)])
+    // editMode.value = !editMode.value
+    // editList.value = list
   }
 
   const handleDelete = () => {}
@@ -90,6 +90,7 @@ function TableModel() {
     name: z.string(),
     unitPrice: z.number()
   })
+
   return { customerSchema, productSchema }
 }
 
@@ -144,6 +145,7 @@ function TableData() {
       header: 'Name',
       cell: ({ row }) => row.original.name
     },
+
     {
       accessorKey: 'status',
       header: 'Status',
@@ -153,6 +155,21 @@ function TableData() {
       accessorKey: 'entityKey',
       header: 'Type',
       cell: ({ row }) => row.original.entityKey
+    },
+    {
+      id: 'actions',
+      enableHiding: false,
+      cell: ({ row }) => {
+        const item = row.original
+
+        return h(
+          'div',
+          { class: 'relative' },
+          h(DropdownAction, {
+            item
+          })
+        )
+      }
     }
   ]
 
@@ -211,6 +228,30 @@ function TableData() {
       accessorKey: 'invoiceTotal',
       header: 'Total',
       cell: ({ row }) => row.original.invoiceTotal
+    },
+    {
+      id: 'actions',
+      enableHiding: false,
+      cell: ({ row }) => {
+        const item = {
+          name: 'sampleInvoice',
+          number: 1001,
+          customer: row.original.customer,
+          date: new Date('2024-03-13'),
+          invoiceTotal: 150.75,
+          status: EntityStatus.Created,
+          entityKey: AppModule.Order
+        } as IInvoice
+        console.log(item, row)
+
+        return h(
+          'div',
+          { class: 'relative' },
+          h(DropdownAction, {
+            item
+          })
+        )
+      }
     }
   ]
 
@@ -255,6 +296,26 @@ function TableData() {
       accessorKey: 'entityKey',
       header: 'Type',
       cell: ({ row }) => row.original.entityKey
+    },
+    {
+      id: 'actions',
+      enableHiding: false,
+      cell: ({ row }) => {
+        const item = {
+          name: 'sampleProduct',
+          unitPrice: 0,
+          entityKey: AppModule.Product,
+          status: EntityStatus.Created
+        } as IProduct
+
+        return h(
+          'div',
+          { class: 'relative' },
+          h(DropdownAction, {
+            item
+          })
+        )
+      }
     }
   ]
 
@@ -294,6 +355,25 @@ function TableData() {
       accessorKey: 'entityKey',
       header: 'Type',
       cell: ({ row }) => row.original.entityKey
+    },
+    {
+      id: 'actions',
+      enableHiding: false,
+      cell: ({ row }) => {
+        const item = {
+          name: 'sampleCustomer',
+          entityKey: AppModule.Customer,
+          status: EntityStatus.Created
+        } as ICustomer
+
+        return h(
+          'div',
+          { class: 'relative' },
+          h(DropdownAction, {
+            item
+          })
+        )
+      }
     }
   ]
   return {
@@ -308,7 +388,7 @@ function TableData() {
 }
 
 export interface IBaseColumn {
-  _id?: string
+  id?: string
   name: string
   entityKey: AppModule
   status: string

@@ -13,13 +13,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
  // Define props
 const props = defineProps<{
   onChange: (item: any) => Promise<void>
+    item: any,
+    editMode: boolean,
 }>()
 </script>
 
 <template>
   <Dialog>
     <DialogTrigger>
-      <Button> Create </Button>
+      <Button> {{ props.editMode ? "Edit" : "Create" }} </Button>
     </DialogTrigger>
     <DialogContent>
       <DialogHeader>
@@ -39,13 +41,13 @@ const props = defineProps<{
       </TabsTrigger>
     </TabsList>
     <TabsContent value="product">
-      <CreateDialogForm :item="productItem" :onChange="props.onChange"/>
+      <CreateDialogForm :item="props.item" :onChange="props.onChange"/>
     </TabsContent>
     <TabsContent value="customer">
-      <CreateDialogForm :item="customerItem" :onChange="props.onChange"/>
+      <CreateDialogForm :item="props.item" :onChange="props.onChange"/>
     </TabsContent>
     <TabsContent value="invoice">
-      <CreateDialogForm :item="invoiceItem" :onChange="props.onChange"/>
+      <CreateDialogForm :item="props.item" :onChange="props.onChange"/>
     </TabsContent>
   </Tabs>
       </DialogDescription>

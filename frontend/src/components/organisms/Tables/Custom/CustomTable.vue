@@ -17,7 +17,7 @@ import { useAppStore } from '@/stores/appStore'
 import { useCustomerStore } from '@/stores/customerStore'
 import { useInvoiceStore } from '@/stores/invoiceStore'
 import { useProductStore } from '@/stores/productsStore'
-import type { ColumnFiltersState, SortingState, VisibilityState } from '@tanstack/vue-table'
+import type { ColumnDef, ColumnFiltersState, SortingState, VisibilityState } from '@tanstack/vue-table'
 import {
   FlexRender,
   getCoreRowModel,
@@ -28,7 +28,7 @@ import {
   getSortedRowModel,
   useVueTable
 } from '@tanstack/vue-table'
-import { onBeforeMount, ref } from 'vue'
+import { onBeforeMount, onUpdated, ref } from 'vue'
 // Define props
 
 const {
@@ -51,22 +51,27 @@ const {
 
 const props = defineProps<ICustomTable>()
 const localItems = ref([] as any[])
-const localColumns = ref()
+const localColumns = ref([]as ColumnDef<any>[])
 const appMod = getItemAppModule(props.item)
-
+onUpdated(() => {
+  console.log("asdf")
+})
 onBeforeMount(async () => {
   await useAppStore().onInit()
   if (appMod == AppModule.Order) {
     console.log(localItems.value, 'invocie')
     localItems.value = useAppStore().invoices
+    localItems.value.push({id: "", name: "offlineSample"})
     localColumns.value = invoiceColumns
   } else if (appMod == AppModule.Product) {
     console.log(localItems.value, 'prodcuts')
     localItems.value = useAppStore().products
+    localItems.value.push({id: "", name: "offlineSample"})
     localColumns.value = productColumns
   } else if (appMod == AppModule.Customer) {
     console.log(localItems.value, 'customtable')
     localItems.value = useAppStore().customers
+    localItems.value.push({id: "", name: "offlineSample"})
     localColumns.value = customerColumns
   }
 })
@@ -109,6 +114,7 @@ const table = useVueTable({
   getFacetedRowModel: getFacetedRowModel(),
   getFacetedUniqueValues: getFacetedUniqueValues()
 })
+
 async function handleOnCreate(values: any) {
   if (appMod == AppModule.Order) {
     console.log('onchange')
@@ -139,6 +145,10 @@ async function handleOnCreate(values: any) {
       })) ?? []
   }
 }
+const editMode = ref(false)
+const editList = ref([])
+
+console.log(editMode.value)
 </script>
 <template>
   <div class="space-y-4">
@@ -163,9 +173,11 @@ async function handleOnCreate(values: any) {
               <TableRow
                 v-for="row in table.getRowModel().rows"
                 :key="row.id"
+                aria-Row-Index = "row.id"
                 :data-state="row.getIsSelected() && 'selected'"
+                @click="handleOnRowClick"
               >
-                <TableCell v-for="cell in row.getVisibleCells()" :key="cell.id">
+                <TableCell v-for="cell in row.getVisibleCells()" :key="cell.id" >
                   <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
                 </TableCell>
               </TableRow>

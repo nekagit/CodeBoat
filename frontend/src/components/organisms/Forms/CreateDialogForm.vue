@@ -1,3 +1,92 @@
+<script setup lang="ts">
+import { toTypedSchema } from '@vee-validate/zod'
+import { useForm } from 'vee-validate'
+import { z } from 'zod'
+
+import Button from '@/components/ui/button/Button.vue'
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from '@/components/ui/form'
+import { useAppStore } from '@/stores/appStore'
+import { onBeforeMount, ref } from 'vue'
+
+import { Input } from '@/lib/registry/new-york/ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/lib/registry/new-york/ui/select'
+import type { IForm } from '@/service/tableService'
+
+
+
+// Define props
+const props = defineProps<{
+  onChange: (item: any) => Promise<void>
+  item: any
+}>()
+ 
+
+const shopModalSchema = z.object({
+  name: z.string(),
+  unitPrice: z.number(),
+  number: z.number(),
+  invoiceTotal: z.number(),
+  customer: z.string(),
+  quantity: z.number(),
+});
+// Define FormData interface
+interface FormData {
+  [key: string]: string | number | null
+}
+
+// Initialize formData
+const formData = ref<IForm>(props.item as IForm)
+
+// Define formSchema
+const formSchema = toTypedSchema(shopModalSchema)
+
+// Destructure useForm result
+const { handleSubmit, resetForm } = useForm({
+  validationSchema: formSchema,
+  initialValues: formData.value
+})
+const handleSub = handleSubmit((values) => {
+  console.log('Submit button clicked. Values:', values); // Add this line
+  props.onChange(values);
+});
+
+// Initialize customersIDs
+const customersIDs = ref<string[]>([''])
+
+// Fetch customers IDs on component mount
+onBeforeMount(async () => {
+  const appStore = useAppStore()
+  const customers = appStore.customers
+  customersIDs.value = customers.map((x) => x.id ?? '')
+})
+
+
+// Define method to filter formData keys based on props.item
+const filterFormDataKeys = () => {
+  const filteredKeys = Object.keys(formData.value).filter(key => props.item.hasOwnProperty(key))
+  const filteredFormData: FormData = {}
+  filteredKeys.forEach(key => {
+    filteredFormData[key] = formData.value[key]
+  })
+  formData.value = filteredFormData
+}
+filterFormDataKeys()
+console.log(formData.value, formSchema)
+
+</script>
 <template>
     <div>
  <form class="space-y-8"  @submit.prevent="handleSub" >
@@ -55,101 +144,7 @@
     </div>
 </template>
 
-<script setup lang="ts">
-import { toTypedSchema } from '@vee-validate/zod'
-import { useForm } from 'vee-validate'
-import { z } from 'zod'
 
-import Button from '@/components/ui/button/Button.vue'
-import {
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage
-} from '@/components/ui/form'
-import { useAppStore } from '@/stores/appStore'
-import { onBeforeMount, ref } from 'vue'
-
-import { Input } from '@/lib/registry/new-york/ui/input'
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue
-} from '@/lib/registry/new-york/ui/select'
-import type { IForm } from '../../organisms/Tables/tablesFunctions'
-
-
-// Define props
-const props = defineProps<{
-  onChange: (item: any) => Promise<void>
-  item: any
-}>()
- 
-
-const shopModalSchema = z.object({
-  name: z.string(),
-  unitPrice: z.number(),
-  number: z.number(),
-  invoiceTotal: z.number(),
-  customer: z.string(),
-  quantity: z.number(),
-});
-// Define FormData interface
-interface FormData {
-  [key: string]: string | number | null
-}
-
-// Initialize formData
-const formData = ref<IForm>({
-  name: 'Initial Name',
-  unitPrice: 10,
-  number: 0,
-  invoiceTotal: 0,
-  customer: undefined,
-  quantity: 0,
-})
-
-// Define formSchema
-const formSchema = toTypedSchema(shopModalSchema)
-
-// Destructure useForm result
-const { handleSubmit, resetForm } = useForm({
-  validationSchema: formSchema,
-  initialValues: formData.value
-})
-const handleSub = handleSubmit((values) => {
-  console.log('Submit button clicked. Values:', values); // Add this line
-  props.onChange(values);
-});
-
-// Initialize customersIDs
-const customersIDs = ref<string[]>([''])
-
-// Fetch customers IDs on component mount
-onBeforeMount(async () => {
-  const appStore = useAppStore()
-  const customers = appStore.customers
-  customersIDs.value = customers.map((x) => x._id ?? '')
-})
-
-
-// Define method to filter formData keys based on props.item
-const filterFormDataKeys = () => {
-  const filteredKeys = Object.keys(formData.value).filter(key => props.item.hasOwnProperty(key))
-  const filteredFormData: FormData = {}
-  filteredKeys.forEach(key => {
-    filteredFormData[key] = formData.value[key]
-  })
-  formData.value = filteredFormData
-}
-filterFormDataKeys()
-console.log(formData.value, formSchema)
-
-</script>
 
 <style lang="scss" scoped>
 

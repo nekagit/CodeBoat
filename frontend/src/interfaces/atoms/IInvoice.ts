@@ -10,7 +10,7 @@ export interface IInvoice extends IBaseColumn {
 
 // Interface for the invoice line document
 export interface IInvoiceLine {
-  _id: string // MongoDB ObjectId
+  id: string // MongoDB ObjectId
   invoice: string // Reference to Invoice ObjectId
   product: string // Reference to Product ObjectId
   unitPrice: number
