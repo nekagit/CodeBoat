@@ -159,7 +159,7 @@ function TableData() {
       enableHiding: false,
       cell: ({ row }) => {
         const item = row.original
-
+        console.log(item, "tableSErvice")
         return h(
           'div',
           { class: 'relative' },
@@ -240,7 +240,7 @@ function TableData() {
           status: row.original.status ?? EntityStatus.None,
           entityKey: row.original.entityKey ?? AppModule.Order
         } as IInvoice
-
+        console.log(item, "tableSErvice")
         return h(
           'div',
           { class: 'relative' },
@@ -303,7 +303,8 @@ function TableData() {
           unitPrice: row.original.unitPrice ?? 0,
           status: row.original.status ?? EntityStatus.None,
           entityKey: row.original.entityKey ?? AppModule.Order
-        } as IProduct
+          } as IProduct
+          console.log(item, 'tableSErvice')
         return h(
           'div',
           { class: 'relative' },
@@ -361,7 +362,7 @@ function TableData() {
           entityKey: row.original.entityKey ?? AppModule.Customer,
           status: row.original.status ?? EntityStatus.None
         } as ICustomer
-
+        console.log(item, "tableSErvice")
         return h(
           'div',
           { class: 'relative' },

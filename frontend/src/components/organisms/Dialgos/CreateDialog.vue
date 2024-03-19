@@ -21,13 +21,13 @@
             >
           </TabsList>
           <TabsContent :value="AppModule.Product">
-            <CreateDialogForm :item="props.item" :onChange="props.onChange" />
+            <CreateDialogForm :item="props.item as IProduct" :onChange="props.onChange" />
           </TabsContent>
           <TabsContent :value="AppModule.Customer">
-            <CreateDialogForm :item="props.item" :onChange="props.onChange" />
+            <CreateDialogForm :item="props.item as ICustomer" :onChange="props.onChange" />
           </TabsContent>
           <TabsContent :value="AppModule.Order">
-            <CreateDialogForm :item="props.item" :onChange="props.onChange" />
+            <CreateDialogForm :item="props.item as IInvoice" :onChange="props.onChange" />
           </TabsContent>
         </Tabs>
       </DialogDescription>
