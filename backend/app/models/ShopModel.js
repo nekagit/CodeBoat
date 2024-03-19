@@ -20,7 +20,7 @@ const InvoiceSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Customer' 
     },
-    date: Date,
+    date: String,
     invoiceTotal: Number,
     status: String,
     entityKey: String

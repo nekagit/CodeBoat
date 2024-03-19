@@ -1,23 +1,85 @@
   <script setup lang="ts">
   import { toTypedSchema } from '@vee-validate/zod'
-  import { useForm } from 'vee-validate'
-  import { defineProps, onBeforeMount, ref } from 'vue'
-  import { z } from 'zod'
+import { useForm } from 'vee-validate'
+import { defineProps, onBeforeMount, ref } from 'vue'
+import { z } from 'zod'
 
   import Button from '@/components/ui/button/Button.vue'
-  import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-  import { Input } from '@/lib/registry/new-york/ui/input'
-  import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue
-  } from '@/lib/registry/new-york/ui/select'
-  import type { IForm } from '@/service/tableService'
-  import { useAppStore } from '@/stores/appStore'
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { Input } from '@/lib/registry/new-york/ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/lib/registry/new-york/ui/select'
+import type { IForm } from '@/service/tableService'
+import { useAppStore } from '@/stores/appStore'
+import { z, ZodType } from 'zod';
 
+// Define form schema using zod
+const formSchema = z.object({
+  id: z.string().nullable(),
+  name: z.string(),
+  unitPrice: z.number(),
+  number: z.number(),
+  invoiceTotal: z.number(),
+  customer: z.string(),
+  date: z.string(),
+});
+
+// Define form schema for each type
+const formSchemas: Record<string, ZodType<any>> = {
+  customer: z.object({
+    id: z.string().nullable(),
+    name: z.string(),
+    status: z.string(),
+    entityKey: z.string(),
+  }),
+  product: z.object({
+    id: z.string().nullable(),
+    name: z.string(),
+    unitPrice: z.number(),
+    status: z.string(),
+    entityKey: z.string(),
+  }),
+  invoice: z.object({
+    id: z.string().nullable(),
+    name: z.string(),
+    number: z.number(),
+    customer: z.string(),
+    date: z.string(),
+    invoiceTotal: z.number(),
+    status: z.string(),
+    entityKey: z.string(),
+  }),
+};
+
+// Define a function to map data to the form
+ function mapToForm(item: any): any {
+  // Determine the type of item
+  const itemType = getItemType(item);
+
+  // Use the corresponding form schema for the item type
+  const formSchema = formSchemas[itemType];
+
+  // Parse the item using the form schema
+  return formSchema.safeParse(item).data ?? {};
+}
+
+// Function to get the type of item
+function getItemType(item: any): string {
+  if (item.customer !== undefined) {
+    return 'invoice';
+  } else if (item.unitPrice !== undefined) {
+    return 'product';
+  } else if (item.invoiceTotal !== undefined) {
+    return 'customer';
+  }
+  return '';
+}
   // Define props
   const props = defineProps<{
     onChange: (item: any) => Promise<void>
@@ -34,7 +96,7 @@ const filterFormDataKeys = () => {
   const formDataTmp: IForm = {}
   const itemKeys = Object.keys(props.item)
   itemKeys.forEach((key) => {
-    formDataTmp[key] = formData.value[key] ?? null
+    formDataTmp[key] = formData.value[key]
   })
   formData.value = formDataTmp
 }
@@ -49,12 +111,13 @@ onBeforeMount(async () => {
 // Define formSchema
 const formSchema = toTypedSchema(
   z.object({
-    name: z.string().nullable(),
-    unitPrice: z.number().nullable(),
-    number: z.number().nullable(),
-    invoiceTotal: z.number().nullable(),
-    customer: z.string().nullable(),
-    quantity: z.number().nullable()
+    id: z.string(),
+    name: z.string(),
+    unitPrice: z.number(),
+    number: z.number(),
+    invoiceTotal: z.number(),
+    customer: z.string(),
+    date: z.string()
   })
 )
 
@@ -81,7 +144,6 @@ const handleSub = handleSubmit((values) => {
           v-slot="{ componentField }"
           :name="JSON.stringify(key)"
         >
-        
         <FormItem>
             <FormControl>
               <!-- Render inputs based on the type of value -->
@@ -97,7 +159,7 @@ const handleSub = handleSubmit((values) => {
                 <Select v-model="formData[key]" :options="customersIDs" v-bind="componentField">
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select a customer" />
+                      <SelectValue :placeholder="JSON.stringify(formData[key])" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -115,7 +177,7 @@ const handleSub = handleSubmit((values) => {
               <template v-else>
                 <FormLabel>{{ key }}</FormLabel>
 
-                <Input type="text" v-model="formData[key]" v-bind="componentField" />
+                <Input type="text" v-model="formData[key]" v-bind="componentField" :placeholder="formData[key]" />
               </template>
             </FormControl>
             <FormMessage />

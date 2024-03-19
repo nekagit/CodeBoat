@@ -58,7 +58,7 @@ onUpdated(() => {
 })
 const refItem = ref(props.item)
 onBeforeMount(async () => {
-  refItem.value.date = new Date()
+  refItem.value.date = new Date().toISOString()
   await useAppStore().onInit()
   if (appMod == AppModule.Order) {
     console.log(localItems.value, 'invocie')
@@ -127,7 +127,7 @@ async function handleOnCreate(values: any) {
         status: EntityStatus.Created,
         entityKey: AppModule.Order,
         customer: values.customer,
-        date: new Date(), // This will set the date to the current date and time
+        date: new Date().toISOString(), // This will set the date to the current date and time
         invoiceTotal: values.invoiceTotal
       })) ?? []
   } else if (appMod == AppModule.Product) {
@@ -149,11 +149,10 @@ async function handleOnCreate(values: any) {
 }
 const editMode = ref(false)
 
-console.log(editMode.value)
+console.log(refItem, "customtableinvoice")
 </script>
 <template>
   <div class="space-y-4">
-    <DataTableToolbar :table="table" />
     <CreateDialog :editMode="false" :onChange="(item: any) => handleOnCreate(item)" :item="refItem" />
     <div>
       <div class="rounded-md border">

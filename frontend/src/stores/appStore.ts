@@ -20,30 +20,25 @@ export const useAppStore = defineStore('app', {
       const productStore = useProductStore()
       const customerStore = useCustomerStore()
       const invoiceStore = useInvoiceStore()
-      console.log('appstore')
       if (this.products.length + this.invoices.length + this.customers.length == 0) {
-        console.log('appstore empty')
-
         const responseProducts = await productStore.fetchAllProducts()
         const responseInvoices = await invoiceStore.fetchAllInvoices()
         const responseCustomers = await customerStore.fetchAllCustomers()
 
         if (responseCustomers?.length < 1) {
-          console.log('customers empty')
-
           this.customers = await this.initCustomerTable()
-          console.log('onInit AppStore', this.customers)
+          console.log('onInit AppStore customers', this.customers)
         }
         if (responseProducts?.length < 1) {
           this.products = await this.initProductTable()
-          console.log('onInit AppStore', this.products)
+          console.log('onInit AppStore products', this.products)
         }
         if (responseInvoices?.length < 1 && this.customers[0]._id != undefined) {
           this.invoices = await this.initInvoiceTable(this.customers[0]._id)
-          console.log('onInit AppStore', this.invoices)
+          console.log('onInit AppStore invoices ', this.invoices)
         }
       }
-      
+
       console.log('init over')
     },
 
@@ -78,7 +73,7 @@ export const useAppStore = defineStore('app', {
         name: 'sampleInvoice',
         number: 1001,
         customer: id,
-        date: new Date('2024-03-13'),
+        date: new Date('2024-03-13').toISOString(),
         invoiceTotal: 150.75,
         status: EntityStatus.Created,
         entityKey: AppModule.Order

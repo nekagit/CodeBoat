@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { addDays, format } from 'date-fns'
 import { CalendarIcon } from '@radix-icons/vue'
+import { addDays, format } from 'date-fns'
 
-import { ref } from 'vue'
-import { cn } from '@/lib/utils'
 import { Button } from '@/lib/registry/new-york/ui/button'
 import { Calendar } from '@/lib/registry/new-york/ui/calendar'
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from '@/lib/registry/new-york/ui/popover'
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from '@/lib/registry/new-york/ui/select'
+import { cn } from '@/lib/utils'
+import { ref } from 'vue'
 
 const date = ref<Date>()
 </script>
@@ -44,7 +44,7 @@ const date = ref<Date>()
     <PopoverContent class="flex w-auto flex-col space-y-2 p-2">
       <Select
         @update:model-value="(value) => {
-          date = addDays(new Date(), parseInt(value))
+          date = addDays(new Date().toISOString(), parseInt(value))
         }"
       >
         <SelectTrigger>

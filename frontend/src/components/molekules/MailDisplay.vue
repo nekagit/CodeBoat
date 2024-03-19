@@ -30,7 +30,7 @@ const mailFallbackName = computed(() => {
     .join(' ')
 })
 
-const today = new Date()
+const today = new Date().toISOString()
 </script>
 
 <template>

@@ -4,7 +4,7 @@ import type { IBaseColumn } from "@/service/tableService"
 export interface IInvoice extends IBaseColumn {
   number: number
   customer: string // Reference to Customer ObjectId
-  date?: Date
+  date: string
   invoiceTotal: number
 }
 

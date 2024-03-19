@@ -56,7 +56,7 @@ async function run() {
     const invoice = {
       number: 12345,
       customer: sampleCustomer._id, // Use the customer ID from the created customer
-      date: new Date(),
+      date: new Date().toISOString(),
       invoiceTotal: 500,
     };
 

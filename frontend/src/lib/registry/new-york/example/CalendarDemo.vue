@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Calendar } from '@/lib/registry/new-york/ui/calendar'
+import { Calendar } from '@/lib/registry/new-york/ui/calendar';
+import { ref } from 'vue';
 
-const date = ref(new Date())
+const date = ref(new Date().toISOString())
 </script>
 
 <template>

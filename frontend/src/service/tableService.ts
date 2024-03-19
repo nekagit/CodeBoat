@@ -104,7 +104,7 @@ function TableData() {
   const invoiceItem: Ref<IInvoice> = ref({
     name: '',
     customer: '',
-    date: undefined,
+    date: new Date().toISOString(),
     invoiceTotal: 0,
     number: 0,
     entityKey: AppModule.Order,
@@ -173,7 +173,7 @@ function TableData() {
 
   const invoiceColumns: ColumnDef<IInvoice>[] = [
     {
-      id: 'select',
+      accessorKey: 'id',
       header: ({ table }) =>
         h(Checkbox, {
           checked:
@@ -228,7 +228,7 @@ function TableData() {
       cell: ({ row }) => row.original.invoiceTotal
     },
     {
-      id: 'actions',
+      accessorKey: 'actions',
       enableHiding: false,
       cell: ({ row }) => {
         const item = {
@@ -240,7 +240,7 @@ function TableData() {
           status: row.original.status ?? EntityStatus.None,
           entityKey: row.original.entityKey ?? AppModule.Order
         } as IInvoice
-        console.log(item, "tableSErvice")
+        console.log(item, 'edittableinvoice')
         return h(
           'div',
           { class: 'relative' },
@@ -255,7 +255,8 @@ function TableData() {
   // Define columns for products
   const productColumns: ColumnDef<IProduct>[] = [
     {
-      id: 'select',
+      accessorKey: 'id',
+
       header: ({ table }) =>
         h(Checkbox, {
           checked:
@@ -303,8 +304,7 @@ function TableData() {
           unitPrice: row.original.unitPrice ?? 0,
           status: row.original.status ?? EntityStatus.None,
           entityKey: row.original.entityKey ?? AppModule.Order
-          } as IProduct
-          console.log(item, 'tableSErvice')
+        } as IProduct
         return h(
           'div',
           { class: 'relative' },
@@ -319,7 +319,8 @@ function TableData() {
   // Define columns for customers
   const customerColumns: ColumnDef<ICustomer>[] = [
     {
-      id: 'select',
+      accessorKey: 'id',
+
       header: ({ table }) =>
         h(Checkbox, {
           checked:
@@ -362,7 +363,7 @@ function TableData() {
           entityKey: row.original.entityKey ?? AppModule.Customer,
           status: row.original.status ?? EntityStatus.None
         } as ICustomer
-        console.log(item, "tableSErvice")
+        console.log(item, 'tableSErvice')
         return h(
           'div',
           { class: 'relative' },
@@ -412,4 +413,48 @@ export interface IForm {
 }
 export interface ICustomTable {
   item: any
+}
+export function mapToForm(item: any): any {
+  let form: any = {}
+
+  // Define sample values for each type
+  const sampleValues: Record<string, any> = {
+    customer: {
+      name: '',
+      entityKey: AppModule.Customer,
+      status: EntityStatus.Created
+    },
+    product: {
+      name: '',
+      unitPrice: 0,
+      status: EntityStatus.Created,
+      entityKey: AppModule.Product
+    },
+    invoice: {
+      name: '',
+      customer: '',
+      date: new Date().toISOString(),
+      invoiceTotal: 0,
+      number: 0,
+      status: EntityStatus.Created,
+      entityKey: AppModule.Order
+    }
+    // Add more sample values as needed for other types
+  }
+
+  // Determine the type of item and set form accordingly
+  if (item.customer !== undefined) {
+    form = { ...sampleValues.invoice }
+  } else if (item.unitPrice !== undefined) {
+    form = { ...sampleValues.product }
+  } else if (item.invoiceTotal !== undefined) {
+    form = { ...sampleValues.customer }
+  }
+
+  // Map each key to the item value or sample value if it's undefined in the item
+  Object.keys(form).forEach((key) => {
+    form[key] = item[key] !== undefined ? item[key] : form[key]
+  })
+
+  return form
 }

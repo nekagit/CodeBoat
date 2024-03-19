@@ -1,3 +1,33 @@
+<script setup lang="ts">
+import CreateDialogForm from '@/components/organisms/Forms/CreateDialogForm.vue'
+import Button from '@/components/ui/button/Button.vue'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from '@/components/ui/dialog'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import type { ICustomer } from '@/interfaces/atoms/ICustomer'
+import type { IInvoice } from '@/interfaces/atoms/IInvoice'
+import type { IProduct } from '@/interfaces/atoms/IProduct'
+import { AppModule } from '@/interfaces/enums'
+import { mapToForm } from '@/service/tableService'
+import { defineProps } from 'vue'
+const props = defineProps<{
+  onChange: (item: any) => Promise<void>
+  item: any
+  editMode: boolean
+}>()
+
+const isTabDisabled = (tabValue: string) => {
+  // Determine if the tab should be disabled based on the item type
+  return props.item.entityKey !== tabValue
+}
+</script>
+
 <template>
   <Dialog>
     <DialogTrigger>
@@ -27,7 +57,7 @@
             <CreateDialogForm :item="props.item as ICustomer" :onChange="props.onChange" />
           </TabsContent>
           <TabsContent :value="AppModule.Order">
-            <CreateDialogForm :item="props.item as IInvoice" :onChange="props.onChange" />
+            <CreateDialogForm :item="mapToForm(props.item)" :onChange="props.onChange" />
           </TabsContent>
         </Tabs>
       </DialogDescription>
@@ -35,28 +65,3 @@
   </Dialog>
 </template>
 
-<script setup lang="ts">
-import CreateDialogForm from '@/components/organisms/Forms/CreateDialogForm.vue'
-import Button from '@/components/ui/button/Button.vue'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger
-} from '@/components/ui/dialog'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { AppModule } from '@/interfaces/enums'
-import { defineProps } from 'vue'
-const props = defineProps<{
-  onChange: (item: any) => Promise<void>
-  item: any
-  editMode: boolean
-}>()
-
-const isTabDisabled = (tabValue: string) => {
-  // Determine if the tab should be disabled based on the item type
-  return props.item.entityKey !== tabValue
-}
-</script>
