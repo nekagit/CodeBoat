@@ -16,7 +16,6 @@ const ProductService = {
   async getAllProducts(): Promise<IProduct[]> {
     try {
       const response = await axios.get(API_URL)
-      console.log(response,"hehe")
       return response.data
     } catch (error: any) {
       throw new Error(error.response?.data?.message || 'Failed to fetch products')

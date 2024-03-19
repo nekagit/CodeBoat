@@ -23,7 +23,7 @@ defineProps<DataTableColumnHeaderProps>()
 
 
 <template>
-  <div v-if="column.getCanSort()" :class="cn('flex items-center space-x-2', $attrs.class ?? '')">
+  <div v-if="column.getCanSort()" :class="cn('flex items-center space-x-2', $attrs.class ?? ' ')">
     <DropdownMenu>
       <DropdownMenuTrigger as-child>
         <Button

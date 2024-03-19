@@ -2,8 +2,6 @@
 import { addDays, format } from 'date-fns'
 import { Calendar as CalendarIcon } from 'lucide-vue-next'
 
-import { ref } from 'vue'
-import { cn } from '@/lib/utils'
 import { Button } from '@/lib/registry/new-york/ui/button'
 import { Calendar } from '@/lib/registry/new-york/ui/calendar'
 import {
@@ -11,6 +9,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/lib/registry/new-york/ui/popover'
+import { cn } from '@/lib/utils'
+import { ref } from 'vue'
 
 const date = ref({
   start: new Date(2023, 0, 20),
@@ -19,7 +19,7 @@ const date = ref({
 </script>
 
 <template>
-  <div :class="cn('grid gap-2', $attrs.class ?? '')">
+  <div :class="cn('grid gap-2', $attrs.class ?? ' ')">
     <Popover>
       <PopoverTrigger as-child>
         <Button

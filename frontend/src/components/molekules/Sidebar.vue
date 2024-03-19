@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 </script>
 
 <template>
-  <div :class="cn('pb-12', $attrs.class ?? '')" class="sticky top-7" style="max-width: 200px">
+  <div :class="cn('pb-12', $attrs.class ?? ' ')" class="sticky top-7" style="max-width: 200px">
     <div class="space-y-4 py-4">
       <div class="px-3 py-2">
         <h2 class="mb-2 px-4 text-lg font-semibold tracking-tight">

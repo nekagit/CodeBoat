@@ -78,7 +78,7 @@ onBeforeMount(async () => {
       <div class="flex items-center space-x-2"></div>
     </div>
     <Button @click="handleCreate" class="w-fit">Create</Button>
-    <div v-if="createMode" class="">
+    <div v-if="createMode" class=" ">
       <h1 class="text-3xl">Create Product:</h1>
       <form
         class="space-y-8 flex flex-row align-center justify-end items-center"

@@ -1,9 +1,8 @@
 <script setup lang="ts">
+import { CalendarIcon } from '@radix-icons/vue'
 import { addDays, format } from 'date-fns'
 import { ref } from 'vue'
-import { CalendarIcon } from '@radix-icons/vue'
 
-import { cn } from '@/lib/utils'
 import { Button } from '@/lib/registry/new-york/ui/button'
 import { Calendar } from '@/lib/registry/new-york/ui/calendar'
 import {
@@ -11,6 +10,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/lib/registry/new-york/ui/popover'
+import { cn } from '@/lib/utils'
 
 const date = ref({
   start: new Date(2022, 0, 20),
@@ -19,7 +19,7 @@ const date = ref({
 </script>
 
 <template>
-  <div :class="cn('grid gap-2', $attrs.class ?? '')">
+  <div :class="cn('grid gap-2', $attrs.class ?? ' ')">
     <Popover>
       <PopoverTrigger as-child>
         <Button

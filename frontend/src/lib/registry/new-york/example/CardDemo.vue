@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { BellIcon, CheckIcon } from '@radix-icons/vue'
 import { Button } from '@/lib/registry/new-york/ui/button'
 import {
   Card,
@@ -11,6 +10,7 @@ import {
 } from '@/lib/registry/new-york/ui/card'
 import { Switch } from '@/lib/registry/new-york/ui/switch'
 import { cn } from '@/lib/utils'
+import { BellIcon, CheckIcon } from '@radix-icons/vue'
 
 const notifications = [
   {
@@ -29,7 +29,7 @@ const notifications = [
 </script>
 
 <template>
-  <Card :class="cn('w-[380px]', $attrs.class ?? '')">
+  <Card :class="cn('w-[380px]', $attrs.class ?? ' ')">
     <CardHeader>
       <CardTitle>Notifications</CardTitle>
       <CardDescription>You have 3 unread messages.</CardDescription>

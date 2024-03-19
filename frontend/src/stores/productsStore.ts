@@ -13,7 +13,6 @@ export const useProductStore = defineStore('product', {
      async createProduct(newProduct: IProduct): Promise<IProduct[]> {
       try {
         await ProductService.createProduct(newProduct)
-        console.log('create products')
         return await this.fetchAllProducts()
       } catch (error: any) {
         this.setError(error.message)
@@ -24,7 +23,6 @@ export const useProductStore = defineStore('product', {
     async fetchAllProducts(): Promise<IProduct[]> {
       try {
         this.appStore.products = await ProductService.getAllProducts()
-        console.log('fetched products', this.appStore.products.length)
         return this.appStore.products
       } catch (error: any) {
         this.setError(error.message)

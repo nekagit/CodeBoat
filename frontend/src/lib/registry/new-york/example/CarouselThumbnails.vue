@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { watchOnce } from '@vueuse/core'
-import { Carousel, type CarouselApi, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/lib/registry/new-york/ui/carousel'
-import { Card, CardContent } from '@/lib/registry/new-york/ui/card'
+import { Card, CardContent } from '@/lib/registry/new-york/ui/card';
+import { Carousel, type CarouselApi, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/lib/registry/new-york/ui/carousel';
+import { watchOnce } from '@vueuse/core';
+import { ref } from 'vue';
 
 const emblaMainApi = ref<CarouselApi>()
 const emblaThumbnailApi = ref<CarouselApi>()
@@ -58,7 +58,7 @@ watchOnce(emblaMainApi, (emblaMainApi) => {
     >
       <CarouselContent class="flex gap-1 ml-0">
         <CarouselItem v-for="(_, index) in 10" :key="index" class="pl-0 basis-1/4 cursor-pointer" @click="onThumbClick(index)">
-          <div class="p-1" :class="index === selectedIndex ? '' : 'opacity-50'">
+          <div class="p-1" :class="index === selectedIndex ? ' ' : 'opacity-50'">
             <Card>
               <CardContent class="flex aspect-square items-center justify-center p-6">
                 <span class="text-4xl font-semibold">{{ index + 1 }}</span>

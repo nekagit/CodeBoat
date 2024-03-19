@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { Button } from '@/lib/registry/default/ui/button'
 import { Input } from '@/lib/registry/default/ui/input'
 import { Label } from '@/lib/registry/default/ui/label'
@@ -13,10 +12,11 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/lib/registry/default/ui/sheet'
+import { ref } from 'vue'
 
 const SHEET_SIDES = ['top', 'right', 'bottom', 'left'] as const
 
-const username = ref('')
+const username = ref(' ')
 </script>
 
 <template>

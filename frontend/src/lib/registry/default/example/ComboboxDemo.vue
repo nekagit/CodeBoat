@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { Check, ChevronsUpDown } from 'lucide-vue-next'
+import { ref } from 'vue'
 
-import { cn } from '@/lib/utils'
 import { Button } from '@/lib/registry/default/ui/button'
 import {
   Command,
@@ -17,6 +16,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/lib/registry/default/ui/popover'
+import { cn } from '@/lib/utils'
 
 const frameworks = [
   { value: 'next.js', label: 'Next.js' },
@@ -27,7 +27,7 @@ const frameworks = [
 ]
 
 const open = ref(false)
-const value = ref<string>('')
+const value = ref<string>(' ')
 
 // const filterFunction = (list: typeof frameworks, search: string) => list.filter(i => i.value.toLowerCase().includes(search.toLowerCase()))
 </script>

@@ -15,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/lib/registry/new-york/ui/select'
+import type { IForm } from '@/service/tableService'
 import { useAppStore } from '@/stores/appStore'
 
 // Define props
@@ -23,41 +24,38 @@ const props = defineProps<{
   item: any
 }>()
 
-// Define FormData interface
-interface FormData {
-  [key: string]: string | number | null
-}
-
 // Initialize formData
-const formData = ref<FormData>(props.item)
+const formData = ref<IForm>(props.item)
 const customersIDs = ref<string[]>([])
 
 // Define method to filter formData keys based on props.item
 const filterFormDataKeys = () => {
-  const formDataTmp: FormData = {};
-  const itemKeys = Object.keys(props.item);
+  const formDataTmp: FormData = {}
+  const itemKeys = Object.keys(props.item)
   itemKeys.forEach((key) => {
-    formDataTmp[key] = formData.value[key] ?? null;
-  });
-  formData.value = formDataTmp;
+    formDataTmp[key] = formData.value[key] ?? null
+  })
+  formData.value = formDataTmp
 }
 
 onBeforeMount(async () => {
   const appStore = useAppStore()
   const customers = appStore.customers
-  customersIDs.value = customers.map((x) => x.id ?? '')
+  console.log(customers)
+  customersIDs.value = customers.map((x) => x._id ?? ' ')
+  console.log(customersIDs.value)
   filterFormDataKeys()
 })
 
 // Define formSchema
 const formSchema = toTypedSchema(
   z.object({
-    name: z.string(),
-    unitPrice: z.number(),
-    number: z.number(),
-    invoiceTotal: z.number(),
-    customer: z.string(),
-    quantity: z.number()
+    name: z.string().nullable(),
+    unitPrice: z.number().nullable(),
+    number: z.number().nullable(),
+    invoiceTotal: z.number().nullable(),
+    customer: z.string().nullable(),
+    quantity: z.number().nullable()
   })
 )
 
@@ -72,7 +70,7 @@ const handleSub = handleSubmit((values) => {
   props.onChange(values)
 })
 
-console.log(formData.value, formSchema)
+console.log(customersIDs.value)
 </script>
 
 <template>
@@ -82,19 +80,20 @@ console.log(formData.value, formSchema)
         v-for="(value, key) in formData"
         :key="key"
         v-slot="{ componentField }"
-        :name="key"
+        :name="JSON.stringify(key)"
       >
         <FormItem>
-          <FormLabel>{{ key }}</FormLabel>
           <FormControl>
             <!-- Render inputs based on the type of value -->
             <template v-if="typeof value === 'number'">
+              <FormLabel>{{ key }}</FormLabel>
+
               <Input type="number" placeholder="0" v-bind="componentField" />
             </template>
-            <template v-else-if="typeof value === 'string'">
-              <Input type="text" v-model="formData[key]" v-bind="componentField" />
-            </template>
+
             <template v-else-if="key === 'customer'">
+              <FormLabel>{{ key }}</FormLabel>
+
               <Select v-model="formData[key]" :options="customersIDs" v-bind="componentField">
                 <FormControl>
                   <SelectTrigger>
@@ -110,7 +109,12 @@ console.log(formData.value, formSchema)
                 </SelectContent>
               </Select>
             </template>
-            <!-- Add additional conditions for other types if needed -->
+            <template v-else-if="key === 'date'"> </template>
+            <template v-else>
+              <FormLabel>{{ key }}</FormLabel>
+
+              <Input type="text" v-model="formData[key]" v-bind="componentField" />
+            </template>
           </FormControl>
           <FormMessage />
         </FormItem>

@@ -56,22 +56,24 @@ const appMod = getItemAppModule(props.item)
 onUpdated(() => {
   console.log("asdf")
 })
+const refItem = ref(props.item)
 onBeforeMount(async () => {
+  refItem.value.date = new Date()
   await useAppStore().onInit()
   if (appMod == AppModule.Order) {
     console.log(localItems.value, 'invocie')
     localItems.value = useAppStore().invoices
-    localItems.value.push({id: "", name: "offlineSample"})
+    // localItems.value.push({id: " ", name: "offlineSample"})
     localColumns.value = invoiceColumns
   } else if (appMod == AppModule.Product) {
     console.log(localItems.value, 'prodcuts')
     localItems.value = useAppStore().products
-    localItems.value.push({id: "", name: "offlineSample"})
+    // localItems.value.push({id: " ", name: "offlineSample"})
     localColumns.value = productColumns
   } else if (appMod == AppModule.Customer) {
     console.log(localItems.value, 'customtable')
     localItems.value = useAppStore().customers
-    localItems.value.push({id: "", name: "offlineSample"})
+    // localItems.value.push({id: " ", name: "offlineSample"})
     localColumns.value = customerColumns
   }
 })
@@ -152,7 +154,7 @@ console.log(editMode.value)
 <template>
   <div class="space-y-4">
     <DataTableToolbar :table="table" />
-    <CreateDialog :editMode="false" :onChange="(item: any) => handleOnCreate(item)" :item="props.item" />
+    <CreateDialog :editMode="false" :onChange="(item: any) => handleOnCreate(item)" :item="refItem" />
     <div>
       <div class="rounded-md border">
         <Table>

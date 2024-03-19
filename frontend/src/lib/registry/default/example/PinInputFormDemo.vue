@@ -1,13 +1,4 @@
 <script setup lang="ts">
-import { h } from 'vue'
-import { useForm } from 'vee-validate'
-import { toTypedSchema } from '@vee-validate/zod'
-import * as z from 'zod'
-import {
-  PinInput,
-  PinInputGroup,
-  PinInputInput,
-} from '@/lib/registry/default/ui/pin-input'
 import { Button } from '@/lib/registry/default/ui/button'
 import {
   FormControl,
@@ -17,7 +8,16 @@ import {
   FormLabel,
   FormMessage,
 } from '@/lib/registry/default/ui/form'
+import {
+  PinInput,
+  PinInputGroup,
+  PinInputInput,
+} from '@/lib/registry/default/ui/pin-input'
 import { toast } from '@/lib/registry/default/ui/toast'
+import { toTypedSchema } from '@vee-validate/zod'
+import { useForm } from 'vee-validate'
+import { h } from 'vue'
+import * as z from 'zod'
 
 const formSchema = toTypedSchema(z.object({
   pin: z.array(z.coerce.string()).length(5, { message: 'Invalid input' }),
@@ -33,11 +33,11 @@ const { handleSubmit, setValues } = useForm({
 const onSubmit = handleSubmit(({ pin }) => {
   toast({
     title: 'You submitted the following values:',
-    description: h('pre', { class: 'mt-2 w-[340px] rounded-md bg-slate-950 p-4' }, h('code', { class: 'text-white' }, JSON.stringify(pin.join(''), null, 2))),
+    description: h('pre', { class: 'mt-2 w-[340px] rounded-md bg-slate-950 p-4' }, h('code', { class: 'text-white' }, JSON.stringify(pin.join(' '), null, 2))),
   })
 })
 
-const handleComplete = (e: string[]) => console.log(e.join(''))
+const handleComplete = (e: string[]) => console.log(e.join(' '))
 </script>
 
 <template>

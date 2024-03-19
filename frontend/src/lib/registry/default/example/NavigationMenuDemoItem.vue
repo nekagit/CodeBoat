@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { cn } from '@/lib/utils'
 import {
   NavigationMenuLink,
-} from '@/lib/registry/default/ui/navigation-menu'
+} from '@/lib/registry/default/ui/navigation-menu';
+import { cn } from '@/lib/utils';
 
 defineProps<{ title?: string; href?: string }>()
 </script>
@@ -14,7 +14,7 @@ defineProps<{ title?: string; href?: string }>()
         :href="href"
         :class="cn(
           'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
-          $attrs.class ?? '',
+          $attrs.class ?? ' ',
         )"
       >
         <div class="text-sm font-medium leading-none">{{ title }}</div>

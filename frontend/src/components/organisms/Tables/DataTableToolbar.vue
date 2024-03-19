@@ -4,12 +4,11 @@ import { computed } from 'vue'
 
 import { Button } from '@/lib/registry/new-york/ui/button'
 import { Input } from '@/lib/registry/new-york/ui/input'
-import type { IBaseColumn } from '@/service/tableService'
 import { Cross2Icon } from '@radix-icons/vue'
 import DataTableViewOptions from './DataTableViewOptions.vue'
 
 interface DataTableToolbarProps {
-  table: Table<IBaseColumn>
+  table: Table<IForm>
 }
 
 const props = defineProps<DataTableToolbarProps>()
@@ -22,7 +21,7 @@ const isFiltered = computed(() => props.table.getState().columnFilters.length > 
     <div class="flex ml-auto space-x-2">
       <Input
         placeholder="Filter..."
-        :model-value="(table.getColumn('name')?.getFilterValue() as string) ?? ''"
+        :model-value="(table.getColumn('name')?.getFilterValue() as string) ?? ' '"
         class="h-8 w-[150px] lg:w-[250px]"
         @input="table.getColumn('name')?.setFilterValue($event.target.value)"
       />

@@ -13,8 +13,6 @@ export const useCustomerStore = defineStore('customer', {
   actions: {
     async createCustomer(newCustomer: ICustomer): Promise<ICustomer[]> {
       try {
-        console.log('store', newCustomer)
-        console.log('create customer')
         await CustomerService.createCustomer(newCustomer)
         return this.appStore.customers
       } catch (error: any) {
@@ -26,7 +24,6 @@ export const useCustomerStore = defineStore('customer', {
     async fetchAllCustomers(): Promise<ICustomer[]> {
       try {
         this.appStore.customers = await CustomerService.getAllCustomers()
-        console.log('fetched Customers', this.appStore.customers.length)
         return this.appStore.customers
       } catch (error: any) {
         this.setError(error.message)

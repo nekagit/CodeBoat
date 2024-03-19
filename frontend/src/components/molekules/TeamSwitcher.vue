@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {CaretSortIcon, CheckIcon, PlusCircledIcon} from '@radix-icons/vue'
+import { CaretSortIcon, CheckIcon, PlusCircledIcon } from '@radix-icons/vue'
 import { ref } from 'vue'
 
 import {
@@ -76,7 +76,7 @@ const selectedTeam = ref<Team>(groups[0].teams[0])
           role="combobox"
           aria-expanded="open"
           aria-label="Select a team"
-          :class="cn('w-[200px] justify-between', $attrs.class ?? '')"
+          :class="cn('w-[200px] justify-between', $attrs.class ?? ' ')"
         >
           <Avatar class="mr-2 h-5 w-5">
             <AvatarImage

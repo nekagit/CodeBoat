@@ -47,8 +47,6 @@ export default function TableService() {
   }
 }
 function TableHelper() {
-  const editMode = ref(false)
-  const editList = ref()
   const getItemAppModule = (item: any) => {
     if (Object.keys(item).find((x) => x == 'customer')) {
       return AppModule.Order
@@ -242,7 +240,6 @@ function TableData() {
           status: row.original.status ?? EntityStatus.None,
           entityKey: row.original.entityKey ?? AppModule.Order
         } as IInvoice
-        console.log(item, row)
 
         return h(
           'div',
@@ -307,7 +304,6 @@ function TableData() {
           status: row.original.status ?? EntityStatus.None,
           entityKey: row.original.entityKey ?? AppModule.Order
         } as IProduct
-        console.log(item)
         return h(
           'div',
           { class: 'relative' },
@@ -388,28 +384,31 @@ function TableData() {
 }
 
 export interface IBaseColumn {
-  id?: string
+  _id?: string
   name: string
   entityKey: AppModule
   status: string
 }
 
+// export interface IForm {
+//   _id?: string
+//   name?: string
+//   entityKey?: AppModule
+//   status?: string
+//   invoice?: string
+//   product?: string
+//   unitPrice?: number
+//   quantity?: number
+//   lineTotal?: number
+//   number?: number
+//   customer?: string | undefined
+//   date?: Date
+//   invoiceTotal?: number
+// }
+// Define FormData interface
 export interface IForm {
-  _id?: string
-  name?: string
-  entityKey?: AppModule
-  status?: string
-  invoice?: string
-  product?: string
-  unitPrice?: number
-  quantity?: number
-  lineTotal?: number
-  number?: number
-  customer?: string | undefined
-  date?: Date
-  invoiceTotal?: number
+  [key: string]: string | number | null
 }
-
 export interface ICustomTable {
   item: any
 }

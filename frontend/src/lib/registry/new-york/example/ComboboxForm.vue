@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { h } from 'vue'
-import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
+import { useForm } from 'vee-validate'
+import { h } from 'vue'
 import * as z from 'zod'
 
-import { CaretSortIcon, CheckIcon } from '@radix-icons/vue'
-import { cn } from '@/lib/utils'
 import { Button } from '@/lib/registry/new-york/ui/button'
 import {
   Command,
@@ -29,6 +27,8 @@ import {
   PopoverTrigger,
 } from '@/lib/registry/new-york/ui/popover'
 import { toast } from '@/lib/registry/new-york/ui/toast'
+import { cn } from '@/lib/utils'
+import { CaretSortIcon, CheckIcon } from '@radix-icons/vue'
 
 const languages = [
   { label: 'English', value: 'en' },
@@ -51,7 +51,7 @@ const formSchema = toTypedSchema(z.object({
 const { handleSubmit, setValues, values } = useForm({
   validationSchema: formSchema,
   initialValues: {
-    language: '',
+    language: ' ',
   },
 })
 

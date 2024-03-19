@@ -16,7 +16,6 @@ async createInvoice(newInvoice: IInvoice): Promise<IInvoice> {
 
     // Make the request with the manipulated invoice data
     const response = await axios.post(API_URL, manipulatedInvoice);
-    console.log(response.data);
     return response.data;
   } catch (error: any) {
     throw new Error(error.response.data.message || 'Failed to create invoice');

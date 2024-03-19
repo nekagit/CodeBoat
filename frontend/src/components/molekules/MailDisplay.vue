@@ -27,7 +27,7 @@ const mailFallbackName = computed(() => {
   return props.mail?.name
     .split(' ')
     .map(chunk => chunk[0])
-    .join('')
+    .join(' ')
 })
 
 const today = new Date()
