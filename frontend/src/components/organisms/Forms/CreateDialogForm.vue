@@ -16,13 +16,14 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/lib/registry/new-york/ui/select'
-import { useAppStore } from '@/stores/appStore'
 import ColumnsHelper from '@/service/columnsHelper'
-const { getItemType, filterFormDataKeys } = ColumnsHelper()
+import { useAppStore } from '@/stores/appStore'
+
+const { getItemType, filterFormDataKeys,removeUndefinedKeys } = ColumnsHelper()
 const props = defineProps<{
-  onChange: (item: any) => Promise<void>
-  item: any
-  editMode:boolean
+  onChange: (item: IForm) => Promise<void>
+  item: IForm
+  editMode: boolean
 }>()
 
 const formData = ref<IForm>(props.item)
@@ -67,12 +68,12 @@ const { handleSubmit, resetForm } = useForm({
   initialValues: formData.value // Initialize with formData.value
 })
 const handleSub = handleSubmit((values) => {
-  console.log(props.editMode)
-  console.log('Submit button clicked. Values:', values)
-  props.onChange(values)
+  const tmp = {...removeUndefinedKeys(values)}
+  console.log('Submit button clicked. Values:',tmp)
+  props.onChange(tmp)
 })
+console.log(formData.value)
 </script>
-
 <template>
   <div>
     <form class="space-y-8" @submit.prevent="handleSub">
@@ -84,14 +85,13 @@ const handleSub = handleSubmit((values) => {
       >
         <FormItem>
           <FormControl>
-            <!-- {{ key === 'customer' }} -->
             <template v-if="key === 'customer'">
               <FormLabel>{{ key }}</FormLabel>
 
               <Select v-model="formData[key]" :options="customersIDs" v-bind="componentField">
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue :placeholder="JSON.stringify(formData[key])" />
+                    <SelectValue :placeholder="formData[(key)] as string" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -103,14 +103,21 @@ const handleSub = handleSubmit((values) => {
                 </SelectContent>
               </Select>
             </template>
-            <template v-else-if="key === 'date'">{{ value }} </template>
-            <template v-else-if="key === 'status'"> {{ value }} </template>
+            <template v-else-if="key === 'date'"
+              >{{ value }}
+              <Input type="text" v-model="formData[key]" v-bind="componentField" class="hidden" />
+            </template>
+            <template v-else-if="key === 'status'">
+              {{ value }}
+              <Input type="text" v-model="formData[key]" v-bind="componentField" class="hidden" />
+            </template>
             <template v-else-if="typeof value === 'number'">
               <FormLabel>{{ key }}</FormLabel>
               <Input type="number" placeholder="0" v-bind="componentField" />
             </template>
             <template v-else-if="typeof value === 'string'">
               <FormLabel>{{ key }}</FormLabel>
+              {{ formData[key] }}
               <Input
                 type="text"
                 v-model="formData[key]"

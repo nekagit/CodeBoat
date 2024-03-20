@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import CreateDialog from '@/components/organisms/Dialgos/CreateDialog.vue'
 import DataTablePagination from '@/components/organisms/Tables/DataTablePagination.vue'
+import type { ICustomer } from '@/interfaces/atoms/ICustomer'
+import type { IInvoice } from '@/interfaces/atoms/IInvoice'
+import type { IProduct } from '@/interfaces/atoms/IProduct'
 import { AppModule, EntityStatus } from '@/interfaces/enums'
 import type { ICustomTable } from '@/interfaces/TableInterfaces'
 import {
@@ -17,7 +20,12 @@ import { useAppStore } from '@/stores/appStore'
 import { useCustomerStore } from '@/stores/customerStore'
 import { useInvoiceStore } from '@/stores/invoiceStore'
 import { useProductStore } from '@/stores/productsStore'
-import type { ColumnDef, ColumnFiltersState, SortingState, VisibilityState } from '@tanstack/vue-table'
+import type {
+  ColumnDef,
+  ColumnFiltersState,
+  SortingState,
+  VisibilityState
+} from '@tanstack/vue-table'
 import {
   FlexRender,
   getCoreRowModel,
@@ -31,26 +39,22 @@ import {
 import { onBeforeMount, onUpdated, ref } from 'vue'
 // Define props
 const getItemAppModule = (item: any) => {
-    if (Object.keys(item).find((x) => x == 'customer')) {
-      return AppModule.Order
-    } else if (Object.keys(item).find((x) => x == 'unitPrice')) {
-      return AppModule.Product
-    } else {
-      return AppModule.Customer
-    }
+  if (Object.keys(item).find((x) => x == 'customer')) {
+    return AppModule.Order
+  } else if (Object.keys(item).find((x) => x == 'unitPrice')) {
+    return AppModule.Product
+  } else {
+    return AppModule.Customer
   }
-const {
-  customerColumns,
-  productColumns,
-  invoiceColumns,
-} = ColumnsHelper()
+}
+const { customerColumns, productColumns, invoiceColumns } = ColumnsHelper()
 
 const props = defineProps<ICustomTable>()
 const localItems = ref([] as any[])
-const localColumns = ref([]as ColumnDef<any>[])
+const localColumns = ref([] as ColumnDef<any>[])
 const appMod = getItemAppModule(props.item)
 onUpdated(() => {
-  console.log("asdf")
+  console.log('asdf')
 })
 const sorting = ref<SortingState>([])
 const columnFilters = ref<ColumnFiltersState>([])
@@ -112,40 +116,44 @@ const table = useVueTable({
 })
 
 async function handleOnCreate(values: any) {
+  const manipulatedValues = { ...values } // Create a copy of the object to avoid mutating the original
   if (appMod == AppModule.Order) {
-    console.log('onchange')
+    console.log('onchange', manipulatedValues.customer)
     localItems.value =
       (await useInvoiceStore().createInvoice({
-        name: values.name,
-        number: values.number,
+        name: manipulatedValues.name,
+        number: manipulatedValues.number,
         status: EntityStatus.Created,
         entityKey: AppModule.Order,
-        customer: values.customer,
+        customer: manipulatedValues.customer,
         date: new Date().toISOString(), // This will set the date to the current date and time
-        invoiceTotal: values.invoiceTotal
-      })) ?? []
+        invoiceTotal: manipulatedValues.invoiceTotal
+      } as IInvoice)) ?? []
   } else if (appMod == AppModule.Product) {
     localItems.value =
       (await useProductStore().createProduct({
-        name: values.name,
-        unitPrice: values.unitPrice,
+        name: manipulatedValues.name,
+        unitPrice: manipulatedValues.unitPrice,
         status: EntityStatus.Created,
         entityKey: AppModule.Product
-      })) ?? []
+      } as IProduct)) ?? []
   } else if (appMod == AppModule.Customer) {
     localItems.value =
       (await useCustomerStore().createCustomer({
-        name: values.name,
+        name: manipulatedValues.name,
         status: EntityStatus.Created,
         entityKey: AppModule.Customer
-      })) ?? []
+      } as ICustomer)) ?? []
   }
 }
-
 </script>
 <template>
   <div class="space-y-4">
-    <CreateDialog :editMode="false" :onChange="(item: any) => handleOnCreate(item)" :item="props.item" />
+    <CreateDialog
+      :editMode="false"
+      :onChange="(item: any) => handleOnCreate(item)"
+      :item="props.item"
+    />
     <div>
       <div class="rounded-md border">
         <Table>
@@ -165,10 +173,10 @@ async function handleOnCreate(values: any) {
               <TableRow
                 v-for="row in table.getRowModel().rows"
                 :key="row.id"
-                aria-Row-Index = "row.id"
+                aria-Row-Index="row.id"
                 :data-state="row.getIsSelected() && 'selected'"
               >
-                <TableCell v-for="cell in row.getVisibleCells()" :key="cell.id" >
+                <TableCell v-for="cell in row.getVisibleCells()" :key="cell.id">
                   <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
                 </TableCell>
               </TableRow>

@@ -11,11 +11,12 @@ import {
 } from '@/components/ui/dialog'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { AppModule } from '@/interfaces/enums'
+import type { IForm } from '@/interfaces/TableInterfaces'
 import { defineProps } from 'vue'
 
 const props = defineProps<{
-  onChange: (item: any) => Promise<void>
-  item: any
+  onChange: (item: IForm) => Promise<void>
+  item: IForm
   editMode: boolean,
 }>()
 
@@ -23,7 +24,6 @@ const isTabDisabled = (tabValue: string) => {
   // Determine if the tab should be disabled based on the item type
   return props.item.entityKey !== tabValue
 }
-console.log("createDialog")
 </script>
 
 <template>
@@ -36,7 +36,7 @@ console.log("createDialog")
         <DialogTitle>{{ props.editMode ? "Edit" :'Create' }} </DialogTitle>
       </DialogHeader>
       <DialogDescription>
-        <Tabs :default-value="props.item.entityKey" class="w-[400px]">
+        <Tabs :default-value="props.item.entityKey as string" class="w-[400px]">
           <TabsList>
             <TabsTrigger :value="AppModule.Product" :disabled="isTabDisabled(AppModule.Product)"
               >Product</TabsTrigger

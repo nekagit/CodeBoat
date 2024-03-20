@@ -7,7 +7,7 @@ import InvoiceTable from "@/components/organisms/Tables/Custom/InvoiceTable.vue"
     <div class="flex items-center justify-between space-y-2">
       <div>
         <h2 class="text-2xl font-bold tracking-tight">Invoice Management</h2>
-        <p class="text-muted-foreground">Table over Customer Datas</p>
+        <p class="text-muted-foreground">Table over Invoice Data</p>
       </div>
       <div class="flex items-center space-x-2">
       </div>

@@ -72,7 +72,6 @@ export default function ColumnsHelper() {
       enableHiding: false,
       cell: ({ row }) => {
         const item = row.original
-        console.log(item, 'tableSErvice')
         return h(
           'div',
           { class: 'relative' },
@@ -153,7 +152,6 @@ export default function ColumnsHelper() {
           status: row.original.status ?? EntityStatus.None,
           entityKey: row.original.entityKey ?? AppModule.Order
         } as IInvoice
-        console.log(item, 'edittableinvoice')
         return h(
           'div',
           { class: 'relative' },
@@ -309,8 +307,23 @@ export default function ColumnsHelper() {
     })
     formData.value = formDataTmp
   }
+function removeUndefinedKeys(obj: any) {
+  const newObj: any = {}
+  Object.keys(obj).forEach((key) => {
+    if (obj[key] === undefined || obj[key] === '') {
+      delete obj[key]
+    }
+  })
+   Object.entries(obj).forEach(([key, value]) => {
+     const newKey = key.replace(/^"|"$/g, '') // Remove quotation marks around key
+     newObj[newKey] = value
+   })
+ 
+  return newObj
+}
 
   return {
+    removeUndefinedKeys,
     filterFormDataKeys,
     getItemType,
     baseColumns,

@@ -7,15 +7,10 @@ const InvoiceService = {
 async createInvoice(newInvoice: IInvoice): Promise<IInvoice> {
   try {
     // Manipulate the data of newInvoice if needed
-    const manipulatedInvoice = { ...newInvoice }; // Create a copy of the object to avoid mutating the original
-    manipulatedInvoice.name = 'Example Invoice';
-    manipulatedInvoice.number = 123456;
-    manipulatedInvoice.date = new Date();
-    manipulatedInvoice.invoiceTotal = 1000;
-    manipulatedInvoice.status = 'Created';
-
+   
+    console.log(newInvoice)
     // Make the request with the manipulated invoice data
-    const response = await axios.post(API_URL, manipulatedInvoice);
+    const response = await axios.post(API_URL, newInvoice)
     return response.data;
   } catch (error: any) {
     throw new Error(error.response.data.message || 'Failed to create invoice');
