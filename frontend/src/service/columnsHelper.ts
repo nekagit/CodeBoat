@@ -315,7 +315,7 @@ function removeUndefinedKeys(obj: any) {
     }
   })
    Object.entries(obj).forEach(([key, value]) => {
-     const newKey = key.replace(/^"|"$/g, '') // Remove quotation marks around key
+     const newKey = key.replace(/^"|"$/g, '') 
      newObj[newKey] = value
    })
  

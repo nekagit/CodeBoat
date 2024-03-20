@@ -8,9 +8,6 @@ const Product = connection.model("Product", shopModal.ProductS);
 
 const createProduct = async (req, res) => {
   try {
-    if (!req.body.name) {
-      return res.status(400).send({ message: "Name can not be empty!" });
-    }
     const newProduct = new Product({ // Change variable name from 'Product' to 'newProduct'
       name: req.body.name,
       unitPrice: req.body.unitPrice,

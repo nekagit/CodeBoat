@@ -8,10 +8,6 @@ const Customer = connection.model("Customer", shopModal.CustomerS);
 console.log("sadfas")
 const createCustomer = async (req, res) => {
   try {
-    if (!req.body.name) {
-      return res.status(400).send({ message: "Name cannot be empty!" });
-    }
-    console.log("customercontroller",req.body.name)
 
     const newCustomer = new Customer({
       name: req.body.name,

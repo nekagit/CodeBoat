@@ -8,10 +8,6 @@ const Invoice = connection.model("Invoice", shopModal.InvoiceS);
 
 const createInvoice = async (req, res) => {
   try {
-    if (!req.body.number || !req.body.customer || !req.body.date || !req.body.invoiceTotal) {
-      return res.status(400).send({ message: "Please provide all required fields!" });
-    }
-
     const newInvoice = new Invoice({
       name: req.body.name,
       number: req.body.number,
