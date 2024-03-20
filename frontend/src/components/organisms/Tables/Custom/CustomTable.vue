@@ -145,7 +145,7 @@ async function handleOnCreate(values: any) {
 </script>
 <template>
   <div class="space-y-4">
-    <CreateDialog :onChange="(item: any) => handleOnCreate(item)" :item="props.item" />
+    <CreateDialog :editMode="false" :onChange="(item: any) => handleOnCreate(item)" :item="props.item" />
     <div>
       <div class="rounded-md border">
         <Table>

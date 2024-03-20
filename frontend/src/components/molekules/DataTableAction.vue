@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import EditDialog from '../organisms/Dialgos/EditDialog.vue';
+import CreateDialog from '../organisms/Dialgos/CreateDialog.vue';
 defineProps<{
   item: any;
 }>()
@@ -11,6 +11,6 @@ async function edit(item: any) {
 </script>
 
 <template>
-    <EditDialog :onChange="edit" :item="item" />
+    <CreateDialog :editMode="true" :onChange="edit" :item="item" />
 </template>
 

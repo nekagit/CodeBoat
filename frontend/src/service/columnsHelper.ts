@@ -4,7 +4,7 @@ import type { ICustomer } from '@/interfaces/atoms/ICustomer'
 import type { IInvoice } from '@/interfaces/atoms/IInvoice'
 import type { IProduct } from '@/interfaces/atoms/IProduct'
 import { AppModule, EntityStatus } from '@/interfaces/enums'
-import type { IBaseColumn } from '@/interfaces/TableInterfaces'
+import type { IBaseColumn, IForm } from '@/interfaces/TableInterfaces'
 import type { ColumnDef } from '@tanstack/vue-table'
 import { h, ref, type Ref } from 'vue'
 export default function ColumnsHelper() {
@@ -213,7 +213,7 @@ export default function ColumnsHelper() {
       enableHiding: false,
       cell: ({ row }) => {
         const item = {
-          name: row.original.name,
+          name: row.original.name ?? ' ',
           unitPrice: row.original.unitPrice ?? 0,
           status: row.original.status ?? EntityStatus.None,
           entityKey: row.original.entityKey ?? AppModule.Order
@@ -287,7 +287,32 @@ export default function ColumnsHelper() {
       }
     }
   ]
+
+  // Function to determine item type
+  function getItemType(item: any): string {
+    if (item.customer !== undefined) {
+      return 'customer'
+    } else if (item.unitPrice !== undefined) {
+      return 'product'
+    } else if (item.invoiceTotal !== undefined) {
+      return 'invoice'
+    }
+    return ''
+  }
+
+  // Define method to filter formData keys based on props.item
+  const filterFormDataKeys = (formData: Ref<IForm>, item: IForm) => {
+    const formDataTmp: IForm = {}
+    const itemKeys = Object.keys(item)
+    itemKeys.forEach((key) => {
+      formDataTmp[key] = formData.value[key]
+    })
+    formData.value = formDataTmp
+  }
+
   return {
+    filterFormDataKeys,
+    getItemType,
     baseColumns,
     customerItem,
     customerColumns,
