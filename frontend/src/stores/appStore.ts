@@ -1,6 +1,4 @@
-import type { ICustomer } from '@/interfaces/atoms/ICustomer'
-import type { IInvoice } from '@/interfaces/atoms/IInvoice' // Adjust the import path as needed
-import type { IProduct } from '@/interfaces/atoms/IProduct'
+import type { ICustomer, IInvoice, IProduct } from '@/interfaces/atoms/IShopModal' // Adjust the import path as needed
 import { AppModule, EntityStatus } from '@/interfaces/enums'
 import type { IForm } from '@/interfaces/TableInterfaces'
 import { defineStore } from 'pinia'
@@ -23,7 +21,6 @@ export const useAppStore = defineStore('app', {
       await this.fetchData()
       this.freshFetch = true
       console.log('init over', this.freshFetch)
-
     },
 
     async createEdit(values: IForm, editMode: boolean, appMod: string): Promise<any[] | undefined> {
@@ -98,7 +95,7 @@ export const useAppStore = defineStore('app', {
         }
       }
       this.freshFetch = true
-      console.log("create edit over" ,this.freshFetch)
+      console.log('create edit over', this.freshFetch)
     },
     async initCustomerTable(): Promise<ICustomer[]> {
       const customerStore = useCustomerStore()

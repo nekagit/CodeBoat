@@ -1,4 +1,4 @@
-import type { IInvoice } from '@/interfaces/atoms/IInvoice' // Adjust the import path as needed
+import type { IInvoice } from '@/interfaces/atoms/IShopModal' // Adjust the import path as needed
 import InvoiceService from '@/service/InvoiceService' // Adjust the import path as needed
 import { defineStore } from 'pinia'
 import { useAppStore } from './appStore'

@@ -1,8 +1,6 @@
 import DropdownAction from '@/components/molekules/DataTableAction.vue'
 import { Checkbox } from '@/components/ui/checkbox'
-import type { ICustomer } from '@/interfaces/atoms/ICustomer'
-import type { IInvoice } from '@/interfaces/atoms/IInvoice'
-import type { IProduct } from '@/interfaces/atoms/IProduct'
+import type { ICustomer, IInvoice, IProduct } from '@/interfaces/atoms/IShopModal'
 import { AppModule, EntityStatus } from '@/interfaces/enums'
 import type { IBaseColumn, IForm } from '@/interfaces/TableInterfaces'
 import type { ColumnDef } from '@tanstack/vue-table'
@@ -309,29 +307,29 @@ export default function ColumnsHelper() {
     })
     formData.value = formDataTmp
   }
-function removeUndefinedKeys(obj: any) {
-  const newObj: any = {}
-  Object.keys(obj).forEach((key) => {
-    if (obj[key] === undefined || obj[key] === '') {
-      delete obj[key]
-    }
-  })
-   Object.entries(obj).forEach(([key, value]) => {
-     const newKey = key.replace(/^"|"$/g, '') 
-     newObj[newKey] = value
-   })
- 
-  return newObj
-}
-const getItemAppModule = (item: any) => {
-  if (item.customer !== undefined) {
-    return AppModule.Order
-  } else if (item.unitPrice !== undefined) {
-    return AppModule.Product
-  } else {
-    return AppModule.Customer
+  function removeUndefinedKeys(obj: any) {
+    const newObj: any = {}
+    Object.keys(obj).forEach((key) => {
+      if (obj[key] === undefined || obj[key] === '') {
+        delete obj[key]
+      }
+    })
+    Object.entries(obj).forEach(([key, value]) => {
+      const newKey = key.replace(/^"|"$/g, '')
+      newObj[newKey] = value
+    })
+
+    return newObj
   }
-}
+  const getItemAppModule = (item: any) => {
+    if (item.customer !== undefined) {
+      return AppModule.Order
+    } else if (item.unitPrice !== undefined) {
+      return AppModule.Product
+    } else {
+      return AppModule.Customer
+    }
+  }
   return {
     getItemAppModule,
     removeUndefinedKeys,

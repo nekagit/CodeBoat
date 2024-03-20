@@ -1,7 +1,7 @@
-import type { IProduct } from '@/interfaces/atoms/IProduct'
 import ProductService from '@/service/ProductService'
 import { defineStore } from 'pinia'
 import { useAppStore } from './appStore'
+import type { IProduct } from '@/interfaces/atoms/IShopModal'
 export const useProductStore = defineStore('product', {
   state: () => ({
     appStore: useAppStore(),

@@ -1,7 +1,7 @@
-import type { ICustomer } from '@/interfaces/atoms/ICustomer' // Adjust the import path as needed
 import CustomerService from '@/service/CustomerService' // Adjust the import path as needed
 import { defineStore } from 'pinia'
 import { useAppStore } from './appStore'
+import type { ICustomer } from '@/interfaces/atoms/IShopModal'
 
 export const useCustomerStore = defineStore('customer', {
   state: () => ({

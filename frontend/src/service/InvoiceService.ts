@@ -1,23 +1,21 @@
-import type { IInvoice } from '@/interfaces/atoms/IInvoice' // Adjust the import path as needed
+import type { IInvoice } from '@/interfaces/atoms/IShopModal' // Adjust the import path as needed
 import axios from 'axios'
 
 const API_URL = 'http://localhost:8080/api/invoices' // Adjust the URL as needed
 
 const InvoiceService = {
-async createInvoice(newInvoice: IInvoice): Promise<IInvoice> {
-  try {
-    // Manipulate the data of newInvoice if needed
-   
-    const tmp = {...newInvoice}
-    // Make the request with the manipulated invoice data
-    const response = await axios.post(API_URL, tmp)
-    return response.data;
-  } catch (error: any) {
-    throw new Error(error.response.data.message || 'Failed to create invoice');
-  }
-}
-,
+  async createInvoice(newInvoice: IInvoice): Promise<IInvoice> {
+    try {
+      // Manipulate the data of newInvoice if needed
 
+      const tmp = { ...newInvoice }
+      // Make the request with the manipulated invoice data
+      const response = await axios.post(API_URL, tmp)
+      return response.data
+    } catch (error: any) {
+      throw new Error(error.response.data.message || 'Failed to create invoice')
+    }
+  },
   async getAllInvoices(): Promise<IInvoice[]> {
     try {
       const response = await axios.get(API_URL)
