@@ -1,30 +1,23 @@
-  <script setup lang="ts">
-  import { toTypedSchema } from '@vee-validate/zod'
+<script setup lang="ts">
+import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 import { defineProps, onBeforeMount, ref } from 'vue'
 import { z } from 'zod'
 
-  import Button from '@/components/ui/button/Button.vue'
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import Button from '@/components/ui/button/Button.vue'
+import { FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form'
+import type { IForm } from '@/interfaces/TableInterfaces'
 import { Input } from '@/lib/registry/new-york/ui/input'
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue
-} from '@/lib/registry/new-york/ui/select'
-import type { IForm } from '@/service/tableService'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/lib/registry/new-york/ui/select'
 import { useAppStore } from '@/stores/appStore'
 
-  // Define props
-  const props = defineProps<{
-    onChange: (item: any) => Promise<void>
-    item: any
-  }>()
+// Define props
+const props = defineProps<{
+  onChange: (item: any) => Promise<void>
+  item: any
+}>()
 
- // Initialize formData with props.item
+// Initialize formData with props.item
 const formData = ref<IForm>(props.item)
 
 const customersIDs = ref<string[]>([])
@@ -45,6 +38,7 @@ onBeforeMount(async () => {
   customersIDs.value = customers.map((x) => x._id ?? '')
   filterFormDataKeys()
 })
+
 // Function to determine item type
 function getItemType(item: any): string {
   if (item.customer !== undefined) {
@@ -60,24 +54,24 @@ function getItemType(item: any): string {
 // Define form schema for each type
 const formSchemas: Record<string, z.ZodObject<any>> = {
   customer: z.object({
-    name: z.string(),
-    status: z.string(),
-    entityKey: z.string(),
+    name: z.string().nullable(),
+    status: z.string().nullable(),
+    entityKey: z.string().nullable(),
   }),
   product: z.object({
-    name: z.string(),
-    unitPrice: z.number(),
-    status: z.string(),
-    entityKey: z.string(),
+    name: z.string().nullable(),
+    unitPrice: z.number().nullable(),
+    status: z.string().nullable(),
+    entityKey: z.string().nullable(),
   }),
   invoice: z.object({
-    name: z.string(),
-    number: z.number(),
-    customer: z.string(),
-    date: z.string(),
-    invoiceTotal: z.number(),
-    status: z.string(),
-    entityKey: z.string(),
+    name: z.string().nullable(),
+    number: z.number().nullable(),
+    customer: z.string().nullable(),
+    date: z.string().nullable(),
+    invoiceTotal: z.number().nullable(),
+    status: z.string().nullable(),
+    entityKey: z.string().nullable(),
   }),
 };
 
@@ -112,7 +106,6 @@ const handleSub = handleSubmit((values) => {
               <!-- Render inputs based on the type of value -->
               <template v-if="typeof value === 'number'">
                 <FormLabel>{{ key }}</FormLabel>
-
                 <Input type="number" placeholder="0" v-bind="componentField" />
               </template>
 
@@ -139,11 +132,9 @@ const handleSub = handleSubmit((values) => {
               <template v-else-if="key === 'entityKey'"> </template>
               <template v-else>
                 <FormLabel>{{ key }}</FormLabel>
-
                 <Input type="text" v-model="formData[key]" v-bind="componentField" :placeholder="formData[key]" />
               </template>
             </FormControl>
-            <FormMessage />
           </FormItem>
         </FormField>
 
@@ -155,4 +146,3 @@ const handleSub = handleSubmit((values) => {
     </div>
   </template>
 
-  <style lang="scss" scoped></style>

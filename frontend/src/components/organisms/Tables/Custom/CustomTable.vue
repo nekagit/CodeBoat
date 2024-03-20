@@ -46,10 +46,9 @@ const {
 } = ColumnsHelper()
 
 const props = defineProps<ICustomTable>()
-const localItems = ref([])
+const localItems = ref([] as any[])
 const localColumns = ref([]as ColumnDef<any>[])
 const appMod = getItemAppModule(props.item)
-const refItem = ref(props.item)
 onUpdated(() => {
   console.log("asdf")
 })
@@ -143,7 +142,6 @@ async function handleOnCreate(values: any) {
   }
 }
 
-console.log(refItem,appMod, "customtableinvoice")
 </script>
 <template>
   <div class="space-y-4">
