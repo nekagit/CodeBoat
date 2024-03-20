@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
-import { defineProps, onBeforeMount, onUpdated, ref } from 'vue'
+import { defineProps, onBeforeMount, ref } from 'vue'
 import { z } from 'zod'
 
 import Button from '@/components/ui/button/Button.vue'
@@ -82,7 +82,9 @@ const handleSub = handleSubmit((values) => {
 })
 
 const getSelects = (key: string) => {
-  if (key === 'customer' || key === 'invoice' || key === 'products') {
+    console.log( key)
+  if (key === "customer" || key === "invoice" || key === "product") {
+    console.log("key", key)
     return true
   }
 }
@@ -98,7 +100,7 @@ const getSelects = (key: string) => {
       >
         <FormItem>
           <FormControl>
-            <template v-if="getSelects(JSON.stringify(key))">
+            <template v-if="getSelects(key as string)">
               <FormLabel>{{ key }}</FormLabel>
 
               <Select v-model="formData[key]" :options="customersIDs" v-bind="componentField">

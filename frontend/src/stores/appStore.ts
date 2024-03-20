@@ -65,12 +65,16 @@ export const useAppStore = defineStore('app', {
             manipulatedValues._id as string,
             {
               name: manipulatedValues.name,
+              unitPrice: manipulatedValues.unitPrice,
+              quantity: manipulatedValues.quantity,
               status: EntityStatus.Created,
-              entityKey: AppModule.Line
+              entityKey: AppModule.Order,
+              invoice: manipulatedValues.invoice,
+              product: manipulatedValues.product,
+              lineTotal: manipulatedValues.lineTotal
             } as IInvoiceLine
           )
         }
-        await useCustomerStore().fetchAllCustomers()
       } else {
         if (appMod == AppModule.Order) {
           await useInvoiceStore().createInvoice({
@@ -103,7 +107,7 @@ export const useAppStore = defineStore('app', {
           } as IInvoiceLine)
         }
       }
-      this.freshFetch = true
+      await this.onInit()
     },
 
     async initCustomerTable(): Promise<ICustomer[]> {
@@ -155,7 +159,7 @@ export const useAppStore = defineStore('app', {
         status: EntityStatus.Created,
         entityKey: AppModule.Line
       } as IInvoiceLine
-      console.log("aaaaaaaaaaaaa",sampleInvoiceLine)
+      console.log('aaaaaaaaaaaaa', sampleInvoiceLine)
       const response = await invoiceLineStore.createInvoiceLine(sampleInvoiceLine)
       return response ?? []
     },
