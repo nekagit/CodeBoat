@@ -13,9 +13,7 @@ export const useCustomerStore = defineStore('customer', {
   actions: {
     async createCustomer(newCustomer: ICustomer): Promise<ICustomer[]> {
       try {
-        console.log(this.appStore.customers)
         await CustomerService.createCustomer(newCustomer)
-        console.log(this.appStore.customers)
         return await this.fetchAllCustomers()
       } catch (error: any) {
         this.setError(error.message)

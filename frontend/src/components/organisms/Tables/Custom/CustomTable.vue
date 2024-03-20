@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import CreateDialog from '@/components/organisms/Dialgos/CreateDialog.vue'
 import DataTablePagination from '@/components/organisms/Tables/DataTablePagination.vue'
-import type { ICustomer } from '@/interfaces/atoms/ICustomer'
-import type { IInvoice } from '@/interfaces/atoms/IInvoice'
-import type { IProduct } from '@/interfaces/atoms/IProduct'
-import { AppModule, EntityStatus } from '@/interfaces/enums'
-import type { ICustomTable } from '@/interfaces/TableInterfaces'
+import { AppModule } from '@/interfaces/enums'
+import type { ICustomTable, IForm } from '@/interfaces/TableInterfaces'
 import {
   Table,
   TableBody,
@@ -17,9 +14,6 @@ import {
 import { valueUpdater } from '@/lib/utils'
 import ColumnsHelper from '@/service/columnsHelper'
 import { useAppStore } from '@/stores/appStore'
-import { useCustomerStore } from '@/stores/customerStore'
-import { useInvoiceStore } from '@/stores/invoiceStore'
-import { useProductStore } from '@/stores/productsStore'
 import type {
   ColumnDef,
   ColumnFiltersState,
@@ -36,49 +30,39 @@ import {
   getSortedRowModel,
   useVueTable
 } from '@tanstack/vue-table'
-import { onBeforeMount, onUpdated, ref } from 'vue'
+import { onBeforeMount, onUpdated, ref, watch } from 'vue'
 // Define props
-const getItemAppModule = (item: any) => {
-  if (Object.keys(item).find((x) => x == 'customer')) {
-    return AppModule.Order
-  } else if (Object.keys(item).find((x) => x == 'unitPrice')) {
-    return AppModule.Product
-  } else {
-    return AppModule.Customer
-  }
-}
-const { customerColumns, productColumns, invoiceColumns } = ColumnsHelper()
+
+const { customerColumns, productColumns, invoiceColumns, getItemAppModule } = ColumnsHelper()
 
 const props = defineProps<ICustomTable>()
 const localItems = ref([] as any[])
 const localColumns = ref([] as ColumnDef<any>[])
 const appMod = getItemAppModule(props.item)
-onUpdated(() => {
-  console.log('asdf')
-})
 const sorting = ref<SortingState>([])
 const columnFilters = ref<ColumnFiltersState>([])
 const columnVisibility = ref<VisibilityState>({})
 const rowSelection = ref({})
 
-onBeforeMount(async () => {
-  await useAppStore().onInit()
+const setLocalItems = () => {
   if (appMod == AppModule.Order) {
-    console.log(localItems.value, 'invocie')
     localItems.value = useAppStore().invoices
     // localItems.value.push({id: "", name: "offlineSample"})
     localColumns.value = invoiceColumns
   } else if (appMod == AppModule.Product) {
-    console.log(localItems.value, 'prodcuts')
     localItems.value = useAppStore().products
     // localItems.value.push({id: "", name: "offlineSample"})
     localColumns.value = productColumns
   } else if (appMod == AppModule.Customer) {
-    console.log(localItems.value, 'customtable')
     localItems.value = useAppStore().customers
     // localItems.value.push({id: "", name: "offlineSample"})
     localColumns.value = customerColumns
   }
+}
+
+onBeforeMount(async () => {
+  await useAppStore().onInit()
+  setLocalItems()
 })
 
 const table = useVueTable({
@@ -114,47 +98,31 @@ const table = useVueTable({
   getFacetedRowModel: getFacetedRowModel(),
   getFacetedUniqueValues: getFacetedUniqueValues()
 })
+const appStore = useAppStore()
 
-async function handleOnCreate(values: any) {
-  const manipulatedValues = { ...values } // Create a copy of the object to avoid mutating the original
-  if (appMod == AppModule.Order) {
-    console.log('onchange', manipulatedValues.customer)
-    localItems.value =
-      (await useInvoiceStore().createInvoice({
-        name: manipulatedValues.name,
-        number: manipulatedValues.number,
-        status: EntityStatus.Created,
-        entityKey: AppModule.Order,
-        customer: manipulatedValues.customer,
-        date: new Date().toISOString(), // This will set the date to the current date and time
-        invoiceTotal: manipulatedValues.invoiceTotal
-      } as IInvoice)) ?? []
-  } else if (appMod == AppModule.Product) {
-    localItems.value =
-      (await useProductStore().createProduct({
-        name: manipulatedValues.name,
-        unitPrice: manipulatedValues.unitPrice,
-        status: EntityStatus.Created,
-        entityKey: AppModule.Product
-      } as IProduct)) ?? []
-  } else if (appMod == AppModule.Customer) {
-    console.log(localItems.value)
-    localItems.value =
-      (await useCustomerStore().createCustomer({
-        name: manipulatedValues.name,
-        status: EntityStatus.Created,
-        entityKey: AppModule.Customer
-      } as ICustomer)) ?? []
-    console.log(localItems.value)
-      
-  }
+watch(
+  () => ({ freshFetch: appStore.freshFetch }),
+  async (newValue) => {
+    if (newValue.freshFetch) {
+      console.log('Watching freshFetch:', newValue.freshFetch)
+      await appStore.onInit()
+      setLocalItems()
+      console.log('After fetching data:', localItems.value)
+      appStore.freshFetch = false
+    }
+  },
+  { deep: true }
+)
+
+async function handleOnSubmit(values: any, editMode: boolean) {
+  localItems.value = (await useAppStore().createEdit(values, editMode, appMod)) ?? []
 }
 </script>
 <template>
   <div class="space-y-4">
     <CreateDialog
       :editMode="false"
-      :onChange="(item: any) => handleOnCreate(item)"
+      :onChange="(item: IForm, editMode: boolean) => handleOnSubmit(item, editMode)"
       :item="props.item"
     />
     <div>

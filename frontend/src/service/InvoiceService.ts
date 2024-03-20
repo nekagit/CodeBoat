@@ -9,7 +9,6 @@ async createInvoice(newInvoice: IInvoice): Promise<IInvoice> {
     // Manipulate the data of newInvoice if needed
    
     const tmp = {...newInvoice}
-    console.log(tmp)
     // Make the request with the manipulated invoice data
     const response = await axios.post(API_URL, tmp)
     return response.data;

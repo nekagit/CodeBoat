@@ -15,25 +15,26 @@ import type { IForm } from '@/interfaces/TableInterfaces'
 import { defineProps } from 'vue'
 
 const props = defineProps<{
-  onChange: (item: IForm) => Promise<void>
-  item: IForm
-  editMode: boolean,
+  onChange: (item: IForm, editMode: boolean) => Promise<void>
+  item: any
+  editMode: boolean
 }>()
 
 const isTabDisabled = (tabValue: string) => {
   // Determine if the tab should be disabled based on the item type
   return props.item.entityKey !== tabValue
 }
+
 </script>
 
 <template>
   <Dialog>
     <DialogTrigger>
-      <Button>{{ props.editMode ? "Edit" :'Create' }}</Button>
+      <Button>{{ props.editMode ? 'Edit' : 'Create' }}</Button>
     </DialogTrigger>
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>{{ props.editMode ? "Edit" :'Create' }} </DialogTitle>
+        <DialogTitle>{{ props.editMode ? 'Edit' : 'Create' }} </DialogTitle>
       </DialogHeader>
       <DialogDescription>
         <Tabs :default-value="props.item.entityKey as string" class="w-[400px]">
@@ -48,14 +49,26 @@ const isTabDisabled = (tabValue: string) => {
               >Invoice</TabsTrigger
             >
           </TabsList>
-                  <TabsContent :value="AppModule.Product">
-            <CreateDialogForm :editMode="props.editMode" :item="props.item" :onChange="props.onChange" />
+          <TabsContent :value="AppModule.Product">
+            <CreateDialogForm
+              :editMode="props.editMode"
+              :item="props.item"
+              :onChange="(x) => props.onChange(x, props.editMode)"
+            />
           </TabsContent>
           <TabsContent :value="AppModule.Customer">
-            <CreateDialogForm :editMode="props.editMode" :item="props.item" :onChange="props.onChange" />
+            <CreateDialogForm
+              :editMode="props.editMode"
+              :item="props.item"
+              :onChange="(x) => props.onChange(x, props.editMode)"
+            />
           </TabsContent>
           <TabsContent :value="AppModule.Order">
-            <CreateDialogForm :editMode="props.editMode" :item="props.item" :onChange="props.onChange" />
+            <CreateDialogForm
+              :editMode="props.editMode"
+              :item="props.item"
+              :onChange="(x) => props.onChange(x, props.editMode)"
+            />
           </TabsContent>
         </Tabs>
       </DialogDescription>

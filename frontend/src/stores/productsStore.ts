@@ -10,7 +10,7 @@ export const useProductStore = defineStore('product', {
   }),
 
   actions: {
-     async createProduct(newProduct: IProduct): Promise<IProduct[]> {
+    async createProduct(newProduct: IProduct): Promise<IProduct[]> {
       try {
         await ProductService.createProduct(newProduct)
         return await this.fetchAllProducts()
@@ -42,7 +42,6 @@ export const useProductStore = defineStore('product', {
     async updateProductById(id: string, updatedProductData: Partial<IProduct>): Promise<void> {
       try {
         await ProductService.updateProductById(id, updatedProductData)
-        await this.fetchAllProducts()
       } catch (error: any) {
         this.setError(error.message)
       }

@@ -2,46 +2,104 @@ import type { ICustomer } from '@/interfaces/atoms/ICustomer'
 import type { IInvoice } from '@/interfaces/atoms/IInvoice' // Adjust the import path as needed
 import type { IProduct } from '@/interfaces/atoms/IProduct'
 import { AppModule, EntityStatus } from '@/interfaces/enums'
+import type { IForm } from '@/interfaces/TableInterfaces'
 import { defineStore } from 'pinia'
+import { ref, type Ref } from 'vue'
 import { useCustomerStore } from './customerStore'
 import { useInvoiceStore } from './invoiceStore'
 import { useProductStore } from './productsStore'
 export const useAppStore = defineStore('app', {
   state: () => ({
-    invoices: [] as IInvoice[],
-    products: [] as IProduct[],
-    customers: [] as ICustomer[],
-    isLoading: false,
+    invoices: ref([]) as Ref<IInvoice[]>,
+    products: ref([]) as Ref<IProduct[]>,
+    customers: ref([]) as Ref<ICustomer[]>,
+    freshFetch: ref(false),
     error: null as string | null
   }),
 
   actions: {
     async onInit() {
-      const productStore = useProductStore()
-      const customerStore = useCustomerStore()
-      const invoiceStore = useInvoiceStore()
-      if (this.products.length + this.invoices.length + this.customers.length == 0) {
-        const responseProducts = await productStore.fetchAllProducts()
-        const responseInvoices = await invoiceStore.fetchAllInvoices()
-        const responseCustomers = await customerStore.fetchAllCustomers()
+      console.log('init start')
+      await this.fetchData()
+      this.freshFetch = true
+      console.log('init over', this.freshFetch)
 
-        if (responseCustomers?.length < 1) {
-          this.customers = await this.initCustomerTable()
-          console.log('onInit AppStore customers', this.customers)
-        }
-        if (responseProducts?.length < 1) {
-          this.products = await this.initProductTable()
-          console.log('onInit AppStore products', this.products)
-        }
-        if (responseInvoices?.length < 1 && this.customers[0]._id != undefined) {
-          this.invoices = await this.initInvoiceTable(this.customers[0]._id)
-          console.log('onInit AppStore invoices ', this.invoices)
-        }
-      }
-
-      console.log('init over')
     },
 
+    async createEdit(values: IForm, editMode: boolean, appMod: string): Promise<any[] | undefined> {
+      const manipulatedValues = { ...values }
+      if (editMode) {
+        if (appMod == AppModule.Order) {
+          await useInvoiceStore().updateInvoiceById(
+            manipulatedValues._id as string,
+            {
+              name: manipulatedValues.name,
+              number: manipulatedValues.number,
+              status: EntityStatus.Created,
+              entityKey: AppModule.Order,
+              customer: manipulatedValues.customer,
+              date: new Date().toISOString(), // This will set the date to the current date and time
+              invoiceTotal: manipulatedValues.invoiceTotal
+            } as IInvoice
+          )
+          await useInvoiceStore().fetchAllInvoices()
+        } else if (appMod == AppModule.Product) {
+          await useProductStore().updateProductById(
+            manipulatedValues._id as string,
+            {
+              name: manipulatedValues.name,
+              unitPrice: manipulatedValues.unitPrice,
+              status: EntityStatus.Created,
+              entityKey: AppModule.Product
+            } as IProduct
+          )
+          await useProductStore().fetchAllProducts()
+        } else if (appMod == AppModule.Customer) {
+          await useCustomerStore().updateCustomerById(
+            manipulatedValues._id as string,
+            {
+              name: manipulatedValues.name,
+              status: EntityStatus.Created,
+              entityKey: AppModule.Customer
+            } as ICustomer
+          )
+        }
+        await useCustomerStore().fetchAllCustomers()
+      } else {
+        if (appMod == AppModule.Order) {
+          return (
+            (await useInvoiceStore().createInvoice({
+              name: manipulatedValues.name,
+              number: manipulatedValues.number,
+              status: EntityStatus.Created,
+              entityKey: AppModule.Order,
+              customer: manipulatedValues.customer,
+              date: new Date().toISOString(), // This will set the date to the current date and time
+              invoiceTotal: manipulatedValues.invoiceTotal
+            } as IInvoice)) ?? []
+          )
+        } else if (appMod == AppModule.Product) {
+          return (
+            (await useProductStore().createProduct({
+              name: manipulatedValues.name,
+              unitPrice: manipulatedValues.unitPrice,
+              status: EntityStatus.Created,
+              entityKey: AppModule.Product
+            } as IProduct)) ?? []
+          )
+        } else if (appMod == AppModule.Customer) {
+          return (
+            (await useCustomerStore().createCustomer({
+              name: manipulatedValues.name,
+              status: EntityStatus.Created,
+              entityKey: AppModule.Customer
+            } as ICustomer)) ?? []
+          )
+        }
+      }
+      this.freshFetch = true
+      console.log("create edit over" ,this.freshFetch)
+    },
     async initCustomerTable(): Promise<ICustomer[]> {
       const customerStore = useCustomerStore()
       const sampleCustomer = {
@@ -51,7 +109,6 @@ export const useAppStore = defineStore('app', {
       } as ICustomer
       await customerStore.createCustomer(sampleCustomer)
       const response = await customerStore.fetchAllCustomers()
-      console.log('Created in appStore')
       return response
     },
     async initProductTable(): Promise<IProduct[]> {
@@ -63,7 +120,6 @@ export const useAppStore = defineStore('app', {
         status: EntityStatus.Created
       } as IProduct
       const response = await productStore.createProduct(sampleProduct)
-      console.log('Created in appStore')
       return response ?? []
     },
 
@@ -79,8 +135,26 @@ export const useAppStore = defineStore('app', {
         entityKey: AppModule.Order
       } as IInvoice
       const response = await invoiceStore.createInvoice(sampleInvoice)
-      console.log('Created in appStore')
       return response ?? []
+    },
+    async fetchData() {
+      const responseProducts = await useProductStore().fetchAllProducts()
+      const responseInvoices = await useInvoiceStore().fetchAllInvoices()
+      const responseCustomers = await useCustomerStore().fetchAllCustomers()
+      console.log('fetched Data', responseProducts)
+      if (responseCustomers?.length < 1) {
+        console.log('offline init')
+        this.customers = await this.initCustomerTable()
+      } else if (responseProducts?.length < 1) {
+        this.products = await this.initProductTable()
+      } else if (responseInvoices?.length < 1 && this.customers[0]._id != undefined) {
+        this.invoices = await this.initInvoiceTable(this.customers[0]._id)
+      } else {
+        this.customers = responseCustomers
+        this.products = responseProducts
+        console.log('store available', this.products)
+        this.invoices = responseInvoices
+      }
     }
   }
 })

@@ -144,6 +144,7 @@ export default function ColumnsHelper() {
       enableHiding: false,
       cell: ({ row }) => {
         const item = {
+          _id: row.original._id,
           name: row.original.name ?? '',
           number: row.original.number ?? 0,
           customer: row.original.customer ?? '',
@@ -211,6 +212,7 @@ export default function ColumnsHelper() {
       enableHiding: false,
       cell: ({ row }) => {
         const item = {
+          _id: row.original._id,
           name: row.original.name ?? ' ',
           unitPrice: row.original.unitPrice ?? 0,
           status: row.original.status ?? EntityStatus.None,
@@ -270,11 +272,11 @@ export default function ColumnsHelper() {
       enableHiding: false,
       cell: ({ row }) => {
         const item = {
+          _id: row.original._id,
           name: row.original.name ?? '',
           entityKey: row.original.entityKey ?? AppModule.Customer,
           status: row.original.status ?? EntityStatus.None
         } as ICustomer
-        console.log(item, 'tableSErvice')
         return h(
           'div',
           { class: 'relative' },
@@ -321,8 +323,17 @@ function removeUndefinedKeys(obj: any) {
  
   return newObj
 }
-
+const getItemAppModule = (item: any) => {
+  if (item.customer !== undefined) {
+    return AppModule.Order
+  } else if (item.unitPrice !== undefined) {
+    return AppModule.Product
+  } else {
+    return AppModule.Customer
+  }
+}
   return {
+    getItemAppModule,
     removeUndefinedKeys,
     filterFormDataKeys,
     getItemType,

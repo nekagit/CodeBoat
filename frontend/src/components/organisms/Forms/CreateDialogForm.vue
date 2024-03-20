@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
-import { defineProps, onBeforeMount, ref } from 'vue'
+import { defineProps, onBeforeMount, onUpdated, ref } from 'vue'
 import { z } from 'zod'
 
 import Button from '@/components/ui/button/Button.vue'
@@ -58,10 +58,10 @@ onBeforeMount(async () => {
   const customers = appStore.customers
   customersIDs.value = customers.map((x) => x._id ?? '')
   filterFormDataKeys(formData, props.item)
-  // Get item type and corresponding form schema
   const itemType = getItemType(props.item)
   schema.value = toTypedSchema(formSchemas[itemType])
 })
+
 
 const { handleSubmit, resetForm } = useForm({
   validationSchema: schema.value,
@@ -72,7 +72,6 @@ const handleSub = handleSubmit((values) => {
   console.log('Submit button clicked. Values:',tmp)
   props.onChange(tmp)
 })
-console.log(formData.value)
 </script>
 <template>
   <div>
@@ -107,8 +106,11 @@ console.log(formData.value)
               >{{ value }}
               <Input type="text" v-model="formData[key]" v-bind="componentField" class="hidden" />
             </template>
+              <template v-else-if="key === '_id'"
+              >
+              <Input type="text" v-model="formData[key]" v-bind="componentField" class="hidden" />
+            </template>
             <template v-else-if="key === 'status'">
-              {{ value }}
               <Input type="text" v-model="formData[key]" v-bind="componentField" class="hidden" />
             </template>
             <template v-else-if="typeof value === 'number'">
@@ -117,7 +119,6 @@ console.log(formData.value)
             </template>
             <template v-else-if="typeof value === 'string'">
               <FormLabel>{{ key }}</FormLabel>
-              {{ formData[key] }}
               <Input
                 type="text"
                 v-model="formData[key]"
