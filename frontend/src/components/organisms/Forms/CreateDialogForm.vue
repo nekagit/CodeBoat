@@ -19,7 +19,7 @@ import {
 import ColumnsHelper from '@/service/columnsHelper'
 import { useAppStore } from '@/stores/appStore'
 
-const { getItemType, filterFormDataKeys,removeUndefinedKeys } = ColumnsHelper()
+const { getItemType, filterFormDataKeys, removeUndefinedKeys } = ColumnsHelper()
 const props = defineProps<{
   onChange: (item: IForm) => Promise<void>
   item: IForm
@@ -50,6 +50,16 @@ const formSchemas: Record<string, z.ZodObject<any>> = {
     invoiceTotal: z.number(),
     status: z.string(),
     entityKey: z.string()
+  }),
+  invoiceLine: z.object({
+    name: z.string(),
+    unitPrice: z.number(),
+    quantity: z.number(),
+    invoice: z.string(),
+    product: z.string(),
+    lineTotal: z.number(),
+    status: z.string(),
+    entityKey: z.string()
   })
 }
 
@@ -62,15 +72,20 @@ onBeforeMount(async () => {
   schema.value = toTypedSchema(formSchemas[itemType])
 })
 
-
 const { handleSubmit, resetForm } = useForm({
   validationSchema: schema.value,
   initialValues: formData.value // Initialize with formData.value
 })
 const handleSub = handleSubmit((values) => {
-  const tmp = {...removeUndefinedKeys(values)}
+  const tmp = { ...removeUndefinedKeys(values) }
   props.onChange(tmp)
 })
+
+const getSelects = (key: string) => {
+  if (key === 'customer' || key === 'invoice' || key === 'products') {
+    return true
+  }
+}
 </script>
 <template>
   <div>
@@ -83,13 +98,13 @@ const handleSub = handleSubmit((values) => {
       >
         <FormItem>
           <FormControl>
-            <template v-if="key === 'customer'">
+            <template v-if="getSelects(JSON.stringify(key))">
               <FormLabel>{{ key }}</FormLabel>
 
               <Select v-model="formData[key]" :options="customersIDs" v-bind="componentField">
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue :placeholder="formData[(key)] as string" />
+                    <SelectValue :placeholder="formData[key] as string" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -105,8 +120,7 @@ const handleSub = handleSubmit((values) => {
               >{{ value }}
               <Input type="text" v-model="formData[key]" v-bind="componentField" class="hidden" />
             </template>
-              <template v-else-if="key === '_id'"
-              >
+            <template v-else-if="key === '_id'">
               <Input type="text" v-model="formData[key]" v-bind="componentField" class="hidden" />
             </template>
             <template v-else-if="key === 'status'">

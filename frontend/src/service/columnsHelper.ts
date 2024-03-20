@@ -1,6 +1,6 @@
 import DropdownAction from '@/components/molekules/DataTableAction.vue'
 import { Checkbox } from '@/components/ui/checkbox'
-import type { ICustomer, IInvoice, IProduct } from '@/interfaces/atoms/IShopModal'
+import type { ICustomer, IInvoice, IInvoiceLine, IProduct } from '@/interfaces/atoms/IShopModal'
 import { AppModule, EntityStatus } from '@/interfaces/enums'
 import type { IBaseColumn, IForm } from '@/interfaces/TableInterfaces'
 import type { ColumnDef } from '@tanstack/vue-table'
@@ -9,6 +9,9 @@ export default function ColumnsHelper() {
   const productItem: Ref<IProduct> = ref({
     name: '',
     unitPrice: 0,
+    date: new Date().toISOString(),
+    invoiceTotal: 0,
+    number: 0,
     entityKey: AppModule.Product,
     status: EntityStatus.Created
   })
@@ -18,6 +21,17 @@ export default function ColumnsHelper() {
     date: new Date().toISOString(),
     invoiceTotal: 0,
     number: 0,
+    entityKey: AppModule.Order,
+    status: EntityStatus.None
+  })
+  const invoiceLineItem: Ref<IInvoiceLine> = ref({
+    name: '',
+    invoice: '',
+    product: '',
+    date: new Date().toISOString(),
+    lineTotal: 0,
+    unitPrice: 0,
+    quantity: 0,
     entityKey: AppModule.Order,
     status: EntityStatus.None
   })
@@ -151,6 +165,93 @@ export default function ColumnsHelper() {
           status: row.original.status ?? EntityStatus.None,
           entityKey: row.original.entityKey ?? AppModule.Order
         } as IInvoice
+        return h(
+          'div',
+          { class: 'relative' },
+          h(DropdownAction, {
+            item
+          })
+        )
+      }
+    }
+  ]
+
+  const invoiceLineColumns: ColumnDef<IInvoiceLine>[] = [
+    {
+      accessorKey: 'id',
+      header: ({ table }) =>
+        h(Checkbox, {
+          checked:
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && 'indeterminate'),
+          'onUpdate:checked': (value) => table.toggleAllPageRowsSelected(!!value),
+          ariaLabel: 'Select all'
+        }),
+      cell: ({ row }) => {
+        return h(Checkbox, {
+          checked: row.getIsSelected(),
+          'onUpdate:checked': (value) => row.toggleSelected(!!value),
+          ariaLabel: 'Select row'
+        })
+      },
+      enableSorting: false,
+      enableHiding: false
+    },
+    {
+      accessorKey: 'name',
+      header: 'Name',
+      cell: ({ row }) => row.original.name
+    },
+    {
+      accessorKey: 'unitPrice',
+      header: 'Price',
+      cell: ({ row }) => row.original.unitPrice
+    },
+    {
+      accessorKey: 'quantity',
+      header: 'Quantity',
+      cell: ({ row }) => row.original.quantity
+    },
+    {
+      accessorKey: 'status',
+      header: 'Status',
+      cell: ({ row }) => row.original.status
+    },
+    {
+      accessorKey: 'entityKey',
+      header: 'Type',
+      cell: ({ row }) => row.original.entityKey
+    },
+    {
+      accessorKey: 'invoice',
+      header: 'invoice',
+      cell: ({ row }) => row.original.invoice
+    },
+    {
+      accessorKey: 'product',
+      header: 'Product',
+      cell: ({ row }) => row.original.product
+    },
+    {
+      accessorKey: 'lineTotal',
+      header: 'Total',
+      cell: ({ row }) => row.original.lineTotal
+    },
+    {
+      accessorKey: 'actions',
+      enableHiding: false,
+      cell: ({ row }) => {
+        const item = {
+          _id: row.original._id,
+          name: row.original.name ?? '',
+          unitPrice: row.original.unitPrice ?? 0,
+          quantity: row.original.unitPrice ?? 0,
+          invoice: row.original.invoice ?? '',
+          product: row.original.product ?? '',
+          lineTotal: row.original.lineTotal ?? 0,
+          status: row.original.status ?? EntityStatus.None,
+          entityKey: row.original.entityKey ?? AppModule.Order
+        } as IInvoiceLine
         return h(
           'div',
           { class: 'relative' },
@@ -341,6 +442,8 @@ export default function ColumnsHelper() {
     productItem,
     productColumns,
     invoiceItem,
-    invoiceColumns
+    invoiceColumns,
+    invoiceLineItem,
+    invoiceLineColumns
   }
 }

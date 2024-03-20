@@ -27,10 +27,11 @@ const InvoiceSchema = new mongoose.Schema({
 });
 
 const InvoiceLineSchema = new mongoose.Schema({
-    invoice: {type: mongoose.Schema.Types.ObjectId,ref:'Invoice'},
-    product: {type: mongoose.Schema.Types.ObjectId,ref:'Product'},
+    name: String,
     unitPrice: Number,
     quantity: Number,
+    invoice: {type: mongoose.Schema.Types.ObjectId,ref:'Invoice'},
+    product: {type: mongoose.Schema.Types.ObjectId,ref:'Product'},
     lineTotal: Number,
     status: String,
     entityKey: String

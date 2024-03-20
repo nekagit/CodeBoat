@@ -32,7 +32,7 @@ import {
 import { onBeforeMount, ref, watch } from 'vue'
 // Define props
 
-const { customerColumns, productColumns, invoiceColumns } = ColumnsHelper()
+const { customerColumns, productColumns, invoiceColumns,invoiceLineColumns } = ColumnsHelper()
 
 const props = defineProps<ICustomTable>()
 const localItems = ref([] as any[])
@@ -56,6 +56,10 @@ const setLocalItems = () => {
     localItems.value = useAppStore().customers
     // localItems.value.push({id: "", name: "offlineSample"})
     localColumns.value = customerColumns
+  }else if (appMod == AppModule.Line) {
+    localItems.value = useAppStore().invoiceLines
+    // localItems.value.push({id: "", name: "offlineSample"})
+    localColumns.value = invoiceLineColumns
   }
 }
 

@@ -47,6 +47,9 @@ const isTabDisabled = (tabValue: string) => {
             <TabsTrigger :value="AppModule.Order" :disabled="isTabDisabled(AppModule.Order)"
               >Invoice</TabsTrigger
             >
+            <TabsTrigger :value="AppModule.Line" :disabled="isTabDisabled(AppModule.Line)"
+              >InvoiceLine</TabsTrigger
+            >
           </TabsList>
           <TabsContent :value="AppModule.Product">
             <CreateDialogForm
@@ -63,6 +66,13 @@ const isTabDisabled = (tabValue: string) => {
             />
           </TabsContent>
           <TabsContent :value="AppModule.Order">
+            <CreateDialogForm
+              :editMode="props.editMode"
+              :item="props.item"
+              :onChange="(x) => props.onChange(x)"
+            />
+          </TabsContent>
+           <TabsContent :value="AppModule.Line">
             <CreateDialogForm
               :editMode="props.editMode"
               :item="props.item"

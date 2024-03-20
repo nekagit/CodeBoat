@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import CustomerPage from '../views/CustomerPage.vue'
 import HomeView from '../views/HomeView.vue'
 import InvoicePage from '../views/InvoicePage.vue'
+import InvoiceLinePage from '../views/InvoiceLinePage.vue'
 import ProductPage from '../views/ProductPage.vue'
 
 const router = createRouter({
@@ -31,6 +32,11 @@ const router = createRouter({
       path: '/invoices',
       name: 'invoices',
       component: InvoicePage
+    },
+    {
+      path: '/invoiceLines',
+      name: 'invoiceLines',
+      component: InvoiceLinePage
     }
   ]
 })

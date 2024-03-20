@@ -14,8 +14,8 @@ const createInvoice = async (req, res) => {
       customer: req.body.customer,
       date: req.body.date,
       invoiceTotal: req.body.invoiceTotal,
-      status: "Created",
-      entityKey: "Invoice"
+      status: req.body.status,
+      entityKey: req.body.entityKey
     });
 
     const data = await newInvoice.save();

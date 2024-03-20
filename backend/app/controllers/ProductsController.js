@@ -11,8 +11,8 @@ const createProduct = async (req, res) => {
     const newProduct = new Product({ // Change variable name from 'Product' to 'newProduct'
       name: req.body.name,
       unitPrice: req.body.unitPrice,
-      status: "Created",
-      entityKey: "Products"
+      status: req.body.status,
+      entityKey: req.body.entityKey
     });
     const data = await newProduct.save(); // Use 'newProduct' instead of 'Product'
     res.send(data);

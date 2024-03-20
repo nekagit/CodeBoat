@@ -10,7 +10,7 @@ const props = defineProps<{
   title: string
   entityKey: AppModule
 }>()
-const { customerItem, productItem, invoiceItem } = ColumnsHelper()
+const { customerItem, productItem, invoiceItem, invoiceLineItem } = ColumnsHelper()
 
 const dialogItem = ref()
 const setLocalItems = () => {
@@ -20,6 +20,8 @@ const setLocalItems = () => {
     dialogItem.value = productItem.value
   } else if (props.entityKey == AppModule.Customer) {
     dialogItem.value = customerItem.value
+  } else if (props.entityKey == AppModule.Line) {
+    dialogItem.value = invoiceLineItem.value
   }
 }
 

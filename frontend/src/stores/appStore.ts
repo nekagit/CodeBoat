@@ -1,14 +1,16 @@
-import type { ICustomer, IInvoice, IProduct } from '@/interfaces/atoms/IShopModal' // Adjust the import path as needed
+import type { ICustomer, IInvoice, IInvoiceLine, IProduct } from '@/interfaces/atoms/IShopModal' // Adjust the import path as needed
 import { AppModule, EntityStatus } from '@/interfaces/enums'
 import type { IForm } from '@/interfaces/TableInterfaces'
 import { defineStore } from 'pinia'
 import { ref, type Ref } from 'vue'
 import { useCustomerStore } from './customerStore'
+import { useInvoiceLineStore } from './invoiceLineStore'
 import { useInvoiceStore } from './invoiceStore'
 import { useProductStore } from './productsStore'
 export const useAppStore = defineStore('app', {
   state: () => ({
     invoices: ref([]) as Ref<IInvoice[]>,
+    invoiceLines: ref([]) as Ref<IInvoiceLine[]>,
     products: ref([]) as Ref<IProduct[]>,
     customers: ref([]) as Ref<ICustomer[]>,
     freshFetch: ref(false),
@@ -58,10 +60,18 @@ export const useAppStore = defineStore('app', {
               entityKey: AppModule.Customer
             } as ICustomer
           )
+        } else if (appMod == AppModule.Line) {
+          await useInvoiceLineStore().updateInvoiceLineById(
+            manipulatedValues._id as string,
+            {
+              name: manipulatedValues.name,
+              status: EntityStatus.Created,
+              entityKey: AppModule.Line
+            } as IInvoiceLine
+          )
         }
         await useCustomerStore().fetchAllCustomers()
       } else {
-
         if (appMod == AppModule.Order) {
           await useInvoiceStore().createInvoice({
             name: manipulatedValues.name,
@@ -85,11 +95,17 @@ export const useAppStore = defineStore('app', {
             status: EntityStatus.Created,
             entityKey: AppModule.Customer
           } as ICustomer)
+        } else if (appMod == AppModule.Line) {
+          await useInvoiceLineStore().createInvoiceLine({
+            name: manipulatedValues.name,
+            status: EntityStatus.Created,
+            entityKey: AppModule.Line
+          } as IInvoiceLine)
         }
       }
-      this.freshFetch  = true
+      this.freshFetch = true
     },
-    
+
     async initCustomerTable(): Promise<ICustomer[]> {
       const customerStore = useCustomerStore()
       const sampleCustomer = {
@@ -127,9 +143,26 @@ export const useAppStore = defineStore('app', {
       const response = await invoiceStore.createInvoice(sampleInvoice)
       return response ?? []
     },
+    async initInvoiceLineTable(invoiceId: string, productId: string): Promise<IInvoiceLine[]> {
+      const invoiceLineStore = useInvoiceLineStore()
+      const sampleInvoiceLine = {
+        name: 'sampleInvoiceLine',
+        unitPrice: 1001,
+        quantity: 1001,
+        invoice: invoiceId,
+        product: productId,
+        lineTotal: 150.75,
+        status: EntityStatus.Created,
+        entityKey: AppModule.Line
+      } as IInvoiceLine
+      console.log("aaaaaaaaaaaaa",sampleInvoiceLine)
+      const response = await invoiceLineStore.createInvoiceLine(sampleInvoiceLine)
+      return response ?? []
+    },
     async fetchData() {
       const responseProducts = await useProductStore().fetchAllProducts()
       const responseInvoices = await useInvoiceStore().fetchAllInvoices()
+      const responseInvoiceLines = await useInvoiceLineStore().fetchAllInvoiceLines()
       const responseCustomers = await useCustomerStore().fetchAllCustomers()
       console.log('fetched Data', responseProducts)
       if (responseCustomers?.length < 1) {
@@ -139,6 +172,15 @@ export const useAppStore = defineStore('app', {
         this.products = await this.initProductTable()
       } else if (responseInvoices?.length < 1 && this.customers[0]._id != undefined) {
         this.invoices = await this.initInvoiceTable(this.customers[0]._id)
+      } else if (
+        responseInvoiceLines?.length < 1 &&
+        this.products[0]._id != undefined &&
+        this.invoices[0]._id != undefined
+      ) {
+        this.invoiceLines = await this.initInvoiceLineTable(
+          this.products[0]._id,
+          this.invoices[0]._id
+        )
       } else {
         this.customers = responseCustomers
         this.products = responseProducts

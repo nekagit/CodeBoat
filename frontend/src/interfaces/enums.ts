@@ -1,7 +1,8 @@
 export enum AppModule {
   Product = 'Products',
   Customer = 'Customers',
-  Order = 'Orders'
+  Order = 'Orders',
+  Line = 'Lines'
 }
 export enum EntityStatus {
   Created = 'Created',
