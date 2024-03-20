@@ -28,7 +28,7 @@ const props = defineProps<{
 
 const formData = ref<IForm>(props.item)
 const schema = ref()
-const customersIDs = ref<string[]>([])
+const selectItems = ref<string[]>([])
 
 const formSchemas: Record<string, z.ZodObject<any>> = {
   customer: z.object({
@@ -64,9 +64,7 @@ const formSchemas: Record<string, z.ZodObject<any>> = {
 }
 
 onBeforeMount(async () => {
-  const appStore = useAppStore()
-  const customers = appStore.customers
-  customersIDs.value = customers.map((x) => x._id ?? '')
+  selectItems.value = getSelectItems(props.item)
   filterFormDataKeys(formData, props.item)
   const itemType = getItemType(props.item)
   schema.value = toTypedSchema(formSchemas[itemType])
@@ -82,13 +80,27 @@ const handleSub = handleSubmit((values) => {
 })
 
 const getSelects = (key: string) => {
-    console.log( key)
-  if (key === "customer" || key === "invoice" || key === "product") {
-    console.log("key", key)
-    return true
-  }
+  return key === "customer" || key === "invoice" || key === "product"
 }
+
+const getSelectItems = (item: any) => {
+  const keys = Object.keys(item);
+  const selectItems: string[] = [];
+  const appStore = useAppStore();
+
+  keys.forEach((key) => {
+    if (key === "customer" || key === "invoice" || key === "product") {
+      const items = appStore[key + "s"];
+      if (Array.isArray(items)) {
+        selectItems.push(...items.map((x: any) => x._id));
+      }
+    }
+  });
+
+  return selectItems;
+};
 </script>
+
 <template>
   <div>
     <form class="space-y-8" @submit.prevent="handleSub">
@@ -102,8 +114,7 @@ const getSelects = (key: string) => {
           <FormControl>
             <template v-if="getSelects(key as string)">
               <FormLabel>{{ key }}</FormLabel>
-
-              <Select v-model="formData[key]" :options="customersIDs" v-bind="componentField">
+              <Select v-model="formData[key]" :options="selectItems" v-bind="componentField">
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue :placeholder="formData[key] as string" />
@@ -111,8 +122,8 @@ const getSelects = (key: string) => {
                 </FormControl>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectItem v-for="customer in customersIDs" :key="customer" :value="customer">
-                      {{ customer }}
+                    <SelectItem v-for="item in selectItems" :key="item" :value="item">
+                      {{ item }}
                     </SelectItem>
                   </SelectGroup>
                 </SelectContent>
@@ -141,12 +152,10 @@ const getSelects = (key: string) => {
                 :placeholder="formData[key]"
               />
             </template>
-
             <template v-else> </template>
           </FormControl>
         </FormItem>
       </FormField>
-
       <div class="flex gap-2 justify-start">
         <Button type="submit"> Submit </Button>
         <Button type="button" @click="resetForm"> Reset </Button>
