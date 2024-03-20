@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { toTypedSchema } from '@vee-validate/zod';
-import { useForm } from 'vee-validate';
-import { defineProps, onBeforeMount, ref } from 'vue';
-import { z } from 'zod';
 import Button from '@/components/ui/button/Button.vue';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/lib/registry/new-york/ui/input';
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectTrigger,
+    SelectValue
 } from '@/lib/registry/new-york/ui/select';
 import type { IForm } from '@/service/tableService';
 import { useAppStore } from '@/stores/appStore';
+import { toTypedSchema } from '@vee-validate/zod';
+import { useForm } from 'vee-validate';
+import { defineProps, onBeforeMount, ref } from 'vue';
+import { z } from 'zod';
 
 // Define props
 const props = defineProps<{
@@ -41,7 +41,7 @@ const filterFormDataKeys = () => {
 onBeforeMount(async () => {
   const appStore = useAppStore();
   const customers = appStore.customers;
-  customersIDs.value = customers.map((x) => x._id ?? ' ');
+  customersIDs.value = customers.map((x) => x._id ?? '');
   console.log("cusotmerids", customersIDs.value)
   filterFormDataKeys();
 });

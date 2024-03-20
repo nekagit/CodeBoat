@@ -46,7 +46,7 @@ const {
 } = ColumnsHelper()
 
 const props = defineProps<ICustomTable>()
-const localItems = ref([] as any[])
+const localItems = ref([])
 const localColumns = ref([]as ColumnDef<any>[])
 const appMod = getItemAppModule(props.item)
 const refItem = ref(props.item)
@@ -63,17 +63,17 @@ onBeforeMount(async () => {
   if (appMod == AppModule.Order) {
     console.log(localItems.value, 'invocie')
     localItems.value = useAppStore().invoices
-    // localItems.value.push({id: " ", name: "offlineSample"})
+    // localItems.value.push({id: "", name: "offlineSample"})
     localColumns.value = invoiceColumns
   } else if (appMod == AppModule.Product) {
     console.log(localItems.value, 'prodcuts')
     localItems.value = useAppStore().products
-    // localItems.value.push({id: " ", name: "offlineSample"})
+    // localItems.value.push({id: "", name: "offlineSample"})
     localColumns.value = productColumns
   } else if (appMod == AppModule.Customer) {
     console.log(localItems.value, 'customtable')
     localItems.value = useAppStore().customers
-    // localItems.value.push({id: " ", name: "offlineSample"})
+    // localItems.value.push({id: "", name: "offlineSample"})
     localColumns.value = customerColumns
   }
 })
@@ -147,7 +147,7 @@ console.log(refItem,appMod, "customtableinvoice")
 </script>
 <template>
   <div class="space-y-4">
-    <CreateDialog :onChange="(item: any) => handleOnCreate(item)" :item="refItem" />
+    <CreateDialog :onChange="(item: any) => handleOnCreate(item)" :item="props.item" />
     <div>
       <div class="rounded-md border">
         <Table>

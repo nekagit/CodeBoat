@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
+    Card,
+    CardContent,
+    CardFooter,
+    CardHeader,
 } from '@/lib/registry/new-york/ui/card'
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/lib/registry/new-york/ui/command'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/lib/registry/new-york/ui/dialog'
@@ -14,14 +14,14 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/lib/registry/new-york/ui/
 import { Button } from '@/lib/registry/new-york/ui/button'
 import { Input } from '@/lib/registry/new-york/ui/input'
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
 } from '@/lib/registry/new-york/ui/tooltip'
 import { cn } from '@/lib/utils'
 
-const input = ref(' ')
+const input = ref('')
 const inputLength = computed(() => input.value.trim().length)
 const users = ref([
   {

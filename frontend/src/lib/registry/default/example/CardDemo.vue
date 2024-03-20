@@ -3,12 +3,12 @@ import { BellRing, Check } from 'lucide-vue-next'
 
 import { Button } from '@/lib/registry/default/ui/button'
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
 } from '@/lib/registry/default/ui/card'
 import { Switch } from '@/lib/registry/default/ui/switch'
 import { cn } from '@/lib/utils'
@@ -30,7 +30,7 @@ const notifications = [
 </script>
 
 <template>
-  <Card :class="cn('w-[380px]', $attrs.class ?? ' ')">
+  <Card :class="cn('w-[380px]', $attrs.class ?? '')">
     <CardHeader>
       <CardTitle>Notifications</CardTitle>
       <CardDescription>You have 3 unread messages.</CardDescription>

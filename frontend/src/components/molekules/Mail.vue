@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import {
-  Search,
+    Search,
 } from 'lucide-vue-next'
 
 import type { Mail } from '@/interfaces/mail'
@@ -8,10 +8,10 @@ import { Input } from '@/lib/registry/new-york/ui/input'
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/lib/registry/new-york/ui/resizable'
 import { Separator } from '@/lib/registry/new-york/ui/separator'
 import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
+    Tabs,
+    TabsContent,
+    TabsList,
+    TabsTrigger,
 } from '@/lib/registry/new-york/ui/tabs'
 import { TooltipProvider } from '@/lib/registry/new-york/ui/tooltip'
 import { cn } from '@/lib/utils'
@@ -41,7 +41,7 @@ const props = withDefaults(defineProps<MailProps>(), {
 
 const isCollapsed = ref(props.defaultCollapsed)
 const selectedMail = ref<string | undefined>(props.mails[0].id)
-const searchValue = ref(' ')
+const searchValue = ref('')
 const debouncedSearch = refDebounced(searchValue, 250)
 
 const filteredMailList = computed(() => {
@@ -83,7 +83,7 @@ const links: LinkProp[] = [
   },
   {
     title: 'Sent',
-    label: ' ',
+    label: '',
     icon: 'lucide:send',
     variant: 'ghost',
   },
@@ -95,13 +95,13 @@ const links: LinkProp[] = [
   },
   {
     title: 'Trash',
-    label: ' ',
+    label: '',
     icon: 'lucide:trash',
     variant: 'ghost',
   },
   {
     title: 'Archive',
-    label: ' ',
+    label: '',
     icon: 'lucide:archive',
     variant: 'ghost',
   },

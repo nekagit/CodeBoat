@@ -21,7 +21,7 @@ const isFiltered = computed(() => props.table.getState().columnFilters.length > 
     <div class="flex ml-auto space-x-2">
       <Input
         placeholder="Filter..."
-        :model-value="(table.getColumn('name')?.getFilterValue() as string) ?? ' '"
+        :model-value="(table.getColumn('name')?.getFilterValue() as string) ?? ''"
         class="h-8 w-[150px] lg:w-[250px]"
         @input="table.getColumn('name')?.setFilterValue($event.target.value)"
       />

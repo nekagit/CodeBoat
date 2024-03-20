@@ -4,17 +4,17 @@ import { ref } from 'vue'
 
 import { Button } from '@/lib/registry/default/ui/button'
 import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
 } from '@/lib/registry/default/ui/command'
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from '@/lib/registry/default/ui/popover'
 import { cn } from '@/lib/utils'
 
@@ -27,7 +27,7 @@ const frameworks = [
 ]
 
 const open = ref(false)
-const value = ref<string>(' ')
+const value = ref<string>('')
 
 // const filterFunction = (list: typeof frameworks, search: string) => list.filter(i => i.value.toLowerCase().includes(search.toLowerCase()))
 </script>

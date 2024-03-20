@@ -3,36 +3,36 @@ import { CaretSortIcon, CheckIcon, PlusCircledIcon } from '@radix-icons/vue'
 import { ref } from 'vue'
 
 import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
+    Avatar,
+    AvatarFallback,
+    AvatarImage,
 } from '@/lib/registry/new-york/ui/avatar'
 import { Button } from '@/lib/registry/new-york/ui/button'
 import { cn } from '@/lib/utils'
 
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from '@/lib/registry/new-york/ui/command'
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
 } from '@/lib/registry/new-york/ui/dialog'
 import { Input } from '@/lib/registry/new-york/ui/input'
 import { Label } from '@/lib/registry/new-york/ui/label'
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from '@/lib/registry/new-york/ui/popover'
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from '@/lib/registry/new-york/ui/select'
 
 const groups = [
@@ -76,7 +76,7 @@ const selectedTeam = ref<Team>(groups[0].teams[0])
           role="combobox"
           aria-expanded="open"
           aria-label="Select a team"
-          :class="cn('w-[200px] justify-between', $attrs.class ?? ' ')"
+          :class="cn('w-[200px] justify-between', $attrs.class ?? '')"
         >
           <Avatar class="mr-2 h-5 w-5">
             <AvatarImage

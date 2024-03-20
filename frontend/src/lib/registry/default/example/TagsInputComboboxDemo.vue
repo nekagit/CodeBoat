@@ -14,7 +14,7 @@ const frameworks = [
 
 const modelValue = ref<string[]>([])
 const open = ref(false)
-const searchTerm = ref(' ')
+const searchTerm = ref('')
 
 const filteredFrameworks = computed(() => frameworks.filter(i => !modelValue.value.includes(i.label)))
 </script>
@@ -31,7 +31,7 @@ const filteredFrameworks = computed(() => frameworks.filter(i => !modelValue.val
     <ComboboxRoot v-model="modelValue" v-model:open="open" v-model:searchTerm="searchTerm" class="w-full">
       <ComboboxAnchor as-child>
         <ComboboxInput placeholder="Framework..." as-child>
-          <TagsInputInput class="w-full px-3" :class="modelValue.length > 0 ? 'mt-2' : ' '" @keydown.enter.prevent />
+          <TagsInputInput class="w-full px-3" :class="modelValue.length > 0 ? 'mt-2' : ''" @keydown.enter.prevent />
         </ComboboxInput>
       </ComboboxAnchor>
 
@@ -46,7 +46,7 @@ const filteredFrameworks = computed(() => frameworks.filter(i => !modelValue.val
               v-for="framework in filteredFrameworks" :key="framework.value" :value="framework.label"
               @select.prevent="(ev) => {
                 if (typeof ev.detail.value === 'string') {
-                  searchTerm = ' '
+                  searchTerm = ''
                   modelValue.push(ev.detail.value)
                 }
 

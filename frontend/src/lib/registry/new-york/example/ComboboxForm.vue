@@ -6,25 +6,25 @@ import * as z from 'zod'
 
 import { Button } from '@/lib/registry/new-york/ui/button'
 import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
 } from '@/lib/registry/new-york/ui/command'
 import {
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from '@/lib/registry/new-york/ui/form'
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from '@/lib/registry/new-york/ui/popover'
 import { toast } from '@/lib/registry/new-york/ui/toast'
 import { cn } from '@/lib/utils'
@@ -51,7 +51,7 @@ const formSchema = toTypedSchema(z.object({
 const { handleSubmit, setValues, values } = useForm({
   validationSchema: formSchema,
   initialValues: {
-    language: ' ',
+    language: '',
   },
 })
 

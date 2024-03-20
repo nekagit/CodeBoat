@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router';
 </script>
 
 <template>
-  <nav :class="cn('flex items-center space-x-4 lg:space-x-6', $attrs.class ?? ' ')">
+  <nav :class="cn('flex items-center space-x-4 lg:space-x-6', $attrs.class ?? '')">
     <router-link to="/"
       ><a class="text-sm font-medium transition-colors hover:text-primary">Overview</a></router-link
     >

@@ -4,11 +4,11 @@ import type { Column } from '@tanstack/vue-table'
 
 import { Button } from '@/lib/registry/new-york/ui/button'
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
 } from '@/lib/registry/new-york/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
 import type { IBaseColumn } from '@/service/tableService'
@@ -23,7 +23,7 @@ defineProps<DataTableColumnHeaderProps>()
 
 
 <template>
-  <div v-if="column.getCanSort()" :class="cn('flex items-center space-x-2', $attrs.class ?? ' ')">
+  <div v-if="column.getCanSort()" :class="cn('flex items-center space-x-2', $attrs.class ?? '')">
     <DropdownMenu>
       <DropdownMenuTrigger as-child>
         <Button

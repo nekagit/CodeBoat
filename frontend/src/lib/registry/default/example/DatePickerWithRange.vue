@@ -5,9 +5,9 @@ import { Calendar as CalendarIcon } from 'lucide-vue-next'
 import { Button } from '@/lib/registry/default/ui/button'
 import { Calendar } from '@/lib/registry/default/ui/calendar'
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from '@/lib/registry/default/ui/popover'
 import { cn } from '@/lib/utils'
 import { ref } from 'vue'
@@ -19,7 +19,7 @@ const date = ref({
 </script>
 
 <template>
-  <div :class="cn('grid gap-2', $attrs.class ?? ' ')">
+  <div :class="cn('grid gap-2', $attrs.class ?? '')">
     <Popover>
       <PopoverTrigger as-child>
         <Button

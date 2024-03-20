@@ -25,9 +25,9 @@ const props = defineProps<MailDisplayProps>()
 
 const mailFallbackName = computed(() => {
   return props.mail?.name
-    .split(' ')
+    .split('')
     .map(chunk => chunk[0])
-    .join(' ')
+    .join('')
 })
 
 const today = new Date().toISOString()

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { Button } from '@/lib/registry/new-york/ui/button'
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
 } from '@/lib/registry/new-york/ui/card'
 import { Switch } from '@/lib/registry/new-york/ui/switch'
 import { cn } from '@/lib/utils'
@@ -29,7 +29,7 @@ const notifications = [
 </script>
 
 <template>
-  <Card :class="cn('w-[380px]', $attrs.class ?? ' ')">
+  <Card :class="cn('w-[380px]', $attrs.class ?? '')">
     <CardHeader>
       <CardTitle>Notifications</CardTitle>
       <CardDescription>You have 3 unread messages.</CardDescription>

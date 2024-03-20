@@ -6,9 +6,9 @@ import { ref } from 'vue'
 import { Button } from '@/lib/registry/new-york/ui/button'
 import { Calendar } from '@/lib/registry/new-york/ui/calendar'
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from '@/lib/registry/new-york/ui/popover'
 import { cn } from '@/lib/utils'
 
@@ -19,7 +19,7 @@ const date = ref({
 </script>
 
 <template>
-  <div :class="cn('grid gap-2', $attrs.class ?? ' ')">
+  <div :class="cn('grid gap-2', $attrs.class ?? '')">
     <Popover>
       <PopoverTrigger as-child>
         <Button

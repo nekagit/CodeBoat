@@ -6,7 +6,7 @@ import { type HTMLAttributes, computed } from 'vue';
 
 const props = withDefaults(defineProps<ComboboxRootProps & { class?: HTMLAttributes['class'] }>(), {
   open: true,
-  modelValue: ' ',
+  modelValue: '',
 })
 
 const emits = defineEmits<ComboboxRootEmits>()

@@ -8,12 +8,12 @@ import { z } from 'zod'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/lib/registry/new-york/ui/input'
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectTrigger,
+    SelectValue
 } from '@/lib/registry/new-york/ui/select'
 import type { IForm } from '@/service/tableService'
 import { useAppStore } from '@/stores/appStore'
@@ -42,7 +42,7 @@ const filterFormDataKeys = () => {
 onBeforeMount(async () => {
   const appStore = useAppStore()
   const customers = appStore.customers
-  customersIDs.value = customers.map((x) => x._id ?? ' ')
+  customersIDs.value = customers.map((x) => x._id ?? '')
   filterFormDataKeys()
 })
 // Function to determine item type

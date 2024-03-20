@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import { Button } from '@/lib/registry/default/ui/button'
 import {
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from '@/lib/registry/default/ui/form'
 import {
-  PinInput,
-  PinInputGroup,
-  PinInputInput,
+    PinInput,
+    PinInputGroup,
+    PinInputInput,
 } from '@/lib/registry/default/ui/pin-input'
 import { toast } from '@/lib/registry/default/ui/toast'
 import { toTypedSchema } from '@vee-validate/zod'
@@ -33,11 +33,11 @@ const { handleSubmit, setValues } = useForm({
 const onSubmit = handleSubmit(({ pin }) => {
   toast({
     title: 'You submitted the following values:',
-    description: h('pre', { class: 'mt-2 w-[340px] rounded-md bg-slate-950 p-4' }, h('code', { class: 'text-white' }, JSON.stringify(pin.join(' '), null, 2))),
+    description: h('pre', { class: 'mt-2 w-[340px] rounded-md bg-slate-950 p-4' }, h('code', { class: 'text-white' }, JSON.stringify(pin.join(''), null, 2))),
   })
 })
 
-const handleComplete = (e: string[]) => console.log(e.join(' '))
+const handleComplete = (e: string[]) => console.log(e.join(''))
 </script>
 
 <template>
