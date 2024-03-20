@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import CustomTable from '@/components/organisms/Tables/Custom/CustomTable.vue';
-import ColumnsHelper from '@/service/columnsHelper';
-const {customerItem} = ColumnsHelper()
+import { AppModule } from '@/interfaces/enums';
 </script>
 <template>
-<CustomTable :item="customerItem" />  
-
+    <CustomTablePage :entityKey="AppModule.Customer" :title="'Customer'" />
 </template>

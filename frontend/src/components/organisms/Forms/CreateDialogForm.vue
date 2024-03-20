@@ -69,7 +69,6 @@ const { handleSubmit, resetForm } = useForm({
 })
 const handleSub = handleSubmit((values) => {
   const tmp = {...removeUndefinedKeys(values)}
-  console.log('Submit button clicked. Values:',tmp)
   props.onChange(tmp)
 })
 </script>

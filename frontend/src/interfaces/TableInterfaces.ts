@@ -7,8 +7,8 @@ export interface IBaseColumn {
 }
 
 export interface IForm {
-  [key: string]: string | number | null
+  [key: string]: string | number | undefined
 }
 export interface ICustomTable {
-  item: any
+  entityKey: AppModule
 }

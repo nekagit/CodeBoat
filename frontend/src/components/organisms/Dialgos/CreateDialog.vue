@@ -15,16 +15,15 @@ import type { IForm } from '@/interfaces/TableInterfaces'
 import { defineProps } from 'vue'
 
 const props = defineProps<{
-  onChange: (item: IForm, editMode: boolean) => Promise<void>
-  item: any
+  onChange: (item: IForm) => Promise<void>
+  entityKey: AppModule
   editMode: boolean
+  item: any
 }>()
 
 const isTabDisabled = (tabValue: string) => {
-  // Determine if the tab should be disabled based on the item type
-  return props.item.entityKey !== tabValue
+  return props.entityKey !== tabValue
 }
-
 </script>
 
 <template>
@@ -37,7 +36,7 @@ const isTabDisabled = (tabValue: string) => {
         <DialogTitle>{{ props.editMode ? 'Edit' : 'Create' }} </DialogTitle>
       </DialogHeader>
       <DialogDescription>
-        <Tabs :default-value="props.item.entityKey as string" class="w-[400px]">
+        <Tabs :default-value="props.entityKey as string" class="w-[400px]">
           <TabsList>
             <TabsTrigger :value="AppModule.Product" :disabled="isTabDisabled(AppModule.Product)"
               >Product</TabsTrigger
@@ -53,21 +52,21 @@ const isTabDisabled = (tabValue: string) => {
             <CreateDialogForm
               :editMode="props.editMode"
               :item="props.item"
-              :onChange="(x) => props.onChange(x, props.editMode)"
+              :onChange="(x) => props.onChange(x)"
             />
           </TabsContent>
           <TabsContent :value="AppModule.Customer">
             <CreateDialogForm
               :editMode="props.editMode"
               :item="props.item"
-              :onChange="(x) => props.onChange(x, props.editMode)"
+              :onChange="(x) => props.onChange(x)"
             />
           </TabsContent>
           <TabsContent :value="AppModule.Order">
             <CreateDialogForm
               :editMode="props.editMode"
               :item="props.item"
-              :onChange="(x) => props.onChange(x, props.editMode)"
+              :onChange="(x) => props.onChange(x)"
             />
           </TabsContent>
         </Tabs>

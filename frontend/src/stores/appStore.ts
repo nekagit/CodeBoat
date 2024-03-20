@@ -17,13 +17,11 @@ export const useAppStore = defineStore('app', {
 
   actions: {
     async onInit() {
-      console.log('init start')
       await this.fetchData()
       this.freshFetch = true
-      console.log('init over', this.freshFetch)
     },
 
-    async createEdit(values: IForm, editMode: boolean, appMod: string): Promise<any[] | undefined> {
+    async createEdit(values: IForm, editMode: boolean, appMod: string) {
       const manipulatedValues = { ...values }
       if (editMode) {
         if (appMod == AppModule.Order) {
@@ -63,40 +61,35 @@ export const useAppStore = defineStore('app', {
         }
         await useCustomerStore().fetchAllCustomers()
       } else {
+
         if (appMod == AppModule.Order) {
-          return (
-            (await useInvoiceStore().createInvoice({
-              name: manipulatedValues.name,
-              number: manipulatedValues.number,
-              status: EntityStatus.Created,
-              entityKey: AppModule.Order,
-              customer: manipulatedValues.customer,
-              date: new Date().toISOString(), // This will set the date to the current date and time
-              invoiceTotal: manipulatedValues.invoiceTotal
-            } as IInvoice)) ?? []
-          )
+          await useInvoiceStore().createInvoice({
+            name: manipulatedValues.name,
+            number: manipulatedValues.number,
+            status: EntityStatus.Created,
+            entityKey: AppModule.Order,
+            customer: manipulatedValues.customer,
+            date: new Date().toISOString(), // This will set the date to the current date and time
+            invoiceTotal: manipulatedValues.invoiceTotal
+          } as IInvoice)
         } else if (appMod == AppModule.Product) {
-          return (
-            (await useProductStore().createProduct({
-              name: manipulatedValues.name,
-              unitPrice: manipulatedValues.unitPrice,
-              status: EntityStatus.Created,
-              entityKey: AppModule.Product
-            } as IProduct)) ?? []
-          )
+          await useProductStore().createProduct({
+            name: manipulatedValues.name,
+            unitPrice: manipulatedValues.unitPrice,
+            status: EntityStatus.Created,
+            entityKey: AppModule.Product
+          } as IProduct)
         } else if (appMod == AppModule.Customer) {
-          return (
-            (await useCustomerStore().createCustomer({
-              name: manipulatedValues.name,
-              status: EntityStatus.Created,
-              entityKey: AppModule.Customer
-            } as ICustomer)) ?? []
-          )
+          await useCustomerStore().createCustomer({
+            name: manipulatedValues.name,
+            status: EntityStatus.Created,
+            entityKey: AppModule.Customer
+          } as ICustomer)
         }
       }
-      this.freshFetch = true
-      console.log('create edit over', this.freshFetch)
+      this.freshFetch  = true
     },
+    
     async initCustomerTable(): Promise<ICustomer[]> {
       const customerStore = useCustomerStore()
       const sampleCustomer = {

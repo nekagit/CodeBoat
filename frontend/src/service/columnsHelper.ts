@@ -146,7 +146,7 @@ export default function ColumnsHelper() {
           name: row.original.name ?? '',
           number: row.original.number ?? 0,
           customer: row.original.customer ?? '',
-          date: row.original.date ?? new Date(),
+          date: row.original.date ?? new Date().toISOString(),
           invoiceTotal: row.original.invoiceTotal ?? 0,
           status: row.original.status ?? EntityStatus.None,
           entityKey: row.original.entityKey ?? AppModule.Order
