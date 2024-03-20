@@ -2,6 +2,7 @@
 import CreateDialog from '@/components/organisms/Dialgos/CreateDialog.vue'
 import DataTablePagination from '@/components/organisms/Tables/DataTablePagination.vue'
 import { AppModule, EntityStatus } from '@/interfaces/enums'
+import type { ICustomTable } from '@/interfaces/TableInterfaces'
 import {
   Table,
   TableBody,
@@ -11,7 +12,7 @@ import {
   TableRow
 } from '@/lib/registry/new-york/ui/table'
 import { valueUpdater } from '@/lib/utils'
-import TableService, { type ICustomTable } from '@/service/tableService'
+import ColumnsHelper from '@/service/columnsHelper'
 import { useAppStore } from '@/stores/appStore'
 import { useCustomerStore } from '@/stores/customerStore'
 import { useInvoiceStore } from '@/stores/invoiceStore'
@@ -29,13 +30,20 @@ import {
 } from '@tanstack/vue-table'
 import { onBeforeMount, onUpdated, ref } from 'vue'
 // Define props
-
+const getItemAppModule = (item: any) => {
+    if (Object.keys(item).find((x) => x == 'customer')) {
+      return AppModule.Order
+    } else if (Object.keys(item).find((x) => x == 'unitPrice')) {
+      return AppModule.Product
+    } else {
+      return AppModule.Customer
+    }
+  }
 const {
-  getItemAppModule,
   customerColumns,
   productColumns,
   invoiceColumns,
-} = TableService()
+} = ColumnsHelper()
 
 const props = defineProps<ICustomTable>()
 const localItems = ref([] as any[])

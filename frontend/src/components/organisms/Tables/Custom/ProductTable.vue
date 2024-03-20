@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import CustomTable from '@/components/organisms/Tables/Custom/CustomTable.vue';
-import TableService from '@/service/tableService';
-const {productItem} = TableService()
+import ColumnsHelper from '@/service/columnsHelper';
+const {productItem} = ColumnsHelper()
 </script>
 <template>
 <CustomTable :item="productItem" />  
