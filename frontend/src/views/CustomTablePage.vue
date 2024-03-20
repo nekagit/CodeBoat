@@ -42,13 +42,13 @@ async function handleOnSubmit(values: any, editMode: boolean) {
         <p class="text-muted-foreground">Table over {{ props.title }} Data</p>
       </div>
       <div class="flex items-center space-x-2"></div>
+      <CreateDialog
+        :editMode="false"
+        :onChange="(item: IForm) => handleOnSubmit(item, false)"
+        :item="dialogItem"
+        :entityKey="props.entityKey"
+      />
     </div>
-    <CreateDialog
-      :editMode="false"
-      :onChange="(item: IForm) => handleOnSubmit(item, false)"
-      :item="dialogItem"
-      :entityKey="props.entityKey"
-    />
     <CustomTable :entityKey="props.entityKey" />
   </div>
 </template>

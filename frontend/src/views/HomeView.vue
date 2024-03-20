@@ -14,25 +14,51 @@ import {
         <h2 class="text-3xl font-bold tracking-tight">
           Dashboard
         </h2>
-      </div>
-      <Tabs default-value="overview" class="space-y-4">
-        <TabsList>
-          <TabsTrigger value="overview">
-            Overview
-          </TabsTrigger>
-          <TabsTrigger value="analytics" disabled>
-            Analytics
-          </TabsTrigger>
-          <TabsTrigger value="reports" disabled>
-            Reports
-          </TabsTrigger>
-          <TabsTrigger value="notifications" disabled>
-            Notifications
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent value="overview" class="space-y-4">
-        </TabsContent>
-      </Tabs>
+      </div> Development In Progress - here will be a buying process
+         <!-- <Tabs :default-value="props.entityKey as string" class="w-[400px]">
+          <TabsList>
+            <TabsTrigger :value="AppModule.Product" :disabled="isTabDisabled(AppModule.Product)"
+              >Product</TabsTrigger
+            >
+            <TabsTrigger :value="AppModule.Customer" :disabled="isTabDisabled(AppModule.Customer)"
+              >Customer</TabsTrigger
+            >
+            <TabsTrigger :value="AppModule.Order" :disabled="isTabDisabled(AppModule.Order)"
+              >Invoice</TabsTrigger
+            >
+            <TabsTrigger :value="AppModule.Line" :disabled="isTabDisabled(AppModule.Line)"
+              >InvoiceLine</TabsTrigger
+            >
+          </TabsList>
+          <TabsContent :value="AppModule.Product">
+            <CreateDialogForm
+              :editMode="props.editMode"
+              :item="props.item"
+              :onChange="(x) => props.onChange(x)"
+            />
+          </TabsContent>
+          <TabsContent :value="AppModule.Customer">
+            <CreateDialogForm
+              :editMode="props.editMode"
+              :item="props.item"
+              :onChange="(x) => props.onChange(x)"
+            />
+          </TabsContent>
+          <TabsContent :value="AppModule.Order">
+            <CreateDialogForm
+              :editMode="props.editMode"
+              :item="props.item"
+              :onChange="(x) => props.onChange(x)"
+            />
+          </TabsContent>
+           <TabsContent :value="AppModule.Line">
+            <CreateDialogForm
+              :editMode="props.editMode"
+              :item="props.item"
+              :onChange="(x) => props.onChange(x)"
+            />
+          </TabsContent>
+        </Tabs> -->
     </div>
   </div>
 </template>
