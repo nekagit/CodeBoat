@@ -138,12 +138,15 @@ async function handleOnCreate(values: any) {
         entityKey: AppModule.Product
       } as IProduct)) ?? []
   } else if (appMod == AppModule.Customer) {
+    console.log(localItems.value)
     localItems.value =
       (await useCustomerStore().createCustomer({
         name: manipulatedValues.name,
         status: EntityStatus.Created,
         entityKey: AppModule.Customer
       } as ICustomer)) ?? []
+    console.log(localItems.value)
+      
   }
 }
 </script>
