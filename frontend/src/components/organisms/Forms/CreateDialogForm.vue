@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
-import { defineProps, onBeforeMount, ref } from 'vue'
+import { defineProps, onBeforeMount, ref, type Ref } from 'vue'
 import { z } from 'zod'
 
 import Button from '@/components/ui/button/Button.vue'
@@ -9,12 +9,12 @@ import { FormControl, FormField, FormItem, FormLabel } from '@/components/ui/for
 import type { IForm } from '@/interfaces/TableInterfaces'
 import { Input } from '@/lib/registry/new-york/ui/input'
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
+Select,
+SelectContent,
+SelectGroup,
+SelectItem,
+SelectTrigger,
+SelectValue
 } from '@/lib/registry/new-york/ui/select'
 import ColumnsHelper from '@/service/columnsHelper'
 import { useAppStore } from '@/stores/appStore'
@@ -28,7 +28,6 @@ const props = defineProps<{
 
 const formData = ref<IForm>(props.item)
 const schema = ref()
-const selectItems = ref<string[]>([])
 
 const formSchemas: Record<string, z.ZodObject<any>> = {
   customer: z.object({
@@ -63,11 +62,14 @@ const formSchemas: Record<string, z.ZodObject<any>> = {
   })
 }
 
+const selectItems: Record<string, string[]> = {}
+const selectItemsLoaded: Record<string, boolean> = {}
+
 onBeforeMount(async () => {
-  selectItems.value = getSelectItems(props.item)
   filterFormDataKeys(formData, props.item)
   const itemType = getItemType(props.item)
   schema.value = toTypedSchema(formSchemas[itemType])
+  await fetchSelectItems()
 })
 
 const { handleSubmit, resetForm } = useForm({
@@ -79,26 +81,28 @@ const handleSub = handleSubmit((values) => {
   props.onChange(tmp)
 })
 
+const fetchSelectItems = async () => {
+  const appStore = useAppStore()
+
+  for (const key in formData.value) {
+    if (getSelects(key)) {
+      selectItems[key] = ref(await getSelectItems(key, appStore)).value as string[]
+      selectItemsLoaded[key] = true
+    }
+  }
+}
+
 const getSelects = (key: string) => {
   return key === "customer" || key === "invoice" || key === "product"
 }
 
-const getSelectItems = (item: any) => {
-  const keys = Object.keys(item);
-  const selectItems: string[] = [];
-  const appStore = useAppStore();
-
-  keys.forEach((key) => {
-    if (key === "customer" || key === "invoice" || key === "product") {
-      const items = appStore[key + "s"];
-      if (Array.isArray(items)) {
-        selectItems.push(...items.map((x: any) => x._id));
-      }
-    }
-  });
-
-  return selectItems;
-};
+const getSelectItems = async (key: string, appStore: any) => {
+  const items = await appStore[key + "s"]
+  if (Array.isArray(items)) {
+    return items.map((x: any) => x._id)
+  }
+  return []
+}
 </script>
 
 <template>
@@ -114,7 +118,7 @@ const getSelectItems = (item: any) => {
           <FormControl>
             <template v-if="getSelects(key as string)">
               <FormLabel>{{ key }}</FormLabel>
-              <Select v-model="formData[key]" :options="selectItems" v-bind="componentField">
+              <Select v-model="formData[key]" :options="selectItems[key]" v-bind="componentField">
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue :placeholder="formData[key] as string" />
@@ -122,7 +126,7 @@ const getSelectItems = (item: any) => {
                 </FormControl>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectItem v-for="item in selectItems" :key="item" :value="item">
+                    <SelectItem v-for="item in selectItems[key]" :key="item" :value="item">
                       {{ item }}
                     </SelectItem>
                   </SelectGroup>

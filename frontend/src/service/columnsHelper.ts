@@ -9,9 +9,6 @@ export default function ColumnsHelper() {
   const productItem: Ref<IProduct> = ref({
     name: '',
     unitPrice: 0,
-    date: new Date().toISOString(),
-    invoiceTotal: 0,
-    number: 0,
     entityKey: AppModule.Product,
     status: EntityStatus.Created
   })
