@@ -58,8 +58,8 @@
   font-weight: normal;
 }
 body {
-  background-color: rgba(189, 223, 189, 0.986);
-  color: rgb(136, 87, 22);
+  background-color: rgba(10, 60, 94, 0.959);
+  color: rgb(255, 196, 119);
 }
 @keyframes shake1 {
   0% { transform: translateX(0); }
