@@ -11,5 +11,5 @@
 <style>
 </style>
 
-<script setup>
+<script setup lang="ts">
 </script>

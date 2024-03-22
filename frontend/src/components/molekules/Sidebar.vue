@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Button } from '@/lib/registry/new-york/ui/button';
 import { cn } from '@/lib/utils';
-
+defineProps(['entries'])
 </script>
 
 <template>
@@ -13,6 +13,30 @@ import { cn } from '@/lib/utils';
         </h2>
         <div class="space-y-1">
        
+<div v-for="entry in entries" :key="entry">
+
+          <Button variant="ghost" class="w-full justify-start">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              class="mr-2 h-4 w-4"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <polygon points="10 8 16 12 10 16 10 8" />
+            </svg>
+            <router-link :to='"/"+entry'
+              ><a class="text-sm font-medium transition-colors hover:text-primary"
+                >{{ entry }}</a
+              ></router-link
+            >
+          </Button>
+</div>
+<!-- 
           <Button variant="ghost" class="w-full justify-start">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +56,7 @@ import { cn } from '@/lib/utils';
                 >Overview</a
               ></router-link
             >
-          </Button>
+          </Button> -->
           <!-- <Button variant="ghost" class="w-full justify-start">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +79,7 @@ import { cn } from '@/lib/utils';
               ></router-link
             >
           </Button> -->
-          <Button variant="ghost" class="w-full justify-start">
+          <!-- <Button variant="ghost" class="w-full justify-start">
               <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -122,8 +146,8 @@ import { cn } from '@/lib/utils';
                 >Invoice</a
               ></router-link
             >
-          </Button>
-             <Button variant="ghost" class="w-full justify-start">
+          </Button>-->
+             <!-- <Button variant="ghost" class="w-full justify-start">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -141,12 +165,12 @@ import { cn } from '@/lib/utils';
               <path d="M19.1 4.9C23 8.8 23 15.1 19.1 19" />
             </svg>
 
-            <router-link to="/invoiceLines"
+            <router-link to="/shop"
               ><a class="text-sm font-medium transition-colors hover:text-primary"
-                >InvoiceLine</a
+                >Ahmed Shop</a
               ></router-link
             >
-          </Button>
+          </Button>  -->
       </div>
         </div>
     </div>
