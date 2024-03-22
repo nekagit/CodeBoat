@@ -1,4 +1,4 @@
-const animate = require("tailwindcss-animate")
+const animate = import ("tailwindcss-animate")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {

@@ -1,10 +1,4 @@
 <script setup lang="ts">
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/lib/registry/new-york/ui/tabs'
 </script>
 
 <template>
@@ -14,7 +8,10 @@ import {
         <h2 class="text-3xl font-bold tracking-tight">
           Dashboard
         </h2>
-      </div> Development In Progress - here will be a buying process
+      </div> 
+      <p>
+         Development In Progress - here will be a buying process
+        </p>
          <!-- <Tabs :default-value="props.entityKey as string" class="w-[400px]">
           <TabsList>
             <TabsTrigger :value="AppModule.Product" :disabled="isTabDisabled(AppModule.Product)"
@@ -62,3 +59,7 @@ import {
     </div>
   </div>
 </template>
+
+<style scoped>
+
+</style>

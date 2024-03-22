@@ -57,36 +57,55 @@
   margin: 0;
   font-weight: normal;
 }
-
 body {
-  min-height: 100vh;
-  color: var(--color-text);
-  background: var(--color-background);
-  transition:
-    color 0.5s,
-    background-color 0.5s;
-  line-height: 1.6;
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
-    sans-serif;
-  font-size: 15px;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-color: rgba(189, 223, 189, 0.986);
+  color: rgb(136, 87, 22);
 }
-button {
-  margin: 0!important;
+@keyframes shake1 {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  50% { transform: translateX(2px); }
+  75% { transform: translateX(-2px); }
+  100% { transform: translateX(0); }
 }
-td {
-  cursor: pointer!important;
+
+@keyframes shake2 {
+  0% { transform: translateY(0); }
+  25% { transform: translateY(-2px); }
+  50% { transform: translateY(2px); }
+  75% { transform: translateY(-2px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes shake3 {
+  0% { transform: rotate(0); }
+  25% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+  75% { transform: rotate(-2deg); }
+  100% { transform: rotate(0); }
+}
+
+@keyframes shake4 {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.02); }
+  50% { transform: scale(0.98); }
+  75% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+/* Apply shake animation to different HTML tags */
+h1, h2, h3, h4, h5, h6 {
+  animation: shake4 10.5s infinite;
+}
+
+p {
+  animation: shake2 10.5s infinite;
+}
+
+li {
+  animation: shake3 10.5s infinite;
+}
+
+ul, ol, a {
+  animation: shake1 10.5s infinite;
 }
