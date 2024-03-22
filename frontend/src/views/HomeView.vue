@@ -17,6 +17,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/lib/registry/new-yor
           <TabsTrigger value="stankovicArt">StankovicArt</TabsTrigger>
           <TabsTrigger value="stichting">SOP Rotterdam</TabsTrigger>
         </TabsList>
+        
         <TabsContent value="docusaurus">
           <a href="http://docuverse.netlify.app" class="float-right transition-colors hover:text-primary">Docusaurus</a>
           <iframe src="http://docuverse.netlify.app"></iframe>
