@@ -12,7 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/lib/registry/new-yor
       <Tabs default-value="docusaurus" class="w-full">
         <TabsList>
           <TabsTrigger value="docusaurus">Docusaurus</TabsTrigger>
-          <TabsTrigger value="webseite">Webseite</TabsTrigger>
+          <!-- <TabsTrigger value="devHelps">DevHelps</TabsTrigger> -->
           <TabsTrigger value="rySport">RYSport</TabsTrigger>
           <TabsTrigger value="jamal">Jamal</TabsTrigger>
           <TabsTrigger value="stankovicArt">StankovicArt</TabsTrigger>
@@ -22,14 +22,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/lib/registry/new-yor
         <TabsContent value="docusaurus">
           <a href="http://docuverse.netlify.app" class="float-right transition-colors hover:text-primary">Docusaurus</a>
           <iframe src="http://docuverse.netlify.app"></iframe>
-            <TabsContent value="DevHelps">
+            <!-- <TabsContent value="devHelps">
           <a href="https://webseite.netlify.app/" class="float-right transition-colors hover:text-primary">DevHelps</a>
           <iframe src="https://webseite.netlify.app/"></iframe>
-        </TabsContent>
+        </TabsContent> -->
         </TabsContent>
            <TabsContent value="rySport">
           <a href="http://docuverse.netlify.app" class="float-right transition-colors hover:text-primary">RYSport</a>
-          <iframe src="http://docuverse.netlify.app"></iframe>
+          <!-- <iframe src="http://docuverse.netlify.app"></iframe> -->
         </TabsContent>
         <TabsContent value="jamal">
           <a href="http://docuverse.netlify.app" class="float-right transition-colors hover:text-primary">Jamal</a>
