@@ -1,6 +1,6 @@
 module.exports = {
-  HOST: "localhost",
-  PORT: "8080",
+  HOST: "codeBoat.netlify.app",
+  PORT: "",
   USER: "njoco",
   PASSWORD: "123456",
   DB: "nekaGit",
