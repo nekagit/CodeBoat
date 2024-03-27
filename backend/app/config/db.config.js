@@ -1,5 +1,5 @@
 module.exports = {
-  HOST: "codeBoat.netlify.app",
+  HOST: "codeboatbackend.netlify.app",
   PORT: "",
   USER: "njoco",
   PASSWORD: "123456",
