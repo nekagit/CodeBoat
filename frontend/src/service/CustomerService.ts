@@ -1,7 +1,7 @@
 import type { ICustomer } from '@/interfaces/atoms/IShopModal'
 import axios from 'axios'
 
-const API_URL = 'http://localhost:8080/api/customers' // Adjust the URL as needed
+const API_URL = 'http://codeboatbackend.netlify.app/api/customers' // Adjust the URL as needed
 
 const CustomerService = {
   async createCustomer(newCustomer: ICustomer): Promise<ICustomer> {

@@ -1,7 +1,7 @@
 import type { IProduct } from '@/interfaces/atoms/IShopModal'
 import axios from 'axios'
 
-const API_URL = 'http://localhost:8080/api/products'
+const API_URL = 'http://codeboatbackend.netlify.app/api/products'
 
 const ProductService = {
   async createProduct(newProduct: IProduct): Promise<IProduct> {

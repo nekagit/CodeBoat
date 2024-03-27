@@ -1,7 +1,7 @@
 import type { IInvoiceLine } from '@/interfaces/atoms/IShopModal' // Adjust the import path as needed
 import axios from 'axios'
 
-const API_URL = 'http://localhost:8080/api/invoiceLines' // Adjust the URL as needed
+const API_URL = 'http://codeboatbackend.netlify.app/api/invoiceLines' // Adjust the URL as needed
 
 const InvoiceLineService = {
   async createInvoiceLine(newInvoiceLine: IInvoiceLine): Promise<IInvoiceLine> {
@@ -11,7 +11,7 @@ const InvoiceLineService = {
       const tmp = { ...newInvoiceLine }
       // Make the request with the manipulated invoiceLine data
       const response = await axios.post(API_URL, tmp)
-      console.log("createion guud",response.data)
+      console.log('createion guud', response.data)
       return response.data
     } catch (error: any) {
       throw new Error(error.response.data.message || 'Failed to create invoiceLine')
@@ -35,7 +35,10 @@ const InvoiceLineService = {
     }
   },
 
-  async updateInvoiceLineById(id: string, updatedInvoiceLineData: Partial<IInvoiceLine>): Promise<void> {
+  async updateInvoiceLineById(
+    id: string,
+    updatedInvoiceLineData: Partial<IInvoiceLine>
+  ): Promise<void> {
     try {
       await axios.put(`${API_URL}/${id}`, updatedInvoiceLineData)
     } catch (error: any) {

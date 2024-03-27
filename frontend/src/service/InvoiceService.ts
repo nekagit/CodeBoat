@@ -1,7 +1,7 @@
 import type { IInvoice } from '@/interfaces/atoms/IShopModal' // Adjust the import path as needed
 import axios from 'axios'
 
-const API_URL = 'http://localhost:8080/api/invoices' // Adjust the URL as needed
+const API_URL = 'http://codeboatbackend.netlify.app/api/invoices' // Adjust the URL as needed
 
 const InvoiceService = {
   async createInvoice(newInvoice: IInvoice): Promise<IInvoice> {
@@ -11,7 +11,7 @@ const InvoiceService = {
       const tmp = { ...newInvoice }
       // Make the request with the manipulated invoice data
       const response = await axios.post(API_URL, tmp)
-      console.log("createion guud",response.data)
+      console.log('createion guud', response.data)
       return response.data
     } catch (error: any) {
       throw new Error(error.response.data.message || 'Failed to create invoice')
