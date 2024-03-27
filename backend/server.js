@@ -1,3 +1,4 @@
+const serverless = require("serverless-http");
 const express = require("express");
 const { MongoClient } = require("mongodb");
 const axios = require("axios");
@@ -23,6 +24,7 @@ app.use("/api/invoiceLines", invoiceLineApi);
 app.listen(8080, () => {
   console.log(`Server is running on port ${8080}.`);
 });
+export const handler = serverless(api);
 
 async function run() {
   try {
