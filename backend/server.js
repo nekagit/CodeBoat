@@ -24,7 +24,7 @@ app.use("/api/invoiceLines", invoiceLineApi);
 app.listen(8080, () => {
   console.log(`Server is running on port ${8080}.`);
 });
-export const handler = serverless(api);
+serverless(api);
 
 async function run() {
   try {
