@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
-import { defineProps, onBeforeMount, ref, type Ref } from 'vue'
+import { defineProps, onBeforeMount, ref } from 'vue'
 import { z } from 'zod'
 
 import Button from '@/components/ui/button/Button.vue'
 import { FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form'
-import type { IForm } from '@/interfaces/TableInterfaces'
-import { Input } from '@/lib/registry/new-york/ui/input'
+import { Input } from '@/components/ui/input'
 import {
-Select,
-SelectContent,
-SelectGroup,
-SelectItem,
-SelectTrigger,
-SelectValue
-} from '@/lib/registry/new-york/ui/select'
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select'
+import type { IForm } from '@/interfaces/TableInterfaces'
 import ColumnsHelper from '@/service/columnsHelper'
 import { useAppStore } from '@/stores/appStore'
 

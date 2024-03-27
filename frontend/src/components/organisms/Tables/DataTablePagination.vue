@@ -2,15 +2,15 @@
 import { ChevronLeftIcon, ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from '@radix-icons/vue';
 import type { Table } from '@tanstack/vue-table';
 
-import { Button } from '@/lib/registry/new-york/ui/button';
+import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/lib/registry/new-york/ui/select';
-import type { IBaseColumn } from '@/service/tableService';
+} from '@/components/ui/select';
+import type { IBaseColumn } from '@/interfaces/TableInterfaces';
 
 interface DataTablePaginationProps {
   table: Table<IBaseColumn>

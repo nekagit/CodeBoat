@@ -9,7 +9,7 @@ import {
   TableHead,
   TableHeader,
   TableRow
-} from '@/lib/registry/new-york/ui/table'
+} from '@/components/ui/table'
 import { valueUpdater } from '@/lib/utils'
 import ColumnsHelper from '@/service/columnsHelper'
 import { useAppStore } from '@/stores/appStore'
