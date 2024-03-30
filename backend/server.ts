@@ -1,18 +1,17 @@
-const serverless = require("serverless-http");
-const express = require("express");
-const { MongoClient } = require("mongodb");
-const axios = require("axios");
-const cors = require("cors");
-const dbConfig = require("../backend/app/config/db.config.js");
+import axios from "axios";
+import cors from "cors";
+import express from "express";
+import { MongoClient } from "mongodb";
+import dbConfig from "./app/config/db.config.js";
+import customerApi from "./app/controllers/CustomerController.js";
+import invoiceApi from "./app/controllers/InvoiceController.js";
+import invoiceLineApi from "./app/controllers/InvoiceLineController.js";
+import productApi from "./app/controllers/ProductsController.js";
 const corsOptions = { origin: dbConfig.CORS, credentials: true };
 const app = express();
 const client = new MongoClient(
   "mongodb+srv://njoco:OZCYn16yxbOtjQ2x@cluster0.dkvowsi.mongodb.net/"
 );
-const productApi = require("./app/controllers/ProductsController.js");
-const customerApi = require("./app/controllers/CustomerController.js");
-const invoiceApi = require("./app/controllers/InvoiceController.js");
-const invoiceLineApi = require("./app/controllers/InvoiceLineController.js");
 
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -31,7 +30,6 @@ async function run() {
       console.log(`Server is running on port ${8080}`);
     });
     // await testDB()
-    return serverless(app);
   } catch (err) {
     console.log(err.stack);
   } finally {
@@ -57,13 +55,11 @@ async function testDB() {
   console.log("Product created:", sampleProduct);
 
   // Beispielkunde für das Einfügen in die Datenbank
-  const customer = await axios.post("http://localhost:8080/api/customers/", {
-    data: { id: sampleInvoice._id },
-  });
+  const customer = await axios.post(
+    "http://lsampleInvoiceocalhost:8080/api/customers/",
+    {}
+  );
 
-  console.log("Deleted product");
-  console.log("Deleted customer");
-  console.log("Deleted invoice");
   const createdCustomer = await axios.post(
     "http://localhost:8080/api/customers/",
     customer
