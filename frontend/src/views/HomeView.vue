@@ -32,8 +32,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
           <!-- <iframe src="http://docuverse.netlify.app"></iframe> -->
         </TabsContent>
         <TabsContent value="jamal">
-          <a href="http://docuverse.netlify.app" class="float-right transition-colors hover:text-primary">Jamal</a>
-          <iframe src="http://docuverse.netlify.app"></iframe>
+          <a href="http://jamalprojects.netlify.app" class="float-right transition-colors hover:text-primary">Jamal</a>
+          <iframe src="http://jamalprojects.netlify.app"></iframe>
         </TabsContent>
         <TabsContent value="stankovicArt">
           <a href="https://www.stankovicart.com/" class="float-right transition-colors hover:text-primary">StankovicArt</a>
