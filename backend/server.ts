@@ -9,6 +9,7 @@ import invoiceLineApi from "./app/controllers/InvoiceLineController.js";
 import productApi from "./app/controllers/ProductsController.js";
 const corsOptions = { origin: dbConfig.CORS, credentials: true };
 const app = express();
+const netlifyRouter = app.router
 const client = new MongoClient(
   "mongodb+srv://njoco:OZCYn16yxbOtjQ2x@cluster0.dkvowsi.mongodb.net/"
 );
@@ -20,7 +21,7 @@ app.use("/api/products", productApi);
 app.use("/api/customers", customerApi);
 app.use("/api/invoices", invoiceApi);
 app.use("/api/invoiceLines", invoiceLineApi);
-
+app.use("/.netlify/functions/server", netlifyRouter); 
 async function run() {
   try {
     // Stelle die Verbindung zur MongoDB her
