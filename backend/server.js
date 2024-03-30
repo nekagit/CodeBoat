@@ -6,7 +6,6 @@ const cors = require("cors");
 const dbConfig = require("../backend/app/config/db.config.js");
 const corsOptions = { origin: dbConfig.CORS, credentials: true };
 const app = express();
-const router = app.router()
 const client = new MongoClient(
   "mongodb+srv://njoco:OZCYn16yxbOtjQ2x@cluster0.dkvowsi.mongodb.net/"
 );
@@ -15,26 +14,22 @@ const customerApi = require("./app/controllers/CustomerController.js");
 const invoiceApi = require("./app/controllers/InvoiceController.js");
 const invoiceLineApi = require("./app/controllers/InvoiceLineController.js");
 
-router.use(cors(corsOptions));
-router.use(express.json());
-router.use(express.urlencoded({ extended: true }));
-router.use("/api/products", productApi);
-router.use("/api/customers", customerApi);
-router.use("/api/invoices", invoiceApi);
-router.use("/api/invoiceLines", invoiceLineApi);
-router.listen(8080, () => {
-  console.log(`Server is running on port ${8080}.`);
-});
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use("/api/products", productApi);
+app.use("/api/customers", customerApi);
+app.use("/api/invoices", invoiceApi);
+app.use("/api/invoiceLines", invoiceLineApi);
 
 async function run() {
   try {
     // Stelle die Verbindung zur MongoDB her
     await client.connect();
-
     console.log("Successfully connected to Atlas");
 
     // await testDB()
-return serverless(app);
+    return serverless(app);
   } catch (err) {
     console.log(err.stack);
   } finally {
@@ -43,6 +38,8 @@ return serverless(app);
 }
 
 run().catch(console.error);
+
+
 
 async function testDB () {
       // Beispielprodukt für das Einfügen in die Datenbank
