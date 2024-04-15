@@ -1,7 +1,7 @@
 import type { ICustomer } from '@/interfaces/atoms/IShopModal'
 import axios from 'axios'
 
-const API_URL = 'http://codeboatbackend.netlify.app/api/customers' // Adjust the URL as needed
+const API_URL = 'http://localhost:8080/api/customers' // Adjust the URL as needed
 
 const CustomerService = {
   async createCustomer(newCustomer: ICustomer): Promise<ICustomer> {
@@ -41,7 +41,9 @@ const CustomerService = {
 
   async deleteCustomerById(id: string): Promise<void> {
     try {
-      await axios.delete(`${API_URL}/${id}`)
+      await axios.delete(API_URL, {
+        data: { id: id }
+      })
     } catch (error: any) {
       throw new Error(error.response.data.message || 'Failed to delete customer')
     }

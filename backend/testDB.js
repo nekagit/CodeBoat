@@ -1,72 +1,36 @@
-import axios from "axios";
-import cors from "cors";
-import express from "express";
-import { MongoClient } from "mongodb";
-import dbConfig from "./app/config/db.config.js";
-import customerApi from "./app/controllers/CustomerController.js";
-import invoiceApi from "./app/controllers/InvoiceController.js";
-import invoiceLineApi from "./app/controllers/InvoiceLineController.js";
-import productApi from "./app/controllers/ProductsController.js";
-const corsOptions = { origin: dbConfig.CORS, credentials: true };
-const app = express();
-const client = new MongoClient(
-  "mongodb+srv://njoco:OZCYn16yxbOtjQ2x@cluster0.dkvowsi.mongodb.net/"
-);
 
-app.use(cors(corsOptions));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use("/api/products", productApi);
-app.use("/api/customers", customerApi);
-app.use("/api/invoices", invoiceApi);
-app.use("/api/invoiceLines", invoiceLineApi);
-async function run() {
-  try {
-    // Stelle die Verbindung zur MongoDB her
-    await client.connect();
-    console.log("Successfully connected to Atlas");
-    app.listen(8080, () => {
-      console.log(`Server is running on port ${8080}`);
-    });
-    // await testDB()
-  } catch (err) {
-    console.log(err.stack);
-  } finally {
-    await client.close();
-  }
-}
-
-run().catch(console.error);
-
+const axios = require("axios");
 async function testDB() {
-  // Beispielprodukt für das Einfügen in die Datenbank
+  // Example product to insert into the database
   const product = {
     name: "John",
     unitPrice: 1000,
   };
+  const customerInit = {
+    name: "John",
+    unitPrice: 1000,
+  };
 
-  // Produkt erstellen
+  // Create product
   const createdProduct = await axios.post(
     "http://localhost:8080/api/products/",
     product
   );
+  console.log("asdf")
   const sampleProduct = createdProduct.data; // Use the returned product object
   console.log("Product created:", sampleProduct);
 
-  // Beispielkunde für das Einfügen in die Datenbank
-  const customer = await axios.post(
-    "http://lsampleInvoiceocalhost:8080/api/customers/",
-    {}
-  );
+  // Example customer to insert into the database
+  console.log("asdf")
 
   const createdCustomer = await axios.post(
     "http://localhost:8080/api/customers/",
-    customer
+    customerInit
   );
   const sampleCustomer = createdCustomer.data; // Use the returned customer object
   console.log("Customer created:", sampleCustomer);
 
-  // Beispielrechnung für das Einfügen in die Datenbank
+  // Example invoice to insert into the database
   const invoice = {
     number: 12345,
     customer: sampleCustomer._id, // Use the customer ID from the created customer
@@ -74,7 +38,7 @@ async function testDB() {
     invoiceTotal: 500,
   };
 
-  // Rechnung erstellen
+  // Create invoice
   const createdInvoice = await axios.post(
     "http://localhost:8080/api/invoices/",
     invoice
@@ -83,29 +47,29 @@ async function testDB() {
   const sampleInvoice = createdInvoice.data; // Use the returned invoice object
   console.log("Invoice created:", sampleInvoice);
 
-  // Alle Produkte abrufen
+  // Get all products
   const allProducts = await axios.get("http://localhost:8080/api/products/");
   console.log("Got All Products:", allProducts.data.length);
 
-  // Alle Kunden abrufen
+  // Get all customers
   const allCustomers = await axios.get("http://localhost:8080/api/customers/");
   console.log("Got All Customers:", allCustomers.data.length);
 
-  // Alle Rechnungen abrufen
+  // Get all invoices
   const allInvoices = await axios.get("http://localhost:8080/api/invoices/");
   console.log("Got All Invoices:", allInvoices.data.length);
 
-  // Produkt löschen
+  // Delete product
   await axios.delete("http://localhost:8080/api/products/", {
     data: { id: sampleProduct._id },
   });
 
-  // Kunde löschen
+  // Delete customer
   await axios.delete("http://localhost:8080/api/customers/", {
     data: { id: sampleCustomer._id },
   });
 
-  // Rechnung löschen
+  // Delete invoice
   await axios.delete("http://localhost:8080/api/invoices/", {
     data: { id: sampleInvoice._id },
   });
@@ -113,4 +77,6 @@ async function testDB() {
   console.log("Deleted product");
   console.log("Deleted customer");
   console.log("Deleted invoice");
+  console.log("All Test Done.")
 }
+module.exports = testDB

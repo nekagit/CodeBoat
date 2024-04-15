@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import DataScraper from '@/components/organisms/ODataScraper.vue'
 </script>
 
 <template>
@@ -9,49 +10,25 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
         <h2 class="text-3xl font-bold tracking-tight">Dashboard</h2>
       </div>
 
-      <Tabs default-value="docusaurus" class="w-full">
+      <Tabs default-value="data" class="w-full">
         <TabsList>
-          <TabsTrigger value="docusaurus">Docusaurus</TabsTrigger>
-          <!-- <TabsTrigger value="devHelps">DevHelps</TabsTrigger> -->
-          <TabsTrigger value="rySport">RYSport</TabsTrigger>
-          <TabsTrigger value="jamal">Jamal</TabsTrigger>
-          <TabsTrigger value="stankovicArt">StankovicArt</TabsTrigger>
-          <TabsTrigger value="stichting">SOP Rotterdam</TabsTrigger>
+          <TabsTrigger value="data">data</TabsTrigger>
+          <TabsTrigger value="chatBot">chatBot</TabsTrigger>
+          <TabsTrigger value="dataScrape">dataScrape</TabsTrigger>
         </TabsList>
-        
-        <TabsContent value="docusaurus">
-          <a href="http://docuverse.netlify.app" class="float-right transition-colors hover:text-primary">Docusaurus</a>
-          <iframe src="http://docuverse.netlify.app"></iframe>
-            <!-- <TabsContent value="devHelps">
-          <a href="https://webseite.netlify.app/" class="float-right transition-colors hover:text-primary">DevHelps</a>
-          <iframe src="https://webseite.netlify.app/"></iframe>
-        </TabsContent> -->
+
+        <TabsContent value="data">
+          <DataScraper />
         </TabsContent>
-           <TabsContent value="rySport">
-          <a href="http://docuverse.netlify.app" class="float-right transition-colors hover:text-primary">RYSport</a>
-          <!-- <iframe src="http://docuverse.netlify.app"></iframe> -->
+        <TabsContent value="chatBot">
+          <DataScraper />
         </TabsContent>
-        <TabsContent value="jamal">
-          <a href="http://jamalprojects.netlify.app" class="float-right transition-colors hover:text-primary">Jamal</a>
-          <iframe src="http://jamalprojects.netlify.app"></iframe>
-        </TabsContent>
-        <TabsContent value="stankovicArt">
-          <a href="https://www.stankovicart.com/" class="float-right transition-colors hover:text-primary">StankovicArt</a>
-          <iframe src="https://www.stankovicart.com/"></iframe>
-        </TabsContent>
-        <TabsContent value="stichting">
-          <a href="https://www.stichtingsoprotterdam.nl" class="float-right transition-colors hover:text-primary">SOP Rotterdam</a>
-          <iframe src="https://www.stichtingsoprotterdam.nl"></iframe>
+        <TabsContent value="dataScrape">
+          <DataScraper />
         </TabsContent>
       </Tabs>
     </div>
   </div>
 </template>
 
-<style scoped>
-iframe {
-  width: 100%;
-  height: 100vh; /* Set height to 100vh */
-  border: none;
-}
-</style>
+<style scoped></style>

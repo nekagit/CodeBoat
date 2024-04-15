@@ -8,6 +8,7 @@ const Product = connection.model("Product", shopModal.ProductS);
 
 const createProduct = async (req, res) => {
   try {
+    console.log(req.body)
     const newProduct = new Product({ // Change variable name from 'Product' to 'newProduct'
       name: req.body.name,
       unitPrice: req.body.unitPrice,

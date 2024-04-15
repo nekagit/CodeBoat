@@ -49,7 +49,8 @@ export const useProductStore = defineStore('product', {
 
     async deleteProductById(id: string): Promise<void> {
       try {
-        await ProductService.deleteProductById(id)
+        const response = await ProductService.deleteProductById(id)
+        console.log(response)
         await this.fetchAllProducts()
       } catch (error: any) {
         this.setError(error.message)

@@ -7,8 +7,10 @@ import { useCustomerStore } from './customerStore'
 import { useInvoiceLineStore } from './invoiceLineStore'
 import { useInvoiceStore } from './invoiceStore'
 import { useProductStore } from './productsStore'
+import ShopService from '@/service/shopService'
 export const useAppStore = defineStore('app', {
   state: () => ({
+    shopService: ShopService,
     invoices: ref([]) as Ref<IInvoice[]>,
     invoiceLines: ref([]) as Ref<IInvoiceLine[]>,
     products: ref([]) as Ref<IProduct[]>,

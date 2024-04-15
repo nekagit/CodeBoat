@@ -29,7 +29,9 @@ import {
   getSortedRowModel,
   useVueTable
 } from '@tanstack/vue-table'
+import Button from '@/components/ui/button/Button.vue'
 import { onBeforeMount, ref, watch } from 'vue'
+import ShopService from '@/service/shopService'
 // Define props
 
 const { customerColumns, productColumns, invoiceColumns,invoiceLineColumns } = ColumnsHelper()
@@ -114,9 +116,24 @@ watch(
   },
   { deep: true }
 )
+async function handleDelete() {
+  for(const row in table.getState().rowSelection) {
+    console.log(row)
+    if (props.entityKey == AppModule.Order) {
+      await useAppStore().shopService.invoiceStore().deleteInvoiceById(row)
+    } else if (props.entityKey == AppModule.Product) {
+      await ShopService.productStore().deleteProductById(row)
+    } else if (props.entityKey == AppModule.Customer) {
+      await ShopService.customerStore().deleteCustomerById(row)
+    } else if (props.entityKey == AppModule.Line) {
+      await ShopService.invoiceStore().deleteInvoiceById(row)
+    }
+  }
+}
 </script>
 <template>
   <div class="space-y-4">
+    <Button @click="handleDelete()">Delete</Button>
     <div>
       <div class="rounded-md border">
         <Table>

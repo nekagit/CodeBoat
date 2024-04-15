@@ -1,7 +1,7 @@
 import type { IInvoice } from '@/interfaces/atoms/IShopModal' // Adjust the import path as needed
 import axios from 'axios'
 
-const API_URL = 'http://codeboatbackend.netlify.app/api/invoices' // Adjust the URL as needed
+const API_URL = 'http://localhost:8080/api/invoices' // Adjust the URL as needed
 
 const InvoiceService = {
   async createInvoice(newInvoice: IInvoice): Promise<IInvoice> {
@@ -45,7 +45,9 @@ const InvoiceService = {
 
   async deleteInvoiceById(id: string): Promise<void> {
     try {
-      await axios.delete(`${API_URL}/${id}`)
+      await axios.delete(API_URL, {
+        data: { id: id }
+      })
     } catch (error: any) {
       throw new Error(error.response.data.message || 'Failed to delete invoice')
     }
