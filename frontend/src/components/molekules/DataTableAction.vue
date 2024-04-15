@@ -9,9 +9,7 @@ const props = defineProps<{
 async function edit(item: any) {
   await useAppStore().createEdit(item, true, item.entityKey)
   await useAppStore().onInit()
-  return
 }
-console.log("edit modeeeeeeee",props.item)
 </script>
 
 <template>
