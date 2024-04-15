@@ -94,7 +94,8 @@
   background-color: rgba(0, 0, 0, 0.7); /* Color of the scrollbar on hover */
 }
 body {
-  background-color: rgba(10, 60, 94, 0.959);
+  background-color:#28305a;
+  /* #28305a/violte, rgba(10, 60, 94, 0.959)/blau */
   color: rgb(255, 196, 119);
 }
 @keyframes shake1 {
