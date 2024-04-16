@@ -1,27 +1,19 @@
 <template>
-  <div v-for="(imageRow, rowIndex) in imageRows" class="gallery" :key="rowIndex">
+  Gallery
+  <!-- <div v-for="(imageRow, rowIndex) in imageRows" class="gallery" :key="rowIndex">
     <div class="gallery-row">
       <div >
         <div v-for="(image) in imageRow" :key="image" class="image-container" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">
-          <img :src="image" class="gallery-image" alt="Gallery Image" />
           <div class="text-overlay" ref="textOverlay">Slide Up Text</div>
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script setup lang="ts">
-import image1 from '@/assets/old/1.jpg'
-import image2 from '@/assets/old/2.jpg'
 
-// Define the array of image rows
-const imageRows = [
-  [image1, image2],
-  [image1, image2],
-  [image1, image2],
-  [image1, image2]
-]
+
 
 // Function to handle mouse enter event
 const handleMouseEnter = (event: MouseEvent) => {
