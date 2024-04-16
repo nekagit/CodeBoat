@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import DataScraper from '@/components/organisms/ODataScraper.vue'
 </script>
 
 <template>
-  <div class="hidden flex-col md:flex">
-    <div class="flex-1 space-y-4 p-8 pt-6">
+  <main class="h-screen">
+
+    <div class="hidden flex-col md:flex">
+      <div class="flex-1 space-y-4 p-8 pt-6">
       <div class="flex items-center justify-between space-y-2">
         <h2 class="text-3xl font-bold tracking-tight">Dashboard</h2>
       </div>
@@ -29,6 +30,7 @@ import DataScraper from '@/components/organisms/ODataScraper.vue'
       </Tabs>
     </div>
   </div>
+</main>
 </template>
 
 <style scoped></style>
