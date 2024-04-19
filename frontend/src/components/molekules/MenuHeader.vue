@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <div class="icon-box gb c">
-                        <div class="icon"><i class="far fa-school"></i></div>
+                        <div class="icon"><i clzass="far fa-school"></i></div>
                         <div class="text">
                             <div class="title">Learn <i class="far fa-arrow-right"></i></div>
                             <div class="sub-text">By Video</div>
