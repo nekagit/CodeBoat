@@ -1,4 +1,4 @@
-<script lang="ts" setup lang="ts">
+<script lang="ts" setup >
 import { Label } from '@/components/ui/label'
 import { cn } from '@/lib/utils'
 import type { LabelProps } from 'radix-vue'

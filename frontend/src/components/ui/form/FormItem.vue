@@ -5,7 +5,7 @@ export const FORM_ITEM_INJECTION_KEY
   = Symbol() as InjectionKey<string>
 </script>
 
-<script lang="ts" setup lang="ts">
+<script lang="ts" setup >
 import { cn } from '@/lib/utils'
 import { useId } from 'radix-vue'
 import { provide } from 'vue'

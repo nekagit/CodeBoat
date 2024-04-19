@@ -1,4 +1,4 @@
-<script lang="ts" setup lang="ts">
+<script setup lang="ts">
 import { cn } from '@/lib/utils';
 import type { HTMLAttributes } from 'vue';
 import { useFormField } from './useFormField';
