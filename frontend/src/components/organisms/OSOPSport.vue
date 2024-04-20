@@ -1,5 +1,11 @@
 <template>
-    <main >
+   <div class="circles">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+    </div>
+    <div class="blob"></div>
+    <div class="blob"></div> 
+    <main class="w-full">
  
 
         <Tabs default-value="home">
@@ -43,6 +49,6 @@ import OImpressum from '@/components/organisms/OImpressum.vue'
 
 <style scoped>
 .tabs {
-  float: right;
+  float: right!important;;
 }
 </style>

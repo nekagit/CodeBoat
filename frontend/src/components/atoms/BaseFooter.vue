@@ -1,4 +1,6 @@
 <template>
+    <div class="blob"></div>
+    <div class="blob"></div> 
   <footer class="relative bg-blueGray-200 pt-8 pb-6">
     <div class="container mx-auto px-4">
       <div class="flex flex-wrap text-left lg:text-left">
@@ -27,6 +29,7 @@
           </div>
         </div>
         <div class="w-full lg:w-6/12 px-4">
+          
           <img src="../../assets/logoo.png" alt="pic" style="float: right;" />
           <!-- <div class="flex flex-wrap items-top mb-6">
           <div class="w-full lg:w-4/12 px-4 ml-4">
@@ -86,6 +89,7 @@
         </div>
       </div>
     </div>
+    
   </footer>
 </template>
 
