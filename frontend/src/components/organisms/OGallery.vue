@@ -13,23 +13,28 @@
 
 <script setup lang="ts">
 
+import { ref } from 'vue';
+
+// Define refs for text overlay and image
+const textOverlayRef = ref<HTMLElement | null>(null);
+const imageRef = ref<HTMLElement | null>(null);
 
 
 // Function to handle mouse enter event
 const handleMouseEnter = (event: MouseEvent) => {
-  const textOverlay = (event.target as HTMLElement).querySelector('.text-overlay')
+   textOverlayRef.value = (event.target as HTMLElement).querySelector('.text-overlay')
   const image = (event.target as HTMLElement).querySelector('.gallery-image');
-  if (textOverlay && image) {
-    textOverlay.style.width = `${image.clientWidth}px`; // Set width to match the image width
-    textOverlay.style.clipPath = 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)'
+  if (textOverlayRef.value !=null && image !=null) {
+    textOverlayRef.value.style.width = `${image.clientWidth}px`; // Set width to match the image width
+    textOverlayRef.value.style.clipPath = 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)'
   }
 }
 
 // Function to handle mouse leave event
 const handleMouseLeave = (event: MouseEvent) => {
-  const textOverlay = (event.target as HTMLElement).querySelector('.text-overlay')
-  if (textOverlay) {
-    textOverlay.style.clipPath = 'polygon(0 100%, 100% 100%, 100% 100%, 0 100%)'
+  textOverlayRef.value =(event.target as HTMLElement).querySelector('.text-overlay')
+  if (textOverlayRef.value !=null) {
+    textOverlayRef.value.style.clipPath = 'polygon(0 100%, 100% 100%, 100% 100%, 0 100%)'
   }
 }
 </script>

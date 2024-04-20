@@ -1,16 +1,16 @@
-
+<!-- 
 <script setup lang="ts">
 
 const side_bar_btns = document.querySelectorAll("#sidebar-btn");
 
-side_bar_btns.forEach((elem) => {
-    elem.addEventListener("click", () => {
-        for (let index = 0; index < side_bar_btns.length; index++) {
-            side_bar_btns[index].classList.remove("active");
-        }
-        elem.classList.add("active");
-    });
-});
+    for (const elem of sideBarBtns) {
+        elem.addEventListener("click", () => {
+            sideBarBtns.forEach((btn) => {
+                btn.classList.remove("active");
+            });
+            elem.classList.add("active");
+        });
+    }
 
 let min = true;
 
@@ -557,4 +557,4 @@ h1 {
         flex-direction: column;
     }
 }
-</style>
+</style> -->
