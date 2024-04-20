@@ -1,4 +1,6 @@
 <template>
+
+<div class="toggleBody">
 <div class="wrap">
   <div class="wrap__toggle">
     <div class="wrap__toggle--bluetooth">
@@ -15,6 +17,7 @@
   <p class="credits">
     design credit: <a target="_blank" href="https://www.linkedin.com/in/palak-jain-7067b7183/">Palak Jain</a>
   </p>
+</div>
 </div>
 </template>
 
@@ -35,7 +38,7 @@ toggleElem.value?.addEventListener("change", () =>{
 $mainWhite: #e6e6e6;
 $superGrey: #676767;
 $primary: #3392f5;
-html,body{
+.toggleBody {
   background:$mainWhite ;
   box-sizing: border-box;
   height: 100%;
@@ -138,4 +141,5 @@ html,body{
     }
   }
 }
+
 </style>
