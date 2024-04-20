@@ -36,7 +36,7 @@
       </g>
     </svg>
   </div>
-  <div class="title">{{ props.title }}</div>
+  <!-- <div class="title">{{ props.title }}</div> -->
 </template>
 
 <script setup lang="ts">
@@ -167,6 +167,7 @@ const props = defineProps(['title'])
   line-height: 84px;
   margin-top: 60px;
   text-align: center;
+  z-index: 999!important;
 }
 .body {
   font-family: 'Work Sans', sans-serif !important;

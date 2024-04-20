@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import GlassMorphism from '@/components/molekules/GlassMorphism.vue';
-import GlassMorphism2 from '@/components/molekules/GlassMorphism2.vue';
 import CreditCard from '@/components/molekules/CreditCard.vue';
 </script>
 
 <template>
 
-    <body>
+    <div class="oMorphBody">
 
         <div class="container">
             <div class="card">
@@ -15,40 +13,23 @@ import CreditCard from '@/components/molekules/CreditCard.vue';
                     let's you play harder and work smarter.</p>
                 <button class="btn">Get Started</button>
             </div>
-            <div class="blob"></div>
-            <div class="blob"></div> 
-            <!-- jos jedna loptica za bolji efekat -->
-        </div>
-
-        <br><br><br>
-        <div>
-            <GlassMorphism />
-        </div>
-        <br><br><br>
-        <div>
-            <GlassMorphism2 />
+        
         </div>
         <div>
             <CreditCard />
         </div>
-        <!-- <div>
-            <StoreGlassMorph />
-        </div> -->
-    </body>
+    </div>
 </template>
 
 
 
 <style scoped>
-* {
+
+.oMorphBody {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: "Nunito", sans-serif;
-}
-
-body {
-    background: #1f1f47
 }
 
 .container {
@@ -97,52 +78,4 @@ body {
     cursor: pointer;
 }
 
-.blob {
-    position: absolute;
-    width: 500px;
-    height: 500px;
-    background: linear-gradient(180deg,
-            rgba(47, 184, 255, 0.42) 31.77%,
-            #5c9df1 100%);
-    mix-blend-mode: color-dodge;
-    -webkit-animation: move 25s infinite alternate;
-    animation: move 25s infinite alternate;
-    transition: 1s cubic-bezier(0.07, 0.8, 0.16, 1);
-}
-
-.blob:hover {
-    width: 520px;
-    height: 520px;
-    -webkit-filter: blur(30px);
-    filter: blur(30px);
-    box-shadow:
-        inset 0 0 0 5px rgba(255, 255, 255, 0.6),
-        inset 100px 100px 0 0px #fa709a,
-        inset 200px 200px 0 0px #784ba8,
-        inset 300px 300px 0 0px #2b86c5;
-}
-
-@-webkit-keyframes move {
-    from {
-        transform: translate(-100px, -50px) rotate(-90deg);
-        border-radius: 24% 76% 35% 65% / 27% 36% 64% 73%;
-    }
-
-    to {
-        transform: translate(500px, 100px) rotate(-10deg);
-        border-radius: 76% 24% 33% 67% / 68% 55% 45% 32%;
-    }
-}
-
-@keyframes move {
-    from {
-        transform: translate(-100px, -50px) rotate(-90deg);
-        border-radius: 24% 76% 35% 65% / 27% 36% 64% 73%;
-    }
-
-    to {
-        transform: translate(500px, 100px) rotate(-10deg);
-        border-radius: 76% 24% 33% 67% / 68% 55% 45% 32%;
-    }
-}
 </style>

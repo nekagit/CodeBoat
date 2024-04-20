@@ -1,11 +1,9 @@
 <template>
-    <main>
-   <div class="flex items-center justify-between space-y-2">
-          <h2 class="text-3xl font-bold tracking-tight">Dashboard</h2>
-        </div>
+    <main >
+ 
 
         <Tabs default-value="home">
-          <TabsList>
+          <TabsList  class="tabs">
             <TabsTrigger value="home">Home</TabsTrigger>
             <TabsTrigger value="aboutUs">AboutUs</TabsTrigger>
             <TabsTrigger value="gallery">Gallery</TabsTrigger>
@@ -14,7 +12,7 @@
           </TabsList>
 
           <TabsContent value="home">
-        main    <OMorph />
+            <OMorph />
           </TabsContent>
 
           <TabsContent value="aboutUs">
@@ -44,5 +42,7 @@ import OImpressum from '@/components/organisms/OImpressum.vue'
 </script>
 
 <style scoped>
-
+.tabs {
+  float: right;
+}
 </style>

@@ -2,74 +2,25 @@
 </script>
 
 <template>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400&display=swap" rel="stylesheet">
-
-    <div class="circles">
-        <div class="circle circle-1"></div>
-        <div class="circle circle-2"></div>
-    </div>
-
     <div class="card-group">
         <div class="card">
             <div class="logo"><img
-                    src="https://raw.githubusercontent.com/dasShounak/freeUseImages/main/Visa-Logo-PNG-Image.png"
-                    alt="Visa"></div>
-            <div class="chip"><img src="https://raw.githubusercontent.com/dasShounak/freeUseImages/main/chip.png"
+                src="https://raw.githubusercontent.com/dasShounak/freeUseImages/main/Visa-Logo-PNG-Image.png"
+                alt="Visa"></div>
+                <div class="chip"><img src="https://raw.githubusercontent.com/dasShounak/freeUseImages/main/chip.png"
                     alt="chip"></div>
-            <div class="number">1234 5678 9012 3456</div>
-            <div class="name">SHOUNAK DAS</div>
-            <div class="from">10/19</div>
-            <div class="to">06/21</div>
-            <div class="ring"></div>
-        </div>
-    </div>
+                    <div class="number">1234 5678 9012 3456</div>
+                    <div class="name">SHOUNAK DAS</div>
+                    <div class="from">10/19</div>
+                    <div class="to">06/21</div>
+                    <div class="ring"></div>
+                </div>
+            </div>
 </template>
 
 <style scoped>
-:root {
-    font-size: 24px;
-}
-
-body {
-    background: #1488cc;
-    /* fallback for old browsers */
-    background: linear-gradient(to left, #283593, #1976d2);
-    height: 100vh;
-    font-family: "Josefin Sans", sans-serif;
-}
 
 /* Background circles start */
-.circle {
-    position: absolute;
-    border-radius: 50%;
-    background: radial-gradient(#006db3, #29b6f6);
-}
-
-.circles {
-    position: absolute;
-    height: 270px;
-    width: 450px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.circle-1 {
-    height: 180px;
-    width: 180px;
-    top: -50px;
-    left: -60px;
-}
-
-.circle-2 {
-    height: 200px;
-    width: 200px;
-    bottom: -90px;
-    right: -90px;
-    opacity: 0.8;
-}
 
 /* Background circles end */
 
