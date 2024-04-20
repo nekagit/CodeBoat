@@ -35,20 +35,6 @@
 
   --section-gap: 160px;
 }
-/* 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: var(--vt-c-white);
-    --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--vt-c-black-mute);
-
-    --color-border: var(--vt-c-divider-dark-2);
-    --color-border-hover: var(--vt-c-divider-dark-1);
-
-    --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
-  }
-} */
 
 *,
 *::before,
@@ -98,53 +84,4 @@ body {
   /* #28305a/violte, rgba(10, 60, 94, 0.959)/blau */
   color: rgb(255, 196, 119);
 }
-@keyframes shake1 {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-2px); }
-  50% { transform: translateX(2px); }
-  75% { transform: translateX(-2px); }
-  100% { transform: translateX(0); }
-}
-
-@keyframes shake2 {
-  0% { transform: translateY(0); }
-  25% { transform: translateY(-2px); }
-  50% { transform: translateY(2px); }
-  75% { transform: translateY(-2px); }
-  100% { transform: translateY(0); }
-}
-
-@keyframes shake3 {
-  0% { transform: rotate(0); }
-  25% { transform: rotate(-2deg); }
-  50% { transform: rotate(2deg); }
-  75% { transform: rotate(-2deg); }
-  100% { transform: rotate(0); }
-}
-
-@keyframes shake4 {
-  0% { transform: scale(1); }
-  25% { transform: scale(1.02); }
-  50% { transform: scale(0.98); }
-  75% { transform: scale(1.02); }
-  100% { transform: scale(1); }
-}
-
-/* Apply shake animation to different HTML tags */
-h1, h2, h3, h4, h5, h6 {
-  animation: shake4 10.5s infinite;
-}
-
-p {
-  animation: shake2 10.5s infinite;
-}
-
-li {
-  animation: shake3 10.5s infinite;
-}
-
-ul, ol, a {
-  animation: shake1 10.5s infinite;
-}
-
 

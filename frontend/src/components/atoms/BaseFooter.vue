@@ -27,9 +27,9 @@
           </div>
         </div>
         <div class="w-full lg:w-6/12 px-4">
-          <img src="../../assets/logoo.png" alt="pic" style="max-width: 500px; float: right;" />
+          <img src="../../assets/logoo.png" alt="pic" style="float: right;" />
           <!-- <div class="flex flex-wrap items-top mb-6">
-          <div class="w-full lg:w-4/12 px-4 ml-auto">
+          <div class="w-full lg:w-4/12 px-4 ml-4">
             <span class="block uppercase text-blueGray-500 text-sm font-semibold mb-2">Useful Links</span>
             <ul class="list-unstyled">
               <li>
@@ -91,4 +91,8 @@
 
 <script setup lang="ts"></script>
 
-<style scoped></style>
+<style scoped>
+footer {
+  margin-top: 21vh;
+}
+</style>

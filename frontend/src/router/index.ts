@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import CustomerPage from '../views/CustomerPage.vue'
-import HomeView from '../views/HomeView.vue'
+import OSOPSport from '../components/organisms/OSOPSport.vue'
 import InvoicePage from '../views/InvoicePage.vue'
 import InvoiceLinePage from '../views/InvoiceLinePage.vue'
 import ProductPage from '../views/ProductPage.vue'
@@ -12,7 +12,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: OSOPSport
     },
     //   {
     //   path: '/shop',

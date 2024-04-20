@@ -19,7 +19,7 @@
 <nav class="main-navigation">
   <ul>
     <li><router-link to="/">Home</router-link></li>
-    <li><router-link to="/projects">Projects</router-link></li>
+    <li><router-link to="/school">Projects</router-link></li>
     <li><router-link to="/contact">Contact</router-link></li>
     <li><router-link to="/impressum">Impressum</router-link></li>
   </ul>
