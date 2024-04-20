@@ -3,12 +3,12 @@
     <main>
         <Tabs default-value="home">
           <TabsList  class="sec">
-            <TabsTrigger value="home">Home</TabsTrigger>
-            <TabsTrigger value="aboutUs">AboutUs</TabsTrigger>
-            <TabsTrigger value="gallery">Gallery</TabsTrigger>
-            <TabsTrigger value="contact">Contact</TabsTrigger>
-            <TabsTrigger value="impressum">Impressum</TabsTrigger>
-          </TabsList>
+               <TabsTrigger v-show="isActive('home')" value="home">Home</TabsTrigger>
+        <TabsTrigger v-show="isActive('aboutUs')" value="aboutUs">AboutUs</TabsTrigger>
+        <TabsTrigger v-show="isActive('gallery')" value="gallery">Gallery</TabsTrigger>
+        <TabsTrigger v-show="isActive('contact')" value="contact">Contact</TabsTrigger>
+        <TabsTrigger v-show="isActive('impressum')" value="impressum">Impressum</TabsTrigger>
+      </TabsList>
 
           <TabsContent value="home">
             <section class="secc">
@@ -42,6 +42,8 @@
 </template>
 
 <script setup lang="ts">
+
+import { ref, computed } from 'vue'
 import OAboutUs from '@/components/organisms/OAboutUs.vue'
 import OContact from '@/components/organisms/OContact.vue'
 import OGallery from '@/components/organisms/OGallery.vue'
@@ -49,6 +51,12 @@ import OImpressum from '@/components/organisms/OImpressum.vue'
 import OAppearingTextImageCard from '@/components/organisms/OAppearingTextImageCard.vue'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import kros from '../../assets/kros.png'
+
+const activeTab = ref('home')
+
+const isActive = (tabName: string) => {
+  return computed(() => activeTab.value === tabName)
+}
 </script>
 
 <style scoped>
