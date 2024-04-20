@@ -8,8 +8,8 @@ import BaseFooter from '@/components/atoms/BaseFooter.vue'
 </script>
 <template>
     <CircularMenu :title='"SOP Rotterdam"' />
-   
-        <RouterView />
+    <div class="blob"></div>
+    <RouterView />
     <BaseFooter />
 </template>
 

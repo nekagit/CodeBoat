@@ -1,15 +1,8 @@
 <template>
-   <div class="circles">
-        <div class="circle circle-1"></div>
-        <div class="circle circle-2"></div>
-    </div>
-    <div class="blob"></div>
-    <div class="blob"></div> 
-    <main class="w-full">
  
-
+    <main>
         <Tabs default-value="home">
-          <TabsList  class="tabs">
+          <TabsList  class="sec">
             <TabsTrigger value="home">Home</TabsTrigger>
             <TabsTrigger value="aboutUs">AboutUs</TabsTrigger>
             <TabsTrigger value="gallery">Gallery</TabsTrigger>
@@ -18,37 +11,55 @@
           </TabsList>
 
           <TabsContent value="home">
-            <OMorph />
+            <section class="secc">
+              <OMorph />
+            </section>
           </TabsContent>
 
           <TabsContent value="aboutUs">
+            <section class="secc">
             <OAboutUs />
+            </section>
           </TabsContent>
 
           <TabsContent value="gallery">
+            <section class="secc">
             <OGallery />
+            </section>
           </TabsContent>
           <TabsContent value="contact">
+            <section class="secc">
             <OContact />
+            </section>
           </TabsContent>
           <TabsContent value="impressum">
+            <section class="secc">
             <OImpressum />
+            </section>
           </TabsContent>
         </Tabs>
     </main>
 </template>
 
 <script setup lang="ts">
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import OMorph from '@/components/organisms/OMorph.vue'
 import OAboutUs from '@/components/organisms/OAboutUs.vue'
-import OGallery from '@/components/organisms/OGallery.vue'
 import OContact from '@/components/organisms/OContact.vue'
+import OGallery from '@/components/organisms/OGallery.vue'
 import OImpressum from '@/components/organisms/OImpressum.vue'
+import OMorph from '@/components/organisms/OMorph.vue'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 </script>
 
 <style scoped>
-.tabs {
-  float: right!important;;
+
+.sec {
+  float: right !important;
+  display: flex;
+  margin-top:-100px;
+  flex-direction: column;
+}
+.secc {
+  
+  margin-top:200px;
 }
 </style>

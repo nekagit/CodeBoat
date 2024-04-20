@@ -1,6 +1,4 @@
 <template>
-    <div class="blob"></div>
-    <div class="blob"></div> 
   <footer class="relative bg-blueGray-200 pt-8 pb-6">
     <div class="container mx-auto px-4">
       <div class="flex flex-wrap text-left lg:text-left">
@@ -89,8 +87,8 @@
         </div>
       </div>
     </div>
-    
   </footer>
+
 </template>
 
 <script setup lang="ts"></script>
