@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import CustomerPage from '../views/CustomerPage.vue'
-import OSOPSport from '../components/organisms/OSOPSport.vue'
-import InvoicePage from '../views/InvoicePage.vue'
-import InvoiceLinePage from '../views/InvoiceLinePage.vue'
-import ProductPage from '../views/ProductPage.vue'
+import CustomerPage from '../views/Shop/CustomerPage.vue'
+import SOPSportHomeView from '../views/SOP/SOPSportHomeView.vue'
+import InvoicePage from '../views/Shop/InvoicePage.vue'
+import InvoiceLinePage from '../views/Shop/InvoiceLinePage.vue'
+import ProductPage from '../views/Shop/ProductPage.vue'
 // import AhmedShop from '../views/AhmedShop.vue'
 
 const router = createRouter({
@@ -12,7 +12,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: OSOPSport
+      component: SOPSportHomeView 
     },
     //   {
     //   path: '/shop',

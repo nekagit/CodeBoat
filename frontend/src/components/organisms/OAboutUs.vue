@@ -12,29 +12,6 @@
 <style scoped lang="scss">
 @mixin flex-center { display: flex; justify-content: center; align-items: center; }
 
-
-html,
-body { padding: 0; margin: 0; height: 100%; }
-body { position: relative; background-image: linear-gradient(135deg, #f97794 10%, #623aa2 100%);
-  @include flex-center;
-  &:before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(5px);
-    z-index: -1;
-  }
-}
-
-
-/* 
- * Start 
-*/
 .glassIco {
   --width: 100px;
   &, & * { box-sizing: border-box; transition: 200ms; }

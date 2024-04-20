@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import CreateDialog from '@/components/organisms/Dialgos/CreateDialog.vue'
 import CustomTable from '@/components/organisms/Tables/Custom/CustomTable.vue'
 import { AppModule } from '@/interfaces/enums'
@@ -51,4 +51,17 @@ async function handleOnSubmit(values: any, editMode: boolean) {
     </div>
     <CustomTable :entityKey="props.entityKey" />
   </div>
+</template> -->
+<template>
+  <div>
+asdf
+  </div>
 </template>
+
+<script setup>
+
+</script>
+
+<style lang="scss" scoped>
+
+</style>

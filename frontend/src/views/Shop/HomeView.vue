@@ -1,12 +1,11 @@
 <script setup lang="ts">
 
-import OSOPSport from '@/components/organisms/OSOPSport.vue'
 </script>
 
 <template>
   <main>
     
-    <OSOPSport />
+ HomeView
      
   </main>
 </template>
