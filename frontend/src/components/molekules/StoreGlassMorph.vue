@@ -1,7 +1,5 @@
-<!-- MacOS App Store Glassmorphism -->
 
 <script setup lang="ts">
-//THIS APP IS NOT THE EXACT COPY OF THE APP STORE BUT IS SIMILAR TO IT ;).... and btw inspired by Aysenur Turk's pen (who i follow A LOT).
 
 const side_bar_btns = document.querySelectorAll("#sidebar-btn");
 
@@ -40,7 +38,7 @@ document.querySelector(".window__maximize").addEventListener("click", () => {
 });
 
 document.querySelector(".window__minimize").addEventListener("click", () => {
-    console.log("hello world"); setup>
+    console.log("hello world");
 
     document.querySelector(".container").style.transform = "scale(0)";
 
