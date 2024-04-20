@@ -11,7 +11,7 @@ import GlassMorphism from '../molekules/GlassMorphism.vue';
       </div>
       <div class="content">
         <div class="contentBx">
-          <h3>Sasa Peric<br><span>Creative Designer</span></h3>
+          <h3>Sasa Peric<br><span></span></h3>
         </div>
 
         <ul class="sci">
@@ -29,7 +29,7 @@ import GlassMorphism from '../molekules/GlassMorphism.vue';
       </div>
       <div class="content">
         <div class="contentBx">
-          <h3>Predrag Joldic<br><span>Creative Designer</span></h3>
+          <h3>Predrag Joldic<br><span></span></h3>
         </div>
 
         <ul class="sci">
@@ -47,7 +47,7 @@ import GlassMorphism from '../molekules/GlassMorphism.vue';
       </div>
       <div class="content">
         <div class="contentBx">
-          <h3>Aleksandar Vasic<br><span>Creative Designer</span></h3>
+          <h3>Aleksandar Vasic<br><span></span></h3>
         </div>
 
         <ul class="sci">
@@ -84,7 +84,7 @@ import GlassMorphism from '../molekules/GlassMorphism.vue';
       </div>
       <div class="content">
         <div class="contentBx">
-          <h3>Milan Vukas<br><span>President</span></h3>
+          <h3>Контакт<br><span>Удружење Српско Омладинско Пријатељство Ротердам  admin@stichtingsoprotterdam.nl</span></h3>
         </div>
 
         <ul class="sci">
@@ -96,7 +96,7 @@ import GlassMorphism from '../molekules/GlassMorphism.vue';
       </div>
     </div>
 
-    
+
   </div>
   <div>
     <GlassMorphism />
