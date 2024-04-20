@@ -1,29 +1,42 @@
 <script setup lang="ts">
-import CreditCard from '@/components/molekules/CreditCard.vue'
-import MenuSplit from '@/components/molekules/MenuSplit.vue'
+import { ref } from 'vue'
+
+const krosCount = ref(0)
+const handleKros = () => {
+  krosCount.value++
+  console.log(krosCount.value)
+if(krosCount.value > 2) {
+  krosCount.value = 0
+}
+}
+
+// Create a ref to access krosCount value in the template
+const krosCountRef = ref(krosCount)
 </script>
 
 <template>
-  <div class="container">
-    <div class="card">
-      <div class="card-img">
-        <img src="../../assets/kros.png" alt="Image Description" />
-      </div>
-      <h1 class="title">SOP ROTERDAM</h1>
-      <p class="subtitle">
-        Српско пријатељство из детињства СОП Сврха рада нашег друштва је: да се деца кроз игру и
-        спорт развијају позитивно физички, ментално и духовно. Без притиска успеха и резултата по
-        сваку цену, ривалства и такмичења. Ту смо за вас и трудимо се да то урадимо, да подстакнемо
-        младе, али и цео наш народ, да се више посветимо својој историји, култури, традицији и свим
-        сегментима друштвеног развоја. Наши преци су нам оставили много у наслеђе и не смемо га се
-        одрећи
-      </p>
+  <div class="container w-[70%]">
+   <div  class="card-img">
+      <img @click="handleKros" src="../../assets/kros.png" alt="Image Description" />
     </div>
+    <h1 v-if="krosCount > 0" class="text-3xl">
+    Српско пријатељство из детињства СОП Сврха рада нашег друштва је: 
+  </h1>
+    <div  v-if="krosCount > 1" class="card">
+
+    <p v-if="krosCount > 1">
+      
+      да се деца кроз игру и спорт
+      развијају позитивно физички, ментално и духовно. Без притиска успеха и резултата по сваку
+      цену, ривалства и такмичења. Ту смо за вас и трудимо се да то урадимо, да подстакнемо младе,
+      али и цео наш народ, да се више посветимо својој историји, култури, традицији и свим
+      сегментима друштвеног развоја. Наши преци су нам оставили много у наслеђе и не смемо га се
+      одрећи
+    </p>
   </div>
+</div>
 
-    <!-- <CreditCard /> -->
-
-             <div class="card-example example-2">
+  <!-- <div class="card-example example-2">
              <div class="inner">
                 <h1 class="title2">СРПСКО ОМЛАДИНСКО ПРИЈАТЕЉСТВО СОП</h1> <br><br>
                 Циљ рада наше компаније је да се деца кроз игру и спорт развијају
@@ -48,8 +61,8 @@ import MenuSplit from '@/components/molekules/MenuSplit.vue'
          одржавамо већ од 2010 год. Крос РТС за дијаспору. Трке за децу и родитеље, на којима смо
           до сада добили много великог признања и награде Републике Србије.
              </div>
-         </div>
-<!-- 
+         </div> -->
+  <!-- 
 <div class="container2">
   <div class="">
     <div class="front2">
@@ -88,103 +101,104 @@ import MenuSplit from '@/components/molekules/MenuSplit.vue'
 </template>
 
 <style scoped>
-
 .card-example {
-    width: 90%;
-    max-height: 33vh; /* Adjusted max-height */
-    margin: 50px auto;
-    border-radius: var(--border-radius);
-    overflow: auto; /* Added overflow property for both horizontal and vertical scrolling */
+  width: 90%;
+  max-height: 33vh; /* Adjusted max-height */
+  margin: 50px auto;
+  border-radius: var(--border-radius);
+  overflow: auto; /* Added overflow property for both horizontal and vertical scrolling */
 }
 .card-example .inner {
-    padding: 25px;
-    background: #222;
-    color: #fff;
-    border-radius: var(--border-radius);
+  padding: 25px;
+  background: #222;
+  color: #fff;
+  border-radius: var(--border-radius);
 }
 .card-example h3 {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .example-2 {
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .example-2 .inner {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    margin: 2px;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 2px;
 }
 
 .example-2 .inner {
-    margin: 2px;
+  margin: 2px;
 }
 
 .example-2::before {
-    content: "";
-    display: block;
-    background: linear-gradient(90deg,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(102, 102, 102, 0.75) 50%,
-            rgba(255, 255, 255, 0) 100%);
-    height: 300px;
-    width: 100px;
-    transform: translate(0);
-    position: absolute;
-    animation: rotate 5s linear forwards infinite;
-    z-index: 0;
-    top: 50%;
-    transform-origin: top center;
+  content: '';
+  display: block;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(102, 102, 102, 0.75) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  height: 300px;
+  width: 100px;
+  transform: translate(0);
+  position: absolute;
+  animation: rotate 5s linear forwards infinite;
+  z-index: 0;
+  top: 50%;
+  transform-origin: top center;
 }
 
 @keyframes svgAnimation {
-    from {
-        stroke-dashoffset: 0;
-    }
+  from {
+    stroke-dashoffset: 0;
+  }
 
-    to {
-        stroke-dashoffset: 1000;
-    }
+  to {
+    stroke-dashoffset: 1000;
+  }
 }
 
 @keyframes rotate {
-    from {
-        transform: rotate(0);
-    }
+  from {
+    transform: rotate(0);
+  }
 
-    to {
-        transform: rotate(360deg);
-    }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes animateOutline {
-    0% {
-        outline-width: 1px;
-        outline-offset: 0;
-        outline-color: rgba(0, 130, 206, 0);
-    }
+  0% {
+    outline-width: 1px;
+    outline-offset: 0;
+    outline-color: rgba(0, 130, 206, 0);
+  }
 
-    10% {
-        outline-color: rgba(0, 130, 206, 0.75);
-    }
+  10% {
+    outline-color: rgba(0, 130, 206, 0.75);
+  }
 
-    /* The animation finishes at 50% */
-    50% {
-        outline-width: 7px;
-        outline-offset: 4px;
-        outline-color: rgba(0, 130, 206, 0);
-    }
+  /* The animation finishes at 50% */
+  50% {
+    outline-width: 7px;
+    outline-offset: 4px;
+    outline-color: rgba(0, 130, 206, 0);
+  }
 
-    100% {
-        outline-width: 7px;
-        outline-offset: 4px;
-        outline-color: rgba(102, 102, 102, 0);
-    }
+  100% {
+    outline-width: 7px;
+    outline-offset: 4px;
+    outline-color: rgba(102, 102, 102, 0);
+  }
 }
 
 .card {
