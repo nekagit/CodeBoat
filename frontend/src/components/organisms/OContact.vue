@@ -122,7 +122,6 @@
         <div class="contentBx">
           <h3>Milan Vukas<br /><span>President</span></h3>
         </div>
-NewComponent
         <ul class="sci">
           <li style="--i: 1">
             <a href="#"><i class="fab fa-facebook"></i></a>
