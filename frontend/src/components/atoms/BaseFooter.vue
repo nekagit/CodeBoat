@@ -2,12 +2,12 @@
   <footer class="relative bg-blueGray-200 pt-8 pb-6">
     <div class="container mx-auto px-4">
       <div class="flex flex-wrap text-left lg:text-left">
-        <div class="w-full lg:w-6/12 px-4">
-          <h4 class="text-3xl fonat-semibold text-blueGray-700">Хвала на посети!</h4>
-          <h5 class="text-lg mt-0 mb-2 text-blueGray-600">
+        <div class="grid grid-cols-2 w-full lg:w-6/12 px-4">
+          <h1 class="text-3xl fonat-semibold text-blueGray-700 mb-0">Хвала на посети!</h1>
+          <h3 class="text-lg mt-0 mb-2 text-blueGray-600">
             Пронађите нас на било којој од ових платформи, одговорићемо у року од 1-2 радна дана.
-          </h5>
-          <div class="mt-6 lg:mb-0 mb-6">
+          </h3>
+          <div class="lg:mb-0 mb-6">
             <button
               class="bg-white text-lightBlue-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
               type="button"

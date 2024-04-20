@@ -12,7 +12,7 @@
 
           <TabsContent value="home">
             <section class="secc">
-              <OMorph />
+              <OAppearingTextImageCard :imgSrc="kros" />
             </section>
           </TabsContent>
 
@@ -29,7 +29,7 @@
           </TabsContent>
           <TabsContent value="contact">
             <section class="secc">
-            <OContact />
+            <OContact></OContact>
             </section>
           </TabsContent>
           <TabsContent value="impressum">
@@ -46,8 +46,9 @@ import OAboutUs from '@/components/organisms/OAboutUs.vue'
 import OContact from '@/components/organisms/OContact.vue'
 import OGallery from '@/components/organisms/OGallery.vue'
 import OImpressum from '@/components/organisms/OImpressum.vue'
-import OMorph from '@/components/organisms/OMorph.vue'
+import OAppearingTextImageCard from '@/components/organisms/OAppearingTextImageCard.vue'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import kros from '../../assets/kros.png'
 </script>
 
 <style scoped>
