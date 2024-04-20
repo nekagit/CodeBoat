@@ -11,7 +11,7 @@ import GlassMorphism from '../molekules/GlassMorphism.vue';
       </div>
       <div class="content">
         <div class="contentBx">
-          <h3>Someone Famous<br><span>Creative Designer</span></h3>
+          <h3>Sasa Peric<br><span>Creative Designer</span></h3>
         </div>
 
         <ul class="sci">
@@ -29,7 +29,7 @@ import GlassMorphism from '../molekules/GlassMorphism.vue';
       </div>
       <div class="content">
         <div class="contentBx">
-          <h3>Someone Famous<br><span>Creative Designer</span></h3>
+          <h3>Predrag Joldic<br><span>Creative Designer</span></h3>
         </div>
 
         <ul class="sci">
@@ -47,7 +47,7 @@ import GlassMorphism from '../molekules/GlassMorphism.vue';
       </div>
       <div class="content">
         <div class="contentBx">
-          <h3>Someone Famous<br><span>Creative Designer</span></h3>
+          <h3>Aleksandar Vasic<br><span>Creative Designer</span></h3>
         </div>
 
         <ul class="sci">
@@ -59,6 +59,44 @@ import GlassMorphism from '../molekules/GlassMorphism.vue';
       </div>
     </div>
 
+        <div class="card">
+      <div class="imgBx">
+        <img src="https://64.media.tumblr.com/395eb0a4fbfd1c0479840301c945b865/1a3901cd78bc2cd8-d9/s500x750/66a46fcb7046257acfc2c40fc7c4910de8e5f60a.png">
+      </div>
+      <div class="content">
+        <div class="contentBx">
+          <h3>Milan Vukas<br><span>President</span></h3>
+        </div>
+
+        <ul class="sci">
+          <li style="--i:1"><a href="#"><i class="fab fa-facebook"></i></a></li>
+          <li style="--i:2"><a href="#"><i class="fab fa-twitter"></i></a></li>
+          <li style="--i:3"><a href="#"><i class="fab fa-instagram"></i></a></li>
+        </ul>
+
+      </div>
+    </div>
+
+
+        <div class="card">
+      <div class="imgBx">
+        <img src="https://64.media.tumblr.com/395eb0a4fbfd1c0479840301c945b865/1a3901cd78bc2cd8-d9/s500x750/66a46fcb7046257acfc2c40fc7c4910de8e5f60a.png">
+      </div>
+      <div class="content">
+        <div class="contentBx">
+          <h3>Milan Vukas<br><span>President</span></h3>
+        </div>
+
+        <ul class="sci">
+          <li style="--i:1"><a href="#"><i class="fab fa-facebook"></i></a></li>
+          <li style="--i:2"><a href="#"><i class="fab fa-twitter"></i></a></li>
+          <li style="--i:3"><a href="#"><i class="fab fa-instagram"></i></a></li>
+        </ul>
+
+      </div>
+    </div>
+
+    
   </div>
   <div>
     <GlassMorphism />
