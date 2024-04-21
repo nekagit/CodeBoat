@@ -33,53 +33,48 @@ const items = [
 
 const isAnimating = ref(true)
 const isCentered = ref(false)
+
 const moveToCenter = (target: string) => {
   if (!isAnimating.value) {
     return
   }
-  if (!isCentered.value) {
-    isAnimating.value = false
-  }
-  console.log(isAnimating.value, 'begin')
+
   const elements = document.querySelectorAll('.a, .b, .c, .d')
+
   elements.forEach((element) => {
     if (element.classList.contains(target)) {
-      element.style.transition = 'top 1.6s, left 1.6s' // Add transition property
-      element.style.top = `${(window.innerHeight - element.offsetHeight) / 2}px`
-      element.style.left = `${(window.innerWidth - element.offsetWidth) / 2}px`
-      element.style.zIndex = '1' // Bring the clicked element to the front
-
-      // Create close button
-      const closeButton = document.createElement('button')
-      closeButton.textContent = 'Close'
-      closeButton.classList.add('close-button')
-      closeButton.addEventListener('click', () => {
-        closeButton.remove()
+      if (!isCentered.value) {
+        isAnimating.value = false
         isCentered.value = true
-        isAnimating.value = true
-        elements.forEach((el) => {
-          el.style.display = 'block'
-          console.log(isAnimating.value, 'closebutton')
-          animate(el)
-          setInterval(() => {
+        element.style.transition = 'top 1.6s, left 1.6s' // Add transition property
+        element.style.top = `${(window.innerHeight - element.offsetHeight) / 2}px`
+        element.style.left = `${(window.innerWidth - element.offsetWidth) / 2}px`
+        element.style.zIndex = '1' // Bring the clicked element to the front
+
+        // Create close button
+        const closeButton = document.createElement('button')
+        closeButton.textContent = 'Close'
+        closeButton.classList.add('close-button')
+        closeButton.addEventListener('click', () => {
+          closeButton.remove()
+          isCentered.value = false
+          elements.forEach((el) => {
+            el.style.display = 'block'
             animate(el)
-          }, 3100)
+          })
+          setTimeout(() => {
+            isAnimating.value = true
+          }, 100)
         })
-      })
-      element.appendChild(closeButton)
+        element.appendChild(closeButton)
+      } else {
+        // If already centered, just close
+        element.querySelector('.close-button').click()
+      }
     } else {
       element.style.display = 'none'
     }
   })
-
-  console.log('asdf', isAnimating.value)
-  if (isCentered.value) {
-    isCentered.value = false
-    elements.forEach((element) => {
-      element.style.display = 'block'
-      animate(element)
-    })
-  }
 }
 
 const makeNewPosition = () => {
