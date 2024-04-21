@@ -1,6 +1,8 @@
 <script setup lang="ts">
 interface OAppearingTextImageCard {
-  imgSrc: string;
+  imgSrc: string
+  title: string
+  content: string
 }
 import { ref } from 'vue'
 import AH1 from '../atoms/texts/AH1.vue'
@@ -19,19 +21,12 @@ const handleCount = () => {
 <template>
   <div class="container w-[70%]">
     <div class="card-img">
-      <ACardImage :currentImage='imgSrc' :onClick="handleCount" />
+      <ACardImage :currentImage="imgSrc" :onClick="handleCount" />
     </div>
-    <AH1
-      :vIf="count > 0"
-      :content="'Српско пријатељство из детињства СОП Сврха рада нашег друштва је: '"
-    />
+    <AH1 :vIf="count > 0" :content="title" />
     <div v-if="count > 1" class="card">
       <p v-if="count > 1">
-        да се деца кроз игру и спорт развијају позитивно физички, ментално и духовно. Без притиска
-        успеха и резултата по сваку цену, ривалства и такмичења. Ту смо за вас и трудимо се да то
-        урадимо, да подстакнемо младе, али и цео наш народ, да се више посветимо својој историји,
-        култури, традицији и свим сегментима друштвеног развоја. Наши преци су нам оставили много у
-        наслеђе и не смемо га се одрећи
+        {{ content }}
       </p>
     </div>
   </div>
