@@ -11,7 +11,7 @@ import CustomTablePage from './CustomTablePage.vue';
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 
 </script>
 
