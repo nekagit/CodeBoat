@@ -1,4 +1,4 @@
-<script setup lang="js">
+<script setup lang="ts">
 $(window).load(function () {
   var body = $('body'),
     universe = $('#universe'),
