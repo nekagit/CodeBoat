@@ -46,9 +46,9 @@ const moveToCenter = (target: string) => {
       if (!isCentered.value) {
         isAnimating.value = false;
         isCentered.value = true;
-        element.style.transition = 'top 1.6s, left 1.6s'; // Add transition property
+        element.style.transition = 'top 1.6s, right 1.6s'; // Add transition property
         element.style.top = `${(window.innerHeight - element.offsetHeight) / 2}px`;
-        element.style.left = `${(window.innerWidth - element.offsetWidth) / 2}px`;
+        element.style.right = `${(window.innerWidth - element.offsetWidth) / 2}px`;
         element.style.zIndex = '1'; // Bring the clicked element to the front
 
         // Create close button
@@ -77,23 +77,28 @@ const moveToCenter = (target: string) => {
     }
   });
 };
-
 const makeNewPosition = () => {
-  const h = window.innerHeight - 100
-  const w = window.innerWidth - 100
-  const nh = Math.floor(Math.random() * (h + 5)) + 5
-  const nw = Math.floor(Math.random() * (w - 5)) + 5
-  return { top: `${nh}px`, left: `${nw}px` }
-}
+  const padding = 100; // Padding from the edges
+  const minX = padding; // Minimum x-coordinate (right edge with padding)
+  const maxX = window.innerWidth - padding - 400; // Maximum x-coordinate (right edge with padding minus element width)
+  const minY = padding; // Minimum y-coordinate (top edge with padding)
+  const maxY = window.innerHeight - padding - 200; // Maximum y-coordinate (bottom edge with padding minus element height)
+
+  // Generate random coordinates within the padded area
+  const newX = Math.random() * (maxX - minX) + minX;
+  const newY = Math.random() * (maxY - minY) + minY;
+
+  return { top: `${newY}px`, right: `${newX}px` };
+};
 
 const animate = (element: HTMLElement) => {
   // Perform type assertion to ensure 'element' is treated as 'HTMLElement'
   const htmlElement = element as HTMLElement;
 
   const newPosition = makeNewPosition();
-  htmlElement.style.transition = 'top 1.6s, left 1.6s';
+  htmlElement.style.transition = 'top 1.6s, right 1.6s';
   htmlElement.style.top = newPosition.top;
-  htmlElement.style.left = newPosition.left;
+  htmlElement.style.right = newPosition.right;
 };
 
 onMounted(() => {
