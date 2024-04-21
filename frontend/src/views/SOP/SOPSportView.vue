@@ -1,8 +1,9 @@
 <template>
  
     <main>
+      <h1 class="flex justify-end">STICHTING SOP ROTTERDAM</h1>
         <Tabs default-value="home">
-          <TabsList  class="sec">
+          <TabsList  class="flex justify-end ">
                <TabsTrigger value="home">Home</TabsTrigger>
         <!-- <TabsTrigger value="aboutUs">AboutUs</TabsTrigger> -->
         <TabsTrigger value="gallery">Gallery</TabsTrigger>

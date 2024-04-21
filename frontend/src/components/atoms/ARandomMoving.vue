@@ -1,66 +1,112 @@
 <template>
   <div>
-    <div class="a"></div>
-    <div class="b"></div>
-    <div class="c"></div>
-    <div class="d"></div>
+    <!-- <div class="d"></div> -->
+      <OAppearingTextImageCard
+      class="a"
+      :imgSrc="kros"
+      :title="sop.news[0].title"
+      :content="sop.news[0].content"
+    />
+
+    <OAppearingTextImageCard 
+      class="b"
+    :imgSrc="kros" 
+    :title="sop.news[1].title" 
+    :content="sop.news[1].content" 
+    />
+    
+    <OAppearingTextImageCard 
+    class="c"
+    :imgSrc="kros" 
+    :title="sport.news[0].title" 
+    :content="sport.news[0].content" 
+    />
+   <!-- 
+    <ABaseCardAnBorder :variant="3"
+
+    :title="school.news[0].title" 
+    :content="school.news[0border-color
+border-color
+border-color
+border-color].content" />
+
+    <ABaseCardAnBorder :variant="3"
+
+    :title="school.news[1].title" 
+    :content="school.news[1].content" />
+
+    <ABaseCardAnBorder :variant="3"
+    <OverlapScroll />
+
+    :title="school.news[2].title" 
+    :content="school.news[2].content" /> -->
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-
-const animateDiv = (element: HTMLElement) => {
+import kros from '@/assets/kros.png';
+import OAppearingTextImageCard from '@/components/organisms/OAppearingTextImageCard.vue';
+import SchoolAnnouncements from '@/data/SOP/school/school.json';
+import SOPAnnouncements from '@/data/SOP/sop.json';
+import SportAnnouncements from '@/data/SOP/sport/sport.json';
+import { onMounted } from 'vue';
+const {school} = SchoolAnnouncements
+const {sport} = SportAnnouncements
+const {sop} = SOPAnnouncements
+onMounted(() => {
   const makeNewPosition = () => {
-    const h = window.innerHeight - 50;
+    const h = window.innerHeight - 100; // Adjusted to ensure at least 50px below top
     const w = window.innerWidth - 50;
-    const nh = Math.floor(Math.random() * h);
+    const nh = Math.floor(Math.random() * (h - 50)) + 50; // At least 50px below top
     const nw = Math.floor(Math.random() * w);
     return { top: `${nh}px`, left: `${nw}px` };
   };
 
-  const animate = () => {
+  const animate = (element: HTMLElement) => {
     const newPosition = makeNewPosition();
+    element.style.transition = 'top 1.6s, left 1.6s'; // Add transition property
     element.style.top = newPosition.top;
     element.style.left = newPosition.left;
-    setTimeout(animate, 1000);
   };
 
-  animate();
-};
-
-onMounted(() => {
   const a = document.querySelector('.a') as HTMLElement;
   const b = document.querySelector('.b') as HTMLElement;
   const c = document.querySelector('.c') as HTMLElement;
   const d = document.querySelector('.d') as HTMLElement;
-  animateDiv(a);
-  animateDiv(b);
-  animateDiv(c);
-  animateDiv(d);
+
+  animate(a);
+  setInterval(() => animate(a), 3100);
+  animate(b);
+  setInterval(() => animate(b), 3100);
+  animate(c);
+  setInterval(() => animate(c), 3100);
+  animate(d);
+  setInterval(() => animate(d), 3100);
 });
 </script>
 
 <style scoped>
 div {
-  width: 50px;
-  height: 50px;
   position: fixed;
 }
-
+/* 
 .a {
-  background-color: red;
+  border: 1px solid;
+  border-color: red;
 }
 
 .b {
-  background-color: blue;
+  border: 1px solid;
+  border-color: blue;
 }
 
 .c {
-  background-color: green;
+  border: 1px solid;
+  border-color: green;
 }
 
 .d {
-  background-color: yellow;
-}
+  border: 1px solid;
+  border-color: yellow;
+} */
 </style>

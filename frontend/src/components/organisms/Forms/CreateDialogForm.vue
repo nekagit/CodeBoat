@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
-import { defineProps, onBeforeMount, ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import { z } from 'zod'
 
 import Button from '@/components/ui/button/Button.vue'

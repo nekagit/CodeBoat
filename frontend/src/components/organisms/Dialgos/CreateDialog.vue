@@ -12,7 +12,6 @@ DialogTrigger
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { AppModule } from '@/interfaces/shop/enums'
 import type { IForm } from '@/interfaces/shop/TableInterfaces'
-import { defineProps } from 'vue'
 
 const props = defineProps<{
   onChange: (item: IForm) => Promise<void>

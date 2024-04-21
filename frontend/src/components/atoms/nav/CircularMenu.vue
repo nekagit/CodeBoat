@@ -142,7 +142,7 @@ const props = defineProps(['title'])
 }
 .menu {
   -webkit-tap-highlight-color: transparent;
-  background: #fff;
+  background: transparent;
   border-radius: 50%;
   box-shadow: 0 0 4px 5px rgba(0, 0, 0, 0.2);
   cursor: pointer;
