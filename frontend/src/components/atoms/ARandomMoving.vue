@@ -6,6 +6,7 @@
 </template>
 
 <script setup lang="ts">
+import $ from "jquery"
 $(document).ready(function(){
     animateDiv('.a');
     animateDiv('.b');
