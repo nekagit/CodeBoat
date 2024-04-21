@@ -15,7 +15,7 @@ SelectItem,
 SelectTrigger,
 SelectValue
 } from '@/components/ui/select'
-import type { IForm } from '@/interfaces/TableInterfaces'
+import type { IForm } from '@/interfaces/shop/TableInterfaces'
 import ColumnsHelper from '@/service/columnsHelper'
 import { useAppStore } from '@/stores/appStore'
 

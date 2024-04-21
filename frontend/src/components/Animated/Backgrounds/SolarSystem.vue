@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 $(window).load(function () {
   var body = $('body'),
     universe = $('#universe'),
@@ -203,4 +203,4 @@ $(window).load(function () {
 
 <style scoped>
 
-</style>
+</style> -->

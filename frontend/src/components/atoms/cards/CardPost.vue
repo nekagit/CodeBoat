@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import {
   Accordion,
   AccordionContent,
@@ -51,4 +51,4 @@ const imageSrc = (path: string) => computed(() => path)
 .cardContent {
   overflow: hidden;
 }
-</style>
+</style> -->

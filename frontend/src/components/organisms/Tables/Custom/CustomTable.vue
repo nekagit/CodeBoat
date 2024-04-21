@@ -10,7 +10,7 @@ TableHeader,
 TableRow
 } from '@/components/ui/table'
 import { AppModule } from '@/interfaces/shop/enums'
-import type { ICustomTable } from '@/interfaces/TableInterfaces'
+import type { ICustomTable } from '@/interfaces/shop/TableInterfaces'
 import { valueUpdater } from '@/lib/utils'
 import ColumnsHelper from '@/service/columnsHelper'
 import ShopService from '@/service/shopService'

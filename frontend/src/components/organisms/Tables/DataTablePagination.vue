@@ -10,7 +10,7 @@ SelectItem,
 SelectTrigger,
 SelectValue,
 } from '@/components/ui/select';
-import type { IBaseColumn } from '@/interfaces/TableInterfaces';
+import type { IBaseColumn } from '@/interfaces/shop/TableInterfaces';
 
 interface DataTablePaginationProps {
   table: Table<IBaseColumn>

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import { useCardStore } from '@/stores/card'
 const { setActive, setInactive, activeCard } = useCardStore()
 const allCards = useCardStore().cards
@@ -389,4 +389,4 @@ const allCards = useCardStore().cards
     19px 19px rgba(0, 0, 0, 0.04),
     1.25rem 1.25rem rgba(0, 0, 0, 0.04);
 }
-</style>
+</style> -->

@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
 <div class="loading-box">
   <p class="loading-title">Loading</p>
   <div class="loading-circle">
@@ -100,4 +100,4 @@ body {
 .loading-count #loadingNumber {
   font-size: 4em;
 }
-</style>
+</style> -->
