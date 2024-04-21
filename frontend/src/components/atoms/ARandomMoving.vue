@@ -87,11 +87,14 @@ const makeNewPosition = () => {
 }
 
 const animate = (element: HTMLElement) => {
-  const newPosition = makeNewPosition()
-  element.style.transition = 'top 1.6s, left 1.6s'
-  element.style.top = newPosition.top
-  element.style.left = newPosition.left
-}
+  // Perform type assertion to ensure 'element' is treated as 'HTMLElement'
+  const htmlElement = element as HTMLElement;
+
+  const newPosition = makeNewPosition();
+  htmlElement.style.transition = 'top 1.6s, left 1.6s';
+  htmlElement.style.top = newPosition.top;
+  htmlElement.style.left = newPosition.left;
+};
 
 onMounted(() => {
   const elements = document.querySelectorAll('.a, .b, .c, .d')
