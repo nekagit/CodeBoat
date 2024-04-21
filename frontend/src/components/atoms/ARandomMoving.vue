@@ -100,10 +100,10 @@ onMounted(() => {
   const elements = document.querySelectorAll('.a, .b, .c, .d')
   if (isAnimating.value) {
     elements.forEach((element) => {
-      animate(element)
+      animate(element as HTMLElement)
       setInterval(() => {
         if (isAnimating.value) {
-          animate(element)
+          animate(element as HTMLElement)
         }
       }, 3100)
     })
