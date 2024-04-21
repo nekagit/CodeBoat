@@ -1,37 +1,37 @@
 <script setup lang="ts">
 import DataTablePagination from '@/components/organisms/Tables/DataTablePagination.vue'
-import { AppModule } from '@/interfaces/enums'
-import type { ICustomTable } from '@/interfaces/TableInterfaces'
+import Button from '@/components/ui/button/Button.vue'
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow
+Table,
+TableBody,
+TableCell,
+TableHead,
+TableHeader,
+TableRow
 } from '@/components/ui/table'
+import { AppModule } from '@/interfaces/shop/enums'
+import type { ICustomTable } from '@/interfaces/TableInterfaces'
 import { valueUpdater } from '@/lib/utils'
 import ColumnsHelper from '@/service/columnsHelper'
+import ShopService from '@/service/shopService'
 import { useAppStore } from '@/stores/appStore'
 import type {
-  ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState
+ColumnDef,
+ColumnFiltersState,
+SortingState,
+VisibilityState
 } from '@tanstack/vue-table'
 import {
-  FlexRender,
-  getCoreRowModel,
-  getFacetedRowModel,
-  getFacetedUniqueValues,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useVueTable
+FlexRender,
+getCoreRowModel,
+getFacetedRowModel,
+getFacetedUniqueValues,
+getFilteredRowModel,
+getPaginationRowModel,
+getSortedRowModel,
+useVueTable
 } from '@tanstack/vue-table'
-import Button from '@/components/ui/button/Button.vue'
 import { onBeforeMount, ref, watch } from 'vue'
-import ShopService from '@/service/shopService'
 // Define props
 
 const { customerColumns, productColumns, invoiceColumns,invoiceLineColumns } = ColumnsHelper()
@@ -172,3 +172,4 @@ async function handleDelete() {
     <DataTablePagination :table="table" />
   </div>
 </template>
+@/interfaces/shop/TableInterfaces

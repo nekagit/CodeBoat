@@ -1,4 +1,4 @@
-import { AppModule } from '@/interfaces/enums'
+import { AppModule } from '@/interfaces/shop/enums'
 export interface IBaseColumn {
   _id?: string
   name: string

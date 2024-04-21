@@ -1,7 +1,7 @@
 <!-- <script setup lang="ts">
 import CreateDialog from '@/components/organisms/Dialgos/CreateDialog.vue'
 import CustomTable from '@/components/organisms/Tables/Custom/CustomTable.vue'
-import { AppModule } from '@/interfaces/enums'
+import { AppModule } from '@/interfaces/shop/enums'
 import type { IForm } from '@/interfaces/TableInterfaces'
 import ColumnsHelper from '@/service/columnsHelper'
 import { useAppStore } from '@/stores/appStore'

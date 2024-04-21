@@ -1,4 +1,4 @@
-import type { IInvoiceLine } from '@/interfaces/atoms/IShopModal' // Adjust the import path as needed
+import type { IInvoiceLine } from '@/interfaces/shop/atoms/IShopModal' // Adjust the import path as needed
 import axios from 'axios'
 
 const API_URL = 'http://localhost:8080/api/invoiceLines' // Adjust the URL as needed

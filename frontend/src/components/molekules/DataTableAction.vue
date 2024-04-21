@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { AppModule } from '@/interfaces/enums';
+import type { AppModule } from '@/interfaces/shop/enums';
 import { useAppStore } from '@/stores/appStore';
 import CreateDialog from '../organisms/Dialgos/CreateDialog.vue';
 const props = defineProps<{

@@ -8,12 +8,12 @@ import Button from '@/components/ui/button/Button.vue'
 import { FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
+Select,
+SelectContent,
+SelectGroup,
+SelectItem,
+SelectTrigger,
+SelectValue
 } from '@/components/ui/select'
 import type { IForm } from '@/interfaces/TableInterfaces'
 import ColumnsHelper from '@/service/columnsHelper'
@@ -167,3 +167,4 @@ const getSelectItems = async (key: string, appStore: any) => {
     </form>
   </div>
 </template>
+@/interfaces/shop/TableInterfaces

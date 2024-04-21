@@ -1,5 +1,5 @@
 <!-- <script setup lang="ts">
-import { AppModule } from '@/interfaces/enums';
+import { AppModule } from '@/interfaces/shop/enums';
 import CustomTablePage from './CustomTablePage.vue';
 </script>
 <template>

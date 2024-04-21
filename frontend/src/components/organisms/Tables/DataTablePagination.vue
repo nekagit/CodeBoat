@@ -4,11 +4,11 @@ import type { Table } from '@tanstack/vue-table';
 
 import { Button } from '@/components/ui/button';
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+Select,
+SelectContent,
+SelectItem,
+SelectTrigger,
+SelectValue,
 } from '@/components/ui/select';
 import type { IBaseColumn } from '@/interfaces/TableInterfaces';
 
@@ -88,3 +88,4 @@ defineProps<DataTablePaginationProps>()
     </div>
   </div>
 </template>
+@/interfaces/shop/TableInterfaces

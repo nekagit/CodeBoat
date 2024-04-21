@@ -1,13 +1,18 @@
-import type { ICustomer, IInvoice, IInvoiceLine, IProduct } from '@/interfaces/atoms/IShopModal' // Adjust the import path as needed
-import { AppModule, EntityStatus } from '@/interfaces/enums'
-import type { IForm } from '@/interfaces/TableInterfaces'
+import type {
+  ICustomer,
+  IInvoice,
+  IInvoiceLine,
+  IProduct
+} from '@/interfaces/shop/atoms/IShopModal' // Adjust the import path as needed
+import { AppModule, EntityStatus } from '@/interfaces/shop/enums'
+import type { IForm } from '@/interfaces/shop/TableInterfaces'
+import ShopService from '@/service/shopService'
 import { defineStore } from 'pinia'
 import { ref, type Ref } from 'vue'
 import { useCustomerStore } from './customerStore'
 import { useInvoiceLineStore } from './invoiceLineStore'
 import { useInvoiceStore } from './invoiceStore'
 import { useProductStore } from './productsStore'
-import ShopService from '@/service/shopService'
 export const useAppStore = defineStore('app', {
   state: () => ({
     shopService: ShopService,

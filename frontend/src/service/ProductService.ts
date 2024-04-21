@@ -1,4 +1,4 @@
-import type { IProduct } from '@/interfaces/atoms/IShopModal'
+import type { IProduct } from '@/interfaces/shop/atoms/IShopModal'
 import axios from 'axios'
 
 const API_URL = 'http://localhost:8080/api/products'

@@ -2,15 +2,15 @@
 import CreateDialogForm from '@/components/organisms/Forms/CreateDialogForm.vue'
 import Button from '@/components/ui/button/Button.vue'
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger
+Dialog,
+DialogContent,
+DialogDescription,
+DialogHeader,
+DialogTitle,
+DialogTrigger
 } from '@/components/ui/dialog'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { AppModule } from '@/interfaces/enums'
+import { AppModule } from '@/interfaces/shop/enums'
 import type { IForm } from '@/interfaces/TableInterfaces'
 import { defineProps } from 'vue'
 
@@ -84,3 +84,4 @@ const isTabDisabled = (tabValue: string) => {
     </DialogContent>
   </Dialog>
 </template>
+@/interfaces/shop/TableInterfaces

@@ -1,8 +1,13 @@
 import DropdownAction from '@/components/molekules/DataTableAction.vue'
 import { Checkbox } from '@/components/ui/checkbox'
-import type { ICustomer, IInvoice, IInvoiceLine, IProduct } from '@/interfaces/atoms/IShopModal'
-import { AppModule, EntityStatus } from '@/interfaces/enums'
-import type { IBaseColumn, IForm } from '@/interfaces/TableInterfaces'
+import type {
+  ICustomer,
+  IInvoice,
+  IInvoiceLine,
+  IProduct
+} from '@/interfaces/shop/atoms/IShopModal'
+import { AppModule, EntityStatus } from '@/interfaces/shop/enums'
+import type { IBaseColumn, IForm } from '@/interfaces/shop/TableInterfaces'
 import type { ColumnDef } from '@tanstack/vue-table'
 import { h, ref, type Ref } from 'vue'
 export default function ColumnsHelper() {
