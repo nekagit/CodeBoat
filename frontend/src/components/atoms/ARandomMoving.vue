@@ -36,46 +36,47 @@ const isCentered = ref(false)
 
 const moveToCenter = (target: string) => {
   if (!isAnimating.value) {
-    return
+    return;
   }
 
-  const elements = document.querySelectorAll('.a, .b, .c, .d')
+  const elements = document.querySelectorAll('.a, .b, .c, .d') as NodeListOf<HTMLElement>;
 
   elements.forEach((element) => {
     if (element.classList.contains(target)) {
       if (!isCentered.value) {
-        isAnimating.value = false
-        isCentered.value = true
-        element.style.transition = 'top 1.6s, left 1.6s' // Add transition property
-        element.style.top = `${(window.innerHeight - element.offsetHeight) / 2}px`
-        element.style.left = `${(window.innerWidth - element.offsetWidth) / 2}px`
-        element.style.zIndex = '1' // Bring the clicked element to the front
+        isAnimating.value = false;
+        isCentered.value = true;
+        element.style.transition = 'top 1.6s, left 1.6s'; // Add transition property
+        element.style.top = `${(window.innerHeight - element.offsetHeight) / 2}px`;
+        element.style.left = `${(window.innerWidth - element.offsetWidth) / 2}px`;
+        element.style.zIndex = '1'; // Bring the clicked element to the front
 
         // Create close button
-        const closeButton = document.createElement('button')
-        closeButton.textContent = 'Close'
-        closeButton.classList.add('close-button')
+        const closeButton = document.createElement('button');
+        closeButton.textContent = 'Close';
+        closeButton.classList.add('close-button');
         closeButton.addEventListener('click', () => {
-          closeButton.remove()
-          isCentered.value = false
+          closeButton.remove();
+          isCentered.value = false;
           elements.forEach((el) => {
-            el.style.display = 'block'
-            animate(el)
-          })
+            el.style.display = 'block';
+            animate(el);
+          });
           setTimeout(() => {
-            isAnimating.value = true
-          }, 100)
-        })
-        element.appendChild(closeButton)
+            isAnimating.value = true;
+          }, 100);
+        });
+        element.appendChild(closeButton);
       } else {
         // If already centered, just close
-        element.querySelector('.close-button').click()
+        const button = element.querySelector('.close-button') as HTMLButtonElement;
+        button.click(); // Trigger click event
       }
     } else {
-      element.style.display = 'none'
+      element.style.display = 'none';
     }
-  })
-}
+  });
+};
 
 const makeNewPosition = () => {
   const h = window.innerHeight - 100
