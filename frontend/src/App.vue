@@ -10,7 +10,6 @@ import BaseFooter from '@/components/atoms/BaseFooter.vue'
     <CircularMenu :title='"SOP Rotterdam"' />
     <div class="blob"></div>
     <RouterView />
-    <BaseFooter />
 </template>
 
 <style scoped></style>
