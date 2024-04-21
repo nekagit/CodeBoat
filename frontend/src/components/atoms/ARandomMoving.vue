@@ -64,7 +64,7 @@ const moveToCenter = (target: string) => {
           });
           setTimeout(() => {
             isAnimating.value = true;
-          }, 100);
+          }, 4200);
         });
         element.appendChild(closeButton);
       } else {
@@ -82,7 +82,7 @@ const makeNewPosition = () => {
   const minX = padding; // Minimum x-coordinate (right edge with padding)
   const maxX = window.innerWidth - padding - 400; // Maximum x-coordinate (right edge with padding minus element width)
   const minY = padding; // Minimum y-coordinate (top edge with padding)
-  const maxY = window.innerHeight - padding - 200; // Maximum y-coordinate (bottom edge with padding minus element height)
+  const maxY = window.innerHeight - padding - 100; // Maximum y-coordinate (bottom edge with padding minus element height)
 
   // Generate random coordinates within the padded area
   const newX = Math.random() * (maxX - minX) + minX;
@@ -110,7 +110,7 @@ onMounted(() => {
         if (isAnimating.value) {
           animate(element as HTMLElement)
         }
-      }, 3100)
+      }, 4200)
     })
   }
 })
