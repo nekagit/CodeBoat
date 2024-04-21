@@ -3,11 +3,11 @@
     <main>
         <Tabs default-value="home">
           <TabsList  class="sec">
-               <TabsTrigger v-show="isActive('home')" value="home">Home</TabsTrigger>
-        <!-- <TabsTrigger v-show="isActive('aboutUs')" value="aboutUs">AboutUs</TabsTrigger> -->
-        <TabsTrigger v-show="isActive('gallery')" value="gallery">Gallery</TabsTrigger>
-        <TabsTrigger v-show="isActive('contact')" value="contact">Contact</TabsTrigger>
-        <TabsTrigger v-show="isActive('impressum')" value="impressum">Impressum</TabsTrigger>
+               <TabsTrigger value="home">Home</TabsTrigger>
+        <!-- <TabsTrigger value="aboutUs">AboutUs</TabsTrigger> -->
+        <TabsTrigger value="gallery">Gallery</TabsTrigger>
+        <TabsTrigger value="contact">Contact</TabsTrigger>
+        <TabsTrigger value="impressum">Impressum</TabsTrigger>
       </TabsList>
 
           <TabsContent value="home">
@@ -60,11 +60,4 @@ const isActive = (tabName: string) => {
 
 <style scoped>
 
-.sec {
-  display: flex;
-  justify-content: end;
-}
-.secc {
-  
-}
 </style>

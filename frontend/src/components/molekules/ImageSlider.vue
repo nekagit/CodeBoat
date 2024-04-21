@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <AImage :currentImage="props.currentImage" />
     <div class="imageText text-center">
 
@@ -20,4 +20,4 @@ const props = defineProps<IMImageSlider>()
   color: #002626;
 
 }
-</style>
+</style> -->
