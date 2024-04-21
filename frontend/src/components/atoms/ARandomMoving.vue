@@ -4,7 +4,7 @@
       v-for="(item, index) in items"
       :key="index"
       :class="item.class"
-      :imgSrc="kros"
+      :imgSrc="imgList[index]"
       :title="item.title"
       :content="item.content"
       @click="moveToCenter(item.class)"
@@ -14,16 +14,19 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import kros from '@/assets/kros.png'
+import sopImg from '@/assets/SOP.svg'
+import sportImg from '@/assets/kids-school-logo-vector-22907690.jpg'
+import schoolImg from '@/assets/sketba.svg'
+import kros from '@/assets/Mediamodifier-Design.svg'
 import OAppearingTextImageCard from '@/components/organisms/OAppearingTextImageCard.vue'
 import SchoolAnnouncements from '@/data/SOP/school/school.json'
 import SOPAnnouncements from '@/data/SOP/sop.json'
 import SportAnnouncements from '@/data/SOP/sport/sport.json'
-
 const { school } = SchoolAnnouncements
 const { sport } = SportAnnouncements
 const { sop } = SOPAnnouncements
 
+const imgList = [kros, sportImg,sopImg, schoolImg]
 const items = [
   { class: 'a', title: sop.news[0].title, content: sop.news[0].content },
   { class: 'b', title: sop.news[1].title, content: sop.news[1].content },
@@ -64,7 +67,7 @@ const moveToCenter = (target: string) => {
           });
           setTimeout(() => {
             isAnimating.value = true;
-          }, 4200);
+          }, 0);
         });
         element.appendChild(closeButton);
       } else {
