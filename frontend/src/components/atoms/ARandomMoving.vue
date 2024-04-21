@@ -1,69 +1,66 @@
 <template>
-<div class='a'></div>
-<div class='b'></div>
-<div class='c'></div>
-<div class='d'></div>
+  <div>
+    <div class="a"></div>
+    <div class="b"></div>
+    <div class="c"></div>
+    <div class="d"></div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import $ from "jquery"
-$(document).ready(function(){
-    animateDiv('.a');
-    animateDiv('.b');
-    animateDiv('.c');
-    animateDiv('.d');
-});
+import { ref, onMounted } from 'vue';
 
-function makeNewPosition(){
-    
-    // Get viewport dimensions (remove the dimension of the div)
-    var h = $(window).height() - 50;
-    var w = $(window).width() - 50;
-    
-    var nh = Math.floor(Math.random() * h);
-    var nw = Math.floor(Math.random() * w);
-    
-    return [nh,nw];    
-    
-}
+const animateDiv = (element: HTMLElement) => {
+  const makeNewPosition = () => {
+    const h = window.innerHeight - 50;
+    const w = window.innerWidth - 50;
+    const nh = Math.floor(Math.random() * h);
+    const nw = Math.floor(Math.random() * w);
+    return { top: `${nh}px`, left: `${nw}px` };
+  };
 
-function animateDiv(myclass){
-    var newq = makeNewPosition();
-    $(myclass).animate({ top: newq[0], left: newq[1] }, 1000,   function(){
-      animateDiv(myclass);        
-    });
-    
+  const animate = () => {
+    const newPosition = makeNewPosition();
+    element.style.top = newPosition.top;
+    element.style.left = newPosition.left;
+    setTimeout(animate, 1000);
+  };
+
+  animate();
 };
+
+onMounted(() => {
+  const a = document.querySelector('.a') as HTMLElement;
+  const b = document.querySelector('.b') as HTMLElement;
+  const c = document.querySelector('.c') as HTMLElement;
+  const d = document.querySelector('.d') as HTMLElement;
+  animateDiv(a);
+  animateDiv(b);
+  animateDiv(c);
+  animateDiv(d);
+});
 </script>
 
 <style scoped>
-div.a {
-width: 50px;
-height:50px;
- background-color:red;
-position:fixed;
-    
+div {
+  width: 50px;
+  height: 50px;
+  position: fixed;
 }
 
-div.b {
-width: 50px;
-height:50px;
- background-color:blue;
-position:fixed;
-    
+.a {
+  background-color: red;
 }
-div.c {
-width: 50px;
-height:50px;
- background-color:green;
-position:fixed;
-    
+
+.b {
+  background-color: blue;
 }
-div.d {
-width: 50px;
-height:50px;
- background-color:yellow;
-position:fixed;
-    
+
+.c {
+  background-color: green;
+}
+
+.d {
+  background-color: yellow;
 }
 </style>

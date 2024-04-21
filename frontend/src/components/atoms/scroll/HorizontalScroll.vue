@@ -33,7 +33,7 @@
   
   display: flex;
   gap: var(--size-10);
-  align-items: start;
+  align-items: flex-start;
   padding: var(--size-10);
 }
 
