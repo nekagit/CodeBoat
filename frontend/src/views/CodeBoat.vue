@@ -1,9 +1,6 @@
 <template>
   <div class="container flex flex-col justify-around h-screen">
     <div class="iframe-container border w-full h-full">
-      <iframe src="https://codeboat.netlify.app" frameborder="0"></iframe>
-    </div>
-    <div class="iframe-container border w-full h-full">
       <iframe src="https://stankovicart.netlify.app" frameborder="0"></iframe>
     </div>
     <div class="iframe-container border w-full h-full">
