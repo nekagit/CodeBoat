@@ -1,5 +1,5 @@
 <template>
-  Gallery
+  
   <!-- <div v-for="(imageRow, rowIndex) in imageRows" class="gallery" :key="rowIndex">
     <div class="gallery-row">
       <div >

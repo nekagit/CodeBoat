@@ -12,7 +12,7 @@ import BaseFooter from '@/components/atoms/BaseFooter.vue'
 
         <RouterView />
     </div>
-    <BaseFooter />
+    <!-- <BaseFooter /> -->
 </template>
 
 <style scoped></style>

@@ -5,13 +5,18 @@ import InvoicePage from '../views/Shop/InvoicePage.vue'
 import InvoiceLinePage from '../views/Shop/InvoiceLinePage.vue'
 import ProductPage from '../views/Shop/ProductPage.vue'
 // import AhmedShop from '../views/AhmedShop.vue'
-
+import CodeBoat from '@/views/CodeBoat.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
       name: 'home',
+      component: CodeBoat 
+    },
+    {
+      path: '/sop',
+      name: 'sop',
       component: SOPSportView 
     },
     //   {
