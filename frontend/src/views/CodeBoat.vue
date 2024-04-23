@@ -1,19 +1,45 @@
 <template>
-    <div class="container border flex flex-col justify-around h-screen">
-        <div class="border w-full h-full" >CodeBoat</div>
-        <div class="border w-full h-full" >StankovicArt</div>
-        <div class="border w-full h-full">Stichting SOPRotterdam</div>
-        <div class="border w-full h-full" >Jamal Projects</div>
-        <div class="border w-full h-full" >Ghasemi</div>
-        <div class="border w-full h-full" >RYSport</div>
-        <div class="border w-full h-full" >Cano</div>
+  <div class="container flex flex-col justify-around h-screen">
+    <div class="iframe-container border w-full h-full">
+      <iframe src="https://codeboat.netlify.app" frameborder="0"></iframe>
     </div>
+    <div class="iframe-container border w-full h-full">
+      <iframe src="https://stankovicart.netlify.app" frameborder="0"></iframe>
+    </div>
+    <div class="iframe-container border w-full h-full">
+      <iframe src="https://stichtingsop.netlify.app" frameborder="0"></iframe>
+    </div>
+    <div class="iframe-container border w-full h-full">
+      <iframe src="https://jamalprojects.netlify.app" frameborder="0"></iframe>
+    </div>
+    <div class="iframe-container border w-full h-full">
+      <iframe src="https://ghasemi.netlify.app" frameborder="0"></iframe>
+    </div>
+    <div class="iframe-container border w-full h-full">
+      <iframe src="https://rysportt.netlify.app" frameborder="0"></iframe>
+    </div>
+    <div class="iframe-container border w-full h-full">
+      <iframe src="https://canok.netlify.app" frameborder="0"></iframe>
+    </div>
+  </div>
 </template>
 
-<script setup lang="ts">
+<style scoped>
+.container {
+  /* Add any container styles here */
+}
 
-</script>
+.iframe-container {
+  position: relative;
+  overflow: hidden; /* Hide scrollbars */
+}
 
-<style lang="scss" scoped>
-
+.iframe-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none; /* Remove border */
+}
 </style>
