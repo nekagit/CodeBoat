@@ -4,10 +4,10 @@
       <iframe src="https://stankovicart.netlify.app" frameborder="0"></iframe>
     </div>
     <div class="iframe-container border w-full h-full">
-      <iframe src="https://stichtingsop.netlify.app" frameborder="0"></iframe>
+      <iframe src="https://jamalprojects.netlify.app" frameborder="0"></iframe>
     </div>
     <div class="iframe-container border w-full h-full">
-      <iframe src="https://jamalprojects.netlify.app" frameborder="0"></iframe>
+      <iframe src="https://stichtingsop.netlify.app" frameborder="0"></iframe>
     </div>
     <div class="iframe-container border w-full h-full">
       <iframe src="https://ghasemi.netlify.app" frameborder="0"></iframe>
