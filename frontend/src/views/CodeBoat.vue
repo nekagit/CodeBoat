@@ -10,14 +10,17 @@
       <iframe src="https://stichtingsop.netlify.app" frameborder="0"></iframe>
     </div>
     <div class="iframe-container border w-full h-full">
-      <iframe src="https://ghasemi.netlify.app" frameborder="0"></iframe>
+      <iframe src="https://docuverse.netlify.app" frameborder="0"></iframe>
     </div>
-    <div class="iframe-container border w-full h-full">
+       <div class="iframe-container border w-full h-full">
+      <iframe src="https://profilepagestarter.netlify.app" frameborder="0"></iframe>
+    </div>
+    <!-- <div class="iframe-container border w-full h-full">
       <iframe src="https://rysportt.netlify.app" frameborder="0"></iframe>
     </div>
     <div class="iframe-container border w-full h-full">
       <iframe src="https://canok.netlify.app" frameborder="0"></iframe>
-    </div>
+    </div> -->
   </div>
 </template>
 
